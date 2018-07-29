@@ -1,0 +1,55 @@
+ext {
+
+    android = [
+            compileSdkVersion: 26,
+            buildToolsVersion: "26.0.2",
+            minSdkVersion    : 19,
+            targetSdkVersion : 26,
+    ]
+
+    dependVersion = [
+            support: "26.1.0"
+    ]
+
+    dependencies = [
+            // ------------- Android -------------
+            supportV4            : "com.android.support:support-v4:${dependVersion.support}",
+            appcompatV7          : "com.android.support:appcompat-v7:${dependVersion.support}",
+            design               : "com.android.support:design:${dependVersion.support}",
+            recyclerview         : "com.android.support:recyclerview-v7:${dependVersion.support}",
+            cardview             : "com.android.support:cardview-v7:${dependVersion.support}",
+            junit                : "junit:junit:4.12",
+            constraint           : 'com.android.support.constraint:constraint-layout:1.0.2',
+            //------------- 测试 -------------
+            espresso             : "com.android.support.test.espresso:espresso-core:3.0.1",
+            runner               : "com.android.support.test:runner:1.0.1",
+            // ------------- 网络请求 -------------
+            okhttp3              : 'com.squareup.okhttp3:okhttp:3.8.1',
+            retrofit             : 'com.squareup.retrofit2:retrofit:2.3.0',
+
+            // ------------- 图片加载 -------------
+            //Fresco图片加载
+            fresco               : 'com.facebook.fresco:fresco:1.5.0',
+            animated             : 'com.facebook.fresco:animated-gif:1.5.0',//加载gif动图需编译此库
+
+            // ------------- RxAndroid -------------
+            rxAndroid            : 'io.reactivex.rxjava2:rxandroid:2.0.1',
+            rxJava               : 'io.reactivex.rxjava2:rxjava:2.1.12',
+            converter            : 'com.squareup.retrofit2:converter-gson:2.3.0',
+            adapter              : 'com.squareup.retrofit2:adapter-rxjava2:2.3.0',
+
+            // ------------- json解析 -------------
+            gson                 : 'com.google.code.gson:gson:2.8.2',
+
+            // ------------- log打印工具 -------------
+            logging              : 'com.squareup.okhttp3:logging-interceptor:3.8.0',
+
+            // ------------- ButterKnife -------------
+            butterknife          : 'com.jakewharton:butterknife:8.8.1',
+            butterknifeCompiler  : 'com.jakewharton:butterknife-compiler:8.8.1',
+
+            // ------------- LeakCanary -------------
+            leakcanaryAndroid    : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
+            leakcanaryAndroidNoOp: 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4',
+    ]
+}

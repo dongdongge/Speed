@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x133"
+        android:background="@color/color_app">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@mipmap/base_ic_back"
+            android:drawablePadding="@dimen/x15"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x44"
+            android:paddingRight="@dimen/x44"
+            android:text="返回"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x40"
+            android:visibility="invisible"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_title_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x46" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="@dimen/x48"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/x40"
+            android:visibility="invisible" />
+    </FrameLayout>
+</LinearLayout>
