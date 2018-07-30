@@ -8,6 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppCustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <!-- 使用style方式定义activity切换动画 -->
+    <!--<style name="activityAnim">-->
+    <!--<item name="Android:activityOpenEnterAnimation">@anim/base_s</item>-->
+    <!--<item name="Android:activityOpenExitAnimation">@anim/slide_in_top</item>-->
+    <!--</style>-->
+
+    <!--activityOpenEnterAnimation // 用于设置打开新的Activity并进入新的Activity展示的动画-->
+    <!--activityOpenExitAnimation  // 用于设置打开新的Activity并销毁之前的Activity展示的动画-->
+    <!--activityCloseEnterAnimation  // 用于设置关闭当前Activity进入上一个Activity展示的动画-->
+    <!--activityCloseExitAnimation  // 用于设置关闭当前Activity时展示的动画-->
+
+
     <!-- base_  加载框-->
     <style name="LoadingDialogLight" parent="Theme.AppCompat.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -33,9 +49,47 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:textColor">@drawable/main_selector_color</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/dimens_12_font</item>
         <item name="android:button">@null</item>
+        <item name="android:drawablePadding">-6dp</item>
+        <item name="android:paddingTop">@dimen/view_distance_8</item>
     </style>
 
+    <!--mine-->
+    <style name="MineUserItemStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/view_distance_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/view_distance_20</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingBottom">@dimen/view_distance_20</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:textSize">@dimen/dimens_12_font</item>
+    </style>
+
+    <style name="MineUserInfoStyle">
+        <item name="android:textColor">@color/color_gray</item>
+        <item name="android:textSize">@dimen/dimens_12_font</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- download -->
+    <style name="CustomDialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 还可以加入一些弹出和退出的动画 (lan)-->
+    </style>
 
 
 </resources>

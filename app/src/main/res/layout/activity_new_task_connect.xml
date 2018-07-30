@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f0f0f0"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <EditText
+        android:id="@+id/et_input_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/new_task_bg_edit_background"
+        android:hint="输入或粘贴HTTP、BT种子或电驴地址"
+        android:textSize="14dp"
+        android:text="http://vip.zuiku8.com/1807/万界仙踪-38.mp4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_start_download"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/color_app"
+        android:text="下载"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/et_input_content" />
+</android.support.constraint.ConstraintLayout>

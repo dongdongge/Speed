@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:orientation="horizontal"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_movie_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="黑客帝国[国语配音版]"
+            android:textColor="#333333"
+            android:textSize="@dimen/dimens_12_font" />
+
+        <TextView
+            android:id="@+id/tv_item_movie_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="1GB"
+            android:textColor="@color/color_gray"
+            android:textSize="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <ProgressBar
+                android:id="@+id/pb_item_movie_pb"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_item_movie_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="119.1KB/s"
+                android:textColor="#333333"
+                android:textSize="@dimen/dimens_12_font" />
+
+            <TextView
+                android:id="@+id/tv_item_movie_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:text="4%   还剩2小时"
+                android:textColor="@color/color_gray"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tv_item_movie_jiasu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/download_bg_item_view_jiasu"
+                android:drawableLeft="@mipmap/download_ic_image_jiasu"
+                android:drawablePadding="5dp"
+                android:text="加速"
+                android:textSize="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_movie_image"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/img_item_movie_image"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:scaleType="center"
+            android:src="@mipmap/ic_launcher" />
+
+        <RadioButton
+            android:id="@+id/rb_item_movie_control"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:gravity="center" />
+    </FrameLayout>
+
+
+</LinearLayout>

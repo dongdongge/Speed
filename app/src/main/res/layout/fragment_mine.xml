@@ -1,14 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none"
     tools:context=".pager.mine.MineFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_app"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/mine_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@mipmap/mine_ic_user_center_set" />
+
+            <ImageButton
+                android:id="@+id/mine_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:src="@mipmap/mine_ic_user_center_msg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_app"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/mine_user_head_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mine_user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="迅雷用户1833639"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/dimens_14_font" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/view_distance_5"
+                        android:src="@mipmap/mine_download_center_not_vip" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/mine_ic_year_vip_gray" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/mine_user_vip"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:background="@drawable/mine_vip_bg"
+                android:drawableLeft="@mipmap/mine_ic_vip_left"
+                android:drawablePadding="5dp"
+                android:drawableRight="@mipmap/mine_ic_detail_next_normal"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:text="开通会员"
+                android:textSize="@dimen/dimens_12_font" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MineUserInfoStyle"
+                    android:text="2" />
+
+                <TextView
+                    style="@style/MineUserInfoStyle"
+                    android:text="关注" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MineUserInfoStyle"
+                    android:text="2" />
+
+                <TextView
+                    style="@style/MineUserInfoStyle"
+                    android:text="粉丝" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MineUserInfoStyle"
+                    android:text="2" />
+
+                <TextView
+                    style="@style/MineUserInfoStyle"
+                    android:text="访客" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <include layout="@layout/mine_divider_layout" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="我的发布"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/dimens_12_font" />
+
+            <Button
+                android:id="@+id/mine_publish_live"
+                android:layout_width="160dp"
+                android:layout_height="@dimen/view_distance_36"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/view_distance_10"
+                android:background="@drawable/mine_publish_bg"
+                android:drawableLeft="@mipmap/mine_publish_icon"
+                android:drawablePadding="-40dp"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:text="我要发布"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <include layout="@layout/mine_divider_layout" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/mine_download"
+                    style="@style/MineUserItemStyle"
+                    android:drawableTop="@mipmap/mine_ic_user_center_download_manage"
+                    android:text="下载管理" />
+
+                <Button
+                    android:id="@+id/mine_space"
+                    style="@style/MineUserItemStyle"
+                    android:drawableTop="@mipmap/mine_ic_user_center_lixian_space"
+                    android:text="离线空间" />
+
+                <Button
+                    android:id="@+id/mine_center"
+                    style="@style/MineUserItemStyle"
+                    android:drawableTop="@mipmap/mine_ic_user_center_member"
+                    android:text="会员中心" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/mine_play_reword"
+                    style="@style/MineUserItemStyle"
+                    android:drawableTop="@mipmap/mine_ic_user_center_play_history"
+                    android:text="播放记录" />
+
+                <Button
+                    android:id="@+id/mine_collector"
+                    style="@style/MineUserItemStyle"
+                    android:drawableTop="@mipmap/mine_ic_user_center_my_favor"
+                    android:text="我的收藏" />
+
+                <Button
+                    android:id="@+id/mine_link"
+                    style="@style/MineUserItemStyle"
+                    android:drawableTop="@mipmap/mine_ic_user_center_like"
+                    android:text="我赞过的" />
+            </TableRow>
+        </TableLayout>
+
+        <include layout="@layout/mine_divider_layout" />
+    </LinearLayout>
+
+</ScrollView>

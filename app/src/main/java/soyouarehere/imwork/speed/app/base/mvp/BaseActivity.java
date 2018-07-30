@@ -54,7 +54,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
      * 权限列表
      */
     private ArrayList<String> mPermissionList;
-    protected Context mContext;
+    public Context mContext;
     private static final int PERMISSION = 0x02;
     protected LoadingDialog loadingDialog;
     protected FrameLayout content_view;
@@ -160,6 +160,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
                 }
             }
             context.startActivity(intent);
+            overridePendingTransition(R.anim.base_slide_in_from_left, R.anim.base_slide_in_from_right);
         }
     }
 
