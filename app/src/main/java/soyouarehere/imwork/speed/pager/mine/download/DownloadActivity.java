@@ -116,7 +116,6 @@ public class DownloadActivity extends BaseActivity {
                 if (position==1){
                     Map<String,String> map = new HashMap<>();
                     launchStartActivityForResult(DownloadActivity.this,NewTaskConnectActivity.class,false,map,226);
-                    startActivity(new Intent(mContext,NewTaskConnectActivity.class));
                 }
             }
         }).show();

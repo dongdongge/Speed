@@ -95,14 +95,17 @@
             android:id="@+id/img_item_movie_image"
             android:layout_width="100dp"
             android:layout_height="90dp"
-            android:scaleType="center"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/download_ic_dl_mp4" />
 
         <RadioButton
             android:id="@+id/rb_item_movie_control"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:button="@null"
+            android:layout_gravity="center"
+            android:background="@mipmap/download_item_resume_icon_style2"
             android:gravity="center" />
     </FrameLayout>
 
