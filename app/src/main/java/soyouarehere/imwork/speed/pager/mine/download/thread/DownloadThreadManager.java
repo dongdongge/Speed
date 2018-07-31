@@ -1,5 +1,7 @@
 package soyouarehere.imwork.speed.pager.mine.download.thread;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class DownloadThreadManager {
 
@@ -89,6 +92,7 @@ public class DownloadThreadManager {
         String fileName = downloadInfo.getFileName();
         long downloadLength = 0, contentLength = downloadInfo.getTotal();
         File file = new File(BaseApplication.getInstance().getFilesDir(), fileName);
+        LogUtil.e("地址",""+BaseApplication.getInstance().getFilesDir());
         if (file.exists()) {
             //找到了文件,代表已经下载过,则获取其长度
             downloadLength = file.length();

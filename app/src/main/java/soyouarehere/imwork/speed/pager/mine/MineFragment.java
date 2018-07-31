@@ -14,6 +14,8 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
+import soyouarehere.imwork.speed.util.DirectoryUtils;
+
 /**
  * @desc 承载用户信息界面  download publish 等
  * @author li.xiaodong
@@ -112,6 +114,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.mine_download:
                 getActivity().startActivity(new Intent(getActivity(), DownloadActivity.class));
+                DirectoryUtils.getEnvironmentDirectories();
+                DirectoryUtils.getApplicationDirectories(getContext());
                 break;
             case R.id.mine_space:
                 break;

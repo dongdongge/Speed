@@ -1,10 +1,12 @@
 package soyouarehere.imwork.speed.pager.mine.download;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -22,6 +24,9 @@ import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
+import soyouarehere.imwork.speed.pager.mine.download.thread.DownLoadObserver;
+import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadInfo;
+import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadThreadManager;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -124,12 +129,40 @@ public class DownloadActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==226){
+            if (resultCode==261){
+                String url = data.getStringExtra("url");
+                LogUtil.e(url);
+                startDownloadFile(url);
+            }
+        }
+    }
+
+    public void startDownloadFile(String url){
+        DownloadThreadManager.getInstance().download(url, new DownLoadObserver() {
+            @Override
+            public void onComplete() {
+                LogUtil.e("下载完成");
+
+            }
+
+            @Override
+            public void onNext(DownloadInfo downloadInfo) {
+                LogUtil.e("下载中"+downloadInfo.getProgress());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.e("下载错误"+e.getMessage());
+            }
+        });
+
 
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }

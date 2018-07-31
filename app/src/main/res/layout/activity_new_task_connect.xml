@@ -16,7 +16,6 @@
         android:background="@drawable/new_task_bg_edit_background"
         android:hint="输入或粘贴HTTP、BT种子或电驴地址"
         android:textSize="14dp"
-        android:text="http://vip.zuiku8.com/1807/万界仙踪-38.mp4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

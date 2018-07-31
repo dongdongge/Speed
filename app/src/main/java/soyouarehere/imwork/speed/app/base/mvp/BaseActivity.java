@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,9 +19,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,8 +33,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.view.LoadingDialog;
 import soyouarehere.imwork.speed.app.base.view.NetErrorView;
 import soyouarehere.imwork.speed.util.AppUtils;
@@ -60,7 +70,6 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     protected FrameLayout content_view;
     protected LinearLayout include_toolbar;
     protected NetErrorView view_netError;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,20 +99,20 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
         ButterKnife.bind(this, mainView);
         loadingDialog = new LoadingDialog(mContext);
         create(savedInstanceState);
-        if (mainView != null&&setVisibleToolbar()) {
+        if (mainView != null && setVisibleToolbar()) {
             include_toolbar.setVisibility(View.VISIBLE);
             mTvBack = findViewById(R.id.tv_back);
             mTitle = findViewById(R.id.tv_title_bar);
             mTvRight = findViewById(R.id.tv_right);
             initToolbar();
-        }else {
+        } else {
             include_toolbar.setVisibility(View.GONE);
         }
         //权限请求
-        if (getPermission() != null){
+        if (getPermission() != null) {
             requestPermission();
         }
-
+        netWork();
     }
 
     /**
@@ -114,7 +123,8 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     protected String setTvRightText() {
         return null;
     }
-    protected boolean setVisibleToolbar(){
+
+    protected boolean setVisibleToolbar() {
         return true;
     }
 
@@ -387,6 +397,31 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
      */
     public boolean isNetWorkConnection() {
         return NetUtils.isNetworkConnected();
+    }
+
+    ConnectivityManager cm;
+    public void netWork() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cm = (ConnectivityManager) BaseApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+            cm.requestNetwork(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onLost(Network network) {
+                    super.onLost(network);
+                    ///网络不可用的情况下的方法
+                    LogUtil.e("网络不可用的情况下的方法");
+//                    setShowNetWorkConnectionView();
+                }
+
+                @Override
+                public void onAvailable(Network network) {
+                    super.onAvailable(network);
+                    ///网络可用的情况下的方法
+                    LogUtil.e("网络可用");
+//                    setHideNetWorkConnectionVIew();
+                }
+            });
+
+        }
     }
 
     /**
