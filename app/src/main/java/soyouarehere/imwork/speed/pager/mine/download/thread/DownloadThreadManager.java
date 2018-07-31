@@ -80,19 +80,21 @@ public class DownloadThreadManager {
      * @return DownInfo
      */
     private DownloadInfo createDownInfo(String url) {
+
         DownloadInfo downloadInfo = new DownloadInfo(url);
         long contentLength = getContentLength(url);//获得文件大小
         downloadInfo.setTotal(contentLength);
         String fileName = url.substring(url.lastIndexOf("/"));
         downloadInfo.setFileName(fileName);
+        LogUtil.e("创建DownInfo"+downloadInfo.toString());
         return downloadInfo;
     }
 
     private DownloadInfo getRealFileName(DownloadInfo downloadInfo) {
         String fileName = downloadInfo.getFileName();
         long downloadLength = 0, contentLength = downloadInfo.getTotal();
-        File file = new File(BaseApplication.getInstance().getFilesDir(), fileName);
-        LogUtil.e("地址",""+BaseApplication.getInstance().getFilesDir());
+        File file = new File(BaseApplication.getInstance().getExternalCacheDir(), fileName);
+        LogUtil.e("地址",""+BaseApplication.getInstance().getExternalCacheDir());
         if (file.exists()) {
             //找到了文件,代表已经下载过,则获取其长度
             downloadLength = file.length();
@@ -116,6 +118,7 @@ public class DownloadThreadManager {
         //设置改变过的文件名/大小
         downloadInfo.setProgress(downloadLength);
         downloadInfo.setFileName(file.getName());
+        LogUtil.e("检测本地文件信息，最终DownloadInfo"+downloadInfo.toString());
         return downloadInfo;
     }
 
@@ -128,6 +131,7 @@ public class DownloadThreadManager {
 
         @Override
         public void subscribe(ObservableEmitter<DownloadInfo> e) throws Exception {
+            LogUtil.e("真正的下载："+downloadInfo.toString());
             String url = downloadInfo.getUrl();
             long downloadLength = downloadInfo.getProgress();//已经下载好的长度
             long contentLength = downloadInfo.getTotal();//文件的总长度
@@ -143,7 +147,8 @@ public class DownloadThreadManager {
             downCalls.put(url, call);//把这个添加到call里,方便取消
             Response response = call.execute();
 
-            File file = new File(BaseApplication.getInstance().getFilesDir(), downloadInfo.getFileName());
+            File file = new File(BaseApplication.getInstance().getExternalCacheDir(), downloadInfo.getFileName());
+
             InputStream is = null;
             FileOutputStream fileOutputStream = null;
             try {

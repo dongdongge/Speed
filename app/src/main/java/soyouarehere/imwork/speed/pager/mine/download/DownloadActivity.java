@@ -148,7 +148,7 @@ public class DownloadActivity extends BaseActivity {
 
             @Override
             public void onNext(DownloadInfo downloadInfo) {
-                LogUtil.e("下载中"+downloadInfo.getProgress());
+                LogUtil.e("下载中"+downloadInfo.getProgress()/downloadInfo.getTotal());
             }
 
             @Override

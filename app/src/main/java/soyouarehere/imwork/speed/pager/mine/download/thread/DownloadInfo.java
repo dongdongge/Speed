@@ -7,6 +7,17 @@ public class DownloadInfo {
     private long progress;
     private String fileName;
 
+
+    @Override
+    public String toString() {
+        return "DownloadInfo{" +
+                "url='" + url + '\'' +
+                ", total=" + total +
+                ", progress=" + progress +
+                ", fileName='" + fileName + '\'' +
+                '}';
+    }
+
     public DownloadInfo(String url) {
         this.url = url;
     }
