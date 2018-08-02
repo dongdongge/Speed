@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
@@ -17,6 +18,7 @@ import soyouarehere.imwork.speed.pager.find.FindFragment;
 import soyouarehere.imwork.speed.pager.home.HomeFragment;
 import soyouarehere.imwork.speed.pager.live.LiveFragment;
 import soyouarehere.imwork.speed.pager.mine.MineFragment;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
  * @author li.xiaodong
@@ -50,6 +52,7 @@ public class MainActivity extends BaseActivity {
         initView();
 
     }
+
 
     private void initView() {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

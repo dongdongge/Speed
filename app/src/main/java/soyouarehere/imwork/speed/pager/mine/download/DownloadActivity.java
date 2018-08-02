@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
@@ -31,6 +32,9 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
@@ -40,6 +44,9 @@ import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
+import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskCallBack;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskRunnable;
 import soyouarehere.imwork.speed.pager.mine.download.thread.DownLoadObserver;
 import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadInfo;
 import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadThreadManager;
@@ -189,7 +196,9 @@ public class DownloadActivity extends BaseActivity {
                     @Override
                     public void run() {
                         try {
-                        testDownloadFile(url,myHandler);
+//                        testDownloadFile(url,myHandler);//http://192.168.22.30:8080/static/file/download/lxd.jpg
+                            //  //http://192.168.22.30:8080/static/file/video/我不是药神纪录片.mp4
+                            executorRunable(url);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -296,10 +305,72 @@ public class DownloadActivity extends BaseActivity {
                 list.add(map);
             }
         }
-
-
     }
 
+    public void executorRunable(String url){
+        // 检查url
+        DownloadFileInfo fileInfo = checkUrl(url);
+        // 检查文件路径是否存在该文件-->不存在,创建并初始化,存在读取数据设置info
+        //
+        new Thread(new TaskRunnable(createDownInfo(url), new TaskCallBack() {
+            @Override
+            public void progress(DownloadFileInfo info) {
+                LogUtil.e("进度"+info.getProgress());
+            }
+
+            @Override
+            public void finish(DownloadFileInfo info) {
+                LogUtil.e("下载完成"+info.toString());
+            }
+
+            @Override
+            public void fail(String msg) {
+
+            }
+        })).start();
+    }
+
+    private DownloadFileInfo checkUrl(String url) {
+
+
+
+        return null;
+    }
+
+    public DownloadFileInfo createDownInfo(String downloadUrl){
+        DownloadFileInfo downloadFileInfo = new DownloadFileInfo();
+        long total = getContentLength(downloadUrl);
+        downloadFileInfo.setTotal(total);
+        downloadFileInfo.setUrl(downloadUrl);
+        downloadFileInfo.setProgress(0);
+        String fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
+        downloadFileInfo.setFileName(fileName);
+        LogUtil.e("创建DownInfo"+downloadFileInfo.toString());
+        return downloadFileInfo;
+    }
+    /**
+     * 获取下载长度
+     *
+     * @param downloadUrl
+     * @return
+     */
+    private long getContentLength(String downloadUrl) {
+        Request request = new Request.Builder()
+                .url(downloadUrl)
+                .build();
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response != null && response.isSuccessful()) {
+                long contentLength = response.body().contentLength();
+                response.close();
+                return contentLength == 0 ? -1 : contentLength;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
     @Override
     protected void onDestroy() {
