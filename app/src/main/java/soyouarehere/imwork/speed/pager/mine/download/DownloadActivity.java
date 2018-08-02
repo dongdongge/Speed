@@ -51,6 +51,8 @@ import soyouarehere.imwork.speed.pager.mine.download.thread.DownLoadObserver;
 import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadInfo;
 import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadThreadManager;
 import soyouarehere.imwork.speed.util.FileSizeUtil;
+import soyouarehere.imwork.speed.util.FileUtil;
+import soyouarehere.imwork.speed.util.UrlUtils;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -273,7 +275,7 @@ public class DownloadActivity extends BaseActivity {
             while ((len = is.read(bytes)) != -1) {
                 total += len;
                 fos.write(bytes, 0, len);
-                String result = numberFormat.format((float)total/contentLength);
+                String result = numberFormat.format((float) total / contentLength);
                 Message message = new Message();
                 message.what = 360;
                 message.obj = result;
@@ -306,21 +308,55 @@ public class DownloadActivity extends BaseActivity {
             }
         }
     }
+    public void executorNewRunnable(String url){
+        // 检查url是否合法
+        if (UrlUtils.checkUrl(url)) {
+            LogUtil.e("url不合法");
+            return;
+        }
 
-    public void executorRunable(String url){
-        // 检查url
-        DownloadFileInfo fileInfo = checkUrl(url);
+
+
+    }
+    public void executorRunable(String url) {
+        // 检查url是否合法
+        if (UrlUtils.checkUrl(url)) {
+            LogUtil.e("url不合法");
+            return;
+        }
+
+        String fileName = UrlUtils.getFileNameFromUrl(url);
+        if (fileName == null) {
+            return;
+        }
+        DownloadFileInfo fileInfo = new DownloadFileInfo(url);
+        //创建文件名 检测文件夹中是否存在该文件，
+        File fileAdress = BaseApplication.getInstance().getExternalCacheDir();
+        Map<String, String> fileMap = FileUtil.findAllFiles(fileAdress.getPath());
+
+        if (fileMap.containsKey(fileName)) {
+            fileInfo.setFileName(fileName);
+            File file = new File(fileMap.get(fileName));
+            long fileLength = file.length();
+
+            fileInfo.setProgress(fileLength);
+            fileInfo.setFilePath(fileAdress.getPath());
+        } else {
+
+
+        }
         // 检查文件路径是否存在该文件-->不存在,创建并初始化,存在读取数据设置info
+
         //
-        new Thread(new TaskRunnable(createDownInfo(url), new TaskCallBack() {
+        new Thread(new TaskRunnable(createDownInfo(fileInfo), new TaskCallBack() {
             @Override
             public void progress(DownloadFileInfo info) {
-                LogUtil.e("进度"+info.getProgress());
+                LogUtil.e("进度" + info.getProgress());
             }
 
             @Override
             public void finish(DownloadFileInfo info) {
-                LogUtil.e("下载完成"+info.toString());
+                LogUtil.e("下载完成" + info.toString());
             }
 
             @Override
@@ -333,21 +369,19 @@ public class DownloadActivity extends BaseActivity {
     private DownloadFileInfo checkUrl(String url) {
 
 
-
         return null;
     }
 
-    public DownloadFileInfo createDownInfo(String downloadUrl){
-        DownloadFileInfo downloadFileInfo = new DownloadFileInfo();
-        long total = getContentLength(downloadUrl);
+    public DownloadFileInfo createDownInfo(DownloadFileInfo downloadFileInfo) {
+        long total = getContentLength(downloadFileInfo.getUrl());
         downloadFileInfo.setTotal(total);
-        downloadFileInfo.setUrl(downloadUrl);
         downloadFileInfo.setProgress(0);
-        String fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
+        String fileName = downloadFileInfo.getUrl().substring(downloadFileInfo.getUrl().lastIndexOf("/"));
         downloadFileInfo.setFileName(fileName);
-        LogUtil.e("创建DownInfo"+downloadFileInfo.toString());
+        LogUtil.e("创建DownInfo" + downloadFileInfo.toString());
         return downloadFileInfo;
     }
+
     /**
      * 获取下载长度
      *

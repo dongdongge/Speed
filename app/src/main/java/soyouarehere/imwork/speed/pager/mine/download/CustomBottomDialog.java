@@ -84,7 +84,6 @@ public class CustomBottomDialog extends Dialog {
 
     private void initItemView() {
         this.view = View.inflate(context, R.layout.custom_dialog_layout, null);
-//        this.view = LayoutInflater.from(context).inflate(R.layout.custom_dialog_layout,null);
         TextView cancel = view.findViewById(R.id.tv_cancel_custom_dialog);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

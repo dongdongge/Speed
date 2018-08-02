@@ -1,5 +1,8 @@
 package soyouarehere.imwork.speed.pager.mine.download.task;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * Created by li.xiaodong on 2018/8/2.
  */
@@ -13,6 +16,11 @@ public class DownloadFileInfo {
     private String showSize;
     private String showProgress;
     private String filePath;
+
+
+    public DownloadFileInfo(String url) {
+        this.url = url;
+    }
 
     @Override
     public String toString() {

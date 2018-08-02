@@ -1,6 +1,7 @@
 package soyouarehere.imwork.speed.util;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 /**
  * Created by li.xiaodong on 2018/8/2.
@@ -27,4 +28,19 @@ public class UrlUtils {
                 + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\\." + "[a-z]{2,6})" + "(:[0-9]{1,10})?"
                 + "((/?)|" + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$");
     }
+
+
+    public static String getFileNameFromUrl(@NonNull String url) {
+        if (url.contains("?")) {
+            url = url.substring(0, url.indexOf('?'));
+        }
+        int index = url.lastIndexOf("/");
+        if (index == -1) {
+            Log.e("url地址错误",""+url);
+            return null;
+        }
+        url = url.substring(index,url.length());
+        return url;
+    }
+
 }

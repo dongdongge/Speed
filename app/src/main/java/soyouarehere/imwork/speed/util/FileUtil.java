@@ -7,6 +7,8 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.util.log.LogUtil;
@@ -18,6 +20,45 @@ public class FileUtil {
 
     private static final String TAG = FileUtil.class.getSimpleName();
 
+
+    /**
+     * 获取该文件夹下的所有文件名称和路径
+     */
+    public static Map<String, String> findAllFiles(String parentPath){
+        Map<String, String> map = new HashMap<>();
+        File file = new File(parentPath);
+        if (!file.exists()) {
+            System.out.println("parentPath 不存在");
+            return map;
+        }
+        if (file.isFile()) {
+            map.put(file.getName(), file.getAbsolutePath());
+            System.out.println("isFile 只有一个文件");
+            return map;
+        }
+        return getAllFileNamePath(file.getAbsolutePath());
+    }
+
+    /**
+     * 获取该文件夹下的所有文件名称和路径
+     */
+    private static Map<String, String> getAllFileNamePath(String parentPath) {
+        Map<String, String> hashMap = new HashMap<>();
+        File or = new File(parentPath);
+        File[] files = or.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    hashMap.put(file.getName(), file.getAbsolutePath());
+                } else if (file.isDirectory()) {
+                    Map<String, String> hashMap1 = getAllFileNamePath(file.getAbsolutePath());
+                    hashMap.putAll(hashMap1);
+                    continue;
+                }
+            }
+        }
+        return hashMap;
+    }
     /**
      * SD卡是否能用
      *
