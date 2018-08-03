@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
+import soyouarehere.imwork.speed.util.FileSizeUtil;
 
 /**
  * Created by li.xiaodong on 2018/8/2.
@@ -46,6 +47,7 @@ public class TaskRunnable implements Runnable {
                 while ((len=is.read(buffer))!=-1){
                     fileOutputStream.write(buffer,0,len);
                     info.setProgress(info.getProgress()+len);
+                    info.setShowProgressSize(FileSizeUtil.FormetFileSize(info.getProgress()));
                     info.setShowProgress(formatProgress(info.getProgress(),info.getTotal()));
                     callBack.progress(info);
                 }

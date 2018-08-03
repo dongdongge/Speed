@@ -1,4 +1,4 @@
-package soyouarehere.imwork.speed.pager.mine.download.downloading;
+package soyouarehere.imwork.speed.pager.mine.download.history;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,22 +12,22 @@ import java.util.List;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.adapter.RecyclerBaseAdapter;
 import soyouarehere.imwork.speed.app.adapter.ViewHolder;
-import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.downloading.MovieModule;
 
 /**
  * Created by li.xiaodong on 2018/7/25.
  */
 
-public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
+public class HistoryAdapter extends RecyclerBaseAdapter<MovieModule> {
 
-    public DownloadAdapter(@NonNull Context context, @NonNull List<DownloadFileInfo> mDataList) {
+    public HistoryAdapter(@NonNull Context context, @NonNull List<MovieModule> mDataList) {
         super(context, mDataList);
     }
 
     @Override
-    protected void bindDataForView(ViewHolder holder, DownloadFileInfo info, int position) {
+    protected void bindDataForView(ViewHolder holder, MovieModule movieModule, int position) {
         TextView name = holder.getView(R.id.tv_item_movie_name);
-        name.setText(info.getFileName());
+        name.setText(movieModule.getName());
     }
 
     @Override

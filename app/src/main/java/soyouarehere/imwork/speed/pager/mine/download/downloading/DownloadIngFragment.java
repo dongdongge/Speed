@@ -1,15 +1,9 @@
 package soyouarehere.imwork.speed.pager.mine.download.downloading;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +11,7 @@ import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.adapter.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
+import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.DensityUtil;
 
 public class DownloadIngFragment extends BaseFragment {
@@ -59,14 +54,14 @@ public class DownloadIngFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_download_ing;
     }
-    public static List<MovieModule> initData(){
-        List<MovieModule> movieModules = new ArrayList<>();
+    public static List<DownloadFileInfo> initData(){
+        List<DownloadFileInfo> fileInfos = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            MovieModule movieModule = new MovieModule();
-            movieModule.setName("我不是药神纪录片"+i);
-            movieModules.add(movieModule);
+            DownloadFileInfo info = new DownloadFileInfo("url");
+            info.setFileName("我不是药神纪录片"+i);
+            fileInfos.add(info);
         }
-        return movieModules;
+        return fileInfos;
     }
 
     public RecycleDividerItemDecoration getDivider(){

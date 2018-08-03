@@ -1,5 +1,7 @@
 package soyouarehere.imwork.speed.pager.mine.download.task;
 
+import com.google.gson.Gson;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
@@ -10,11 +12,30 @@ import java.lang.annotation.Target;
 public class DownloadFileInfo {
 
     private String url;
+    /**
+     * 文件大小 b
+     * */
     private long total;
+    /**
+     * 当前下载文件的大小
+     * */
     private long progress;
     private String fileName;
+    /**
+     * 文件总大小
+     * */
     private String showSize;
+    /**
+     * 文件下载进度百分比
+     * */
     private String showProgress;
+    /**
+     * 当前下载的文件的大小
+     * */
+    private String showProgressSize;
+    /**
+     * 文件的路径
+     * */
     private String filePath;
 
 
@@ -22,17 +43,17 @@ public class DownloadFileInfo {
         this.url = url;
     }
 
+    public String getShowProgressSize() {
+        return showProgressSize;
+    }
+
+    public void setShowProgressSize(String showProgressSize) {
+        this.showProgressSize = showProgressSize;
+    }
+
     @Override
     public String toString() {
-        return "DownloadFileInfo{" +
-                "url='" + url + '\'' +
-                ", total=" + total +
-                ", progress=" + progress +
-                ", fileName='" + fileName + '\'' +
-                ", showSize='" + showSize + '\'' +
-                ", showProgress='" + showProgress + '\'' +
-                ", filePath='" + filePath + '\'' +
-                '}';
+        return new Gson().toJson(this);
     }
 
     public String getUrl() {

@@ -39,7 +39,7 @@ public class UrlUtils {
             Log.e("url地址错误",""+url);
             return null;
         }
-        url = url.substring(index,url.length());
+        url = url.substring(index+1,url.length());
         return url;
     }
 
