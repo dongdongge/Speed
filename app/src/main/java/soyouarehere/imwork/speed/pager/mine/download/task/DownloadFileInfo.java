@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * Created by li.xiaodong on 2018/8/2.
  */
 
-public class DownloadFileInfo {
+public class DownloadFileInfo{
 
     private String url;
     /**

@@ -35,7 +35,7 @@ public class TaskRunnable implements Runnable {
        Call call = getHttpClient().newCall(request);
         try {
             Response response = call.execute();
-            if (response.isSuccessful()){
+            if (response.code()==200){
                 InputStream is = response.body().byteStream();
                 File file = new File(BaseApplication.getInstance().getExternalCacheDir(),info.getFileName());
                 if (!file.exists()){
@@ -43,7 +43,9 @@ public class TaskRunnable implements Runnable {
                 }
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 int len = 0;
-                byte[] buffer = new byte[4*1024];
+                // 在此处 进行判断 如果文件大小介于20~100 则每次读取1M 介于
+                long readLength = formatReadFileSize(info.getTotal());
+                byte[] buffer = new byte[(int) readLength];
                 while ((len=is.read(buffer))!=-1){
                     fileOutputStream.write(buffer,0,len);
                     info.setProgress(info.getProgress()+len);
@@ -74,6 +76,16 @@ public class TaskRunnable implements Runnable {
         NumberFormat numberFormat = NumberFormat.getPercentInstance();
         numberFormat.setMaximumFractionDigits(2);
         return numberFormat.format((double)long1/total);
+    }
+
+
+    private static long formatReadFileSize(long fileLength){
+        long read4KB = 4*1024;// 每次读取4KB
+        long read8KB = 8*1024;// 每次读取1M
+        if (fileLength>=1024*1024){
+            return read8KB;
+        }
+        return read4KB;
     }
 
 

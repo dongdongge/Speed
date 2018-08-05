@@ -96,7 +96,7 @@ public class NewTaskConnectActivity extends BaseActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    showAlertDialog();
+                    showAlertDialog("createNewFile 文件失败");
                 }
             });
         } else {
@@ -157,19 +157,21 @@ public class NewTaskConnectActivity extends BaseActivity {
         OkHttpClient client = new OkHttpClient.Builder().build();
         try {
             Response response = client.newCall(request).execute();
-            if (response != null && response.isSuccessful()) {
+            if (response != null && response.code()==200) {
                 long contentLength = response.body().contentLength();
+                LogUtil.e("获取文件大小"+contentLength);
                 response.close();
                 return contentLength == 0 ? -1 : contentLength;
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return -1;
         }
         return -1;
     }
 
-    public void showAlertDialog() {
-        new CustomAlertDialog(this, true, true, "任务已经在下载列表中", new CustomAlertDialog.OnClickInterface() {
+    public void showAlertDialog(String msg) {
+        new CustomAlertDialog(this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
             @Override
             public void clickSure() {
 

@@ -1,23 +1,17 @@
 package soyouarehere.imwork.speed.pager.mine.download.history;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.app.adapter.RecycleDividerItemDecoration;
+import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
-import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadAdapter;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.MovieModule;
 import soyouarehere.imwork.speed.util.DensityUtil;
 

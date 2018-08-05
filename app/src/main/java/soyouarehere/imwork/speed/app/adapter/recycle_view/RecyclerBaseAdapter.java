@@ -1,4 +1,4 @@
-package soyouarehere.imwork.speed.app.adapter;
+package soyouarehere.imwork.speed.app.adapter.recycle_view;
 
 import android.content.Context;
 import android.support.annotation.IntRange;

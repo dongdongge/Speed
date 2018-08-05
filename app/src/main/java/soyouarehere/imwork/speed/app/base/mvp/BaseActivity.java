@@ -60,6 +60,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     protected TextView mTitle, mTvRight, mTvBack;
     protected Snackbar snackbar = null;
     protected View mainView;
+    private static final String LOGTAG = "BaseActivity";
     /**
      * 权限列表
      */
@@ -70,9 +71,11 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     protected FrameLayout content_view;
     protected LinearLayout include_toolbar;
     protected NetErrorView view_netError;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.e(LOGTAG,"onCreate");
         mContext = this;
         mSubscription = new CompositeDisposable();
         mPresenter = GenericUtil.getType(this, 0);
@@ -344,23 +347,6 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
      */
     public abstract void create(Bundle savedInstanceState);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.dettach();
-            mPresenter = null;
-        }
-        if (mSubscription != null && !mSubscription.isDisposed()) {//rx_java注意isDisposed是返回是否取消订阅
-            mSubscription.dispose();
-            mSubscription.clear();
-            mSubscription = null;
-        }
-        if (loadingDialog != null) {
-            loadingDialog.dismiss();
-        }
-        loadingDialog = null;
-    }
 
     /**
      * 网络加载框
@@ -400,6 +386,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     }
 
     ConnectivityManager cm;
+
     public void netWork() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             cm = (ConnectivityManager) BaseApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -530,5 +517,55 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
         } else {
             Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LogUtil.e(LOGTAG,"onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LogUtil.e(LOGTAG,"onRestart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.e(LOGTAG,"onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtil.e(LOGTAG,"onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LogUtil.e(LOGTAG,"onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtil.e(LOGTAG,"onDestroy");
+        if (mPresenter != null) {
+            mPresenter.dettach();
+            mPresenter = null;
+        }
+        if (mSubscription != null && !mSubscription.isDisposed()) {//rx_java注意isDisposed是返回是否取消订阅
+            mSubscription.dispose();
+            mSubscription.clear();
+            mSubscription = null;
+        }
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+        }
+        loadingDialog = null;
     }
 }

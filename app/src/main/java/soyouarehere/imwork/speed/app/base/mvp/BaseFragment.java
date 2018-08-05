@@ -1,5 +1,7 @@
 package soyouarehere.imwork.speed.app.base.mvp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import soyouarehere.imwork.speed.util.GenericUtil;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
  * Created by tang.wangqiang on 2018/4/10.
@@ -23,10 +26,11 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     protected M mModel;
     protected View convertView;
     protected boolean isInitView = false;//是否与View建立起映射关系
-
+    private static final String LOGTAG = "BaseFragment";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.e(LOGTAG,"onCreate");
         mSubscription = new CompositeDisposable();
         mPresenter = GenericUtil.getType(this, 0);
         mModel = GenericUtil.getType(this, 1);
@@ -39,11 +43,18 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogUtil.e(LOGTAG,"onCreateView");
         convertView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, convertView);
         isInitView = true;
         initView();
         return convertView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtil.e(LOGTAG,"onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -59,4 +70,44 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     protected abstract void initView();
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LogUtil.e(LOGTAG,"onAttach");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LogUtil.e(LOGTAG,"onStart");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtil.e("onPause");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LogUtil.e(LOGTAG,"onDetach");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtil.e(LOGTAG,"onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        LogUtil.e(LOGTAG,"onDestroy");
+        super.onDestroy();
+        if (mSubscription != null && !mSubscription.isDisposed()) {//rx_java注意isDisposed是返回是否取消订阅
+            mSubscription.dispose();
+            mSubscription.clear();
+            mSubscription = null;
+        }
+    }
 }

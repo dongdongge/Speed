@@ -1,22 +1,22 @@
 package soyouarehere.imwork.speed.pager.mine.download.downloading;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.app.adapter.RecycleDividerItemDecoration;
+import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBus3;
 import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.DensityUtil;
@@ -37,6 +37,7 @@ public class DownloadIngFragment extends BaseFragment {
     RecyclerView downloadingRcy;
     @BindView(R.id.tv_msg_down_fragment)
     TextView textView;
+
     public DownloadIngFragment() {
         // Required empty public constructor
     }
@@ -63,56 +64,69 @@ public class DownloadIngFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_download_ing;
     }
-    public static List<DownloadFileInfo> initData(){
+
+    public static List<DownloadFileInfo> initData() {
+        hashMap = new HashMap<>();
         List<DownloadFileInfo> fileInfos = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             DownloadFileInfo info = new DownloadFileInfo("url");
-            info.setFileName("我不是药神纪录片"+i);
+            info.setFileName("我不是药神纪录片" + i);
             fileInfos.add(info);
+            hashMap.put(info.getFileName(), i);
         }
         return fileInfos;
     }
 
-    public RecycleDividerItemDecoration getDivider(){
+    public RecycleDividerItemDecoration getDivider() {
         RecycleDividerItemDecoration dividerItemDecoration = new RecycleDividerItemDecoration(getContext());
         dividerItemDecoration.setDeliverHeight(DensityUtil.dip2px(getContext(), 1.0f));
         dividerItemDecoration.setPaintColor(getResources().getColor(R.color.color_c9c9c9));
         return dividerItemDecoration;
     }
 
+    List<DownloadFileInfo> infoList;
+    static HashMap<String, Integer> hashMap;
+    DownloadAdapter adapter;
+
     @Override
     protected void initView() {
         downloadingRcy.setLayoutManager(new LinearLayoutManager(getContext()));
         downloadingRcy.addItemDecoration(getDivider());
-        downloadingRcy.setAdapter(new DownloadAdapter(getContext(),initData()));
+        infoList = initData();
+        adapter = new DownloadAdapter(getContext(), infoList);
+        downloadingRcy.setAdapter(adapter);
         accuptMsg();
     }
 
-    public void accuptMsg(){
-         int temp= 0;
-        RxBus2.getInstance().register(DownloadActivity.class).subscribe(new Consumer<DownloadActivity>(){
-
+    public void accuptMsg() {
+        int temp = 0;
+        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
             @Override
-            public void accept(DownloadActivity downloadActivity) throws Exception {
-                LogUtil.e("接受到了消息");
-                
-                textView.setText("lxd"+""+temp);
+            public void accept(RxBusEvent2 event) throws Exception {
+                LogUtil.e("接受到了消息" + event.getT().toString());
+                notifyItem((DownloadFileInfo) event.getT());
+                textView.setText("lxd" + "" + temp);
             }
-        });
+        }));
+
+    }
+
+    private void notifyItem(DownloadFileInfo downloadFileInfo) {
+        if (hashMap.containsKey(downloadFileInfo.getFileName())) {
+            infoList.get(0).setProgress(downloadFileInfo.getProgress());
+            adapter.updataItem(hashMap.get(downloadFileInfo.getFileName()));
+        } else {
+            hashMap.put(downloadFileInfo.getFileName(), infoList.size());
+            infoList.add(downloadFileInfo);
+            adapter.updataAllItem();
+        }
+
     }
 
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
+    public void onPause() {
+        super.onPause();
+        LogUtil.e("childFragment", "onPause");
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-    }
-
-
 }

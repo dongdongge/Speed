@@ -1,4 +1,4 @@
-package soyouarehere.imwork.speed.app.adapter;
+package soyouarehere.imwork.speed.app.adapter.recycle_view;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
