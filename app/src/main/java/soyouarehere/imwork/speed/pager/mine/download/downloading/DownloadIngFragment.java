@@ -4,15 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.adapter.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
+import soyouarehere.imwork.speed.app.rxbus.RxBus2;
+import soyouarehere.imwork.speed.app.rxbus.RxBus3;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
+import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.DensityUtil;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class DownloadIngFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -27,7 +35,8 @@ public class DownloadIngFragment extends BaseFragment {
 
     @BindView(R.id.downloading_rcy)
     RecyclerView downloadingRcy;
-
+    @BindView(R.id.tv_msg_down_fragment)
+    TextView textView;
     public DownloadIngFragment() {
         // Required empty public constructor
     }
@@ -76,6 +85,20 @@ public class DownloadIngFragment extends BaseFragment {
         downloadingRcy.setLayoutManager(new LinearLayoutManager(getContext()));
         downloadingRcy.addItemDecoration(getDivider());
         downloadingRcy.setAdapter(new DownloadAdapter(getContext(),initData()));
+        accuptMsg();
+    }
+
+    public void accuptMsg(){
+         int temp= 0;
+        RxBus2.getInstance().register(DownloadActivity.class).subscribe(new Consumer<DownloadActivity>(){
+
+            @Override
+            public void accept(DownloadActivity downloadActivity) throws Exception {
+                LogUtil.e("接受到了消息");
+                
+                textView.setText("lxd"+""+temp);
+            }
+        });
     }
 
 

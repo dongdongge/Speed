@@ -1,46 +1,26 @@
 package soyouarehere.imwork.speed.pager.mine.download;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
-
 import com.google.gson.Gson;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
+import soyouarehere.imwork.speed.app.rxbus.RxBus2;
+import soyouarehere.imwork.speed.app.rxbus.RxBus3;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.pager.mine.download.all.AllFragment;
 import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
@@ -49,12 +29,6 @@ import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActiv
 import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskCallBack;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskRunnable;
-import soyouarehere.imwork.speed.pager.mine.download.thread.DownLoadObserver;
-import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadInfo;
-import soyouarehere.imwork.speed.pager.mine.download.thread.DownloadThreadManager;
-import soyouarehere.imwork.speed.util.FileSizeUtil;
-import soyouarehere.imwork.speed.util.FileUtil;
-import soyouarehere.imwork.speed.util.UrlUtils;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -145,20 +119,22 @@ public class DownloadActivity extends BaseActivity {
     @Override
     protected void tvRightClick() {
         super.tvRightClick();
-        ArrayList<String> options1Items = new ArrayList<>();
-        options1Items.add("二维码下载");
-        options1Items.add("新建下载链接");
-        options1Items.add("新建BT任务");
-        new CustomBottomDialog(this, options1Items, true, true, new CustomBottomDialog.OnclickItemListener() {
-            @Override
-            public void clickCallBack(int position) {
-                Toast.makeText(mContext, "你选中了第" + position, Toast.LENGTH_SHORT).show();
-                if (position == 1) {
-                    Map<String, String> map = new HashMap<>();
-                    launchStartActivityForResult(DownloadActivity.this, NewTaskConnectActivity.class, false, map, 226);
-                }
-            }
-        }).show();
+        LogUtil.e("点击按钮");
+        RxBus2.getInstance().post(this);
+//        ArrayList<String> options1Items = new ArrayList<>();
+//        options1Items.add("二维码下载");
+//        options1Items.add("新建下载链接");
+//        options1Items.add("新建BT任务");
+//        new CustomBottomDialog(this, options1Items, true, true, new CustomBottomDialog.OnclickItemListener() {
+//            @Override
+//            public void clickCallBack(int position) {
+//                Toast.makeText(mContext, "你选中了第" + position, Toast.LENGTH_SHORT).show();
+//                if (position == 1) {
+//                    Map<String, String> map = new HashMap<>();
+//                    launchStartActivityForResult(DownloadActivity.this, NewTaskConnectActivity.class, false, map, 226);
+//                }
+//            }
+//        }).show();
     }
 
     public static class MyHandler extends Handler {
