@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
     public void create(Bundle savedInstanceState) {
         initFragment();
         initView();
-
+        LogUtil.e("CPU核数：",Runtime.getRuntime().availableProcessors());
     }
 
 

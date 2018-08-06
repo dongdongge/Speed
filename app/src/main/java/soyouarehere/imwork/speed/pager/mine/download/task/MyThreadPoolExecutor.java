@@ -16,7 +16,7 @@ public class MyThreadPoolExecutor {
      * */
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
     /**
-     * 线程池中最大可以容纳多少线程池
+     * 线程池中最大可以容纳多少线程
      * */
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     /**
