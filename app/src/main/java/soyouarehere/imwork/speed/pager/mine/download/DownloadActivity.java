@@ -2,6 +2,7 @@ package soyouarehere.imwork.speed.pager.mine.download;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
@@ -130,6 +133,7 @@ public class DownloadActivity extends BaseActivity {
         new CustomBottomDialog(this, options1Items, true, true, new CustomBottomDialog.OnclickItemListener() {
             @Override
             public void clickCallBack(int position) {
+
                 Toast.makeText(mContext, "你选中了第" + position, Toast.LENGTH_SHORT).show();
                 if (position == 1) {
                     Map<String, String> map = new HashMap<>();
@@ -181,6 +185,7 @@ public class DownloadActivity extends BaseActivity {
     }
 
     public void executorRunable( DownloadFileInfo fileInfo) {
+
         new Thread(new TaskRunnable(fileInfo, new TaskCallBack() {
             @Override
             public void progress(DownloadFileInfo info) {

@@ -78,7 +78,7 @@ public class CustomBottomDialog extends Dialog {
         window.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height =itemList.size()<4 ? WindowManager.LayoutParams.WRAP_CONTENT:getScreenSize(context)[1]/3 ;
+        params.height =itemList.size()<5 ? WindowManager.LayoutParams.WRAP_CONTENT:getScreenSize(context)[1]/3 ;
         window.setAttributes(params);
     }
 
