@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:text="http://192.168.3.2:8080/static/file/download/万界仙踪-37.mp4"
+        android:text="http://192.168.22.30:8080/static/file/download/我不是药神纪录片.mp4"
         android:background="@drawable/new_task_bg_edit_background"
         android:hint="输入或粘贴HTTP、BT种子或电驴地址"
         android:textSize="14dp"

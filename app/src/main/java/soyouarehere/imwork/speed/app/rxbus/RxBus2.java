@@ -2,6 +2,8 @@ package soyouarehere.imwork.speed.app.rxbus;
 
 import android.support.annotation.NonNull;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.processors.FlowableProcessor;
@@ -29,7 +31,7 @@ public class RxBus2 {
         mBus.onNext(object);
     }
     public <T>Flowable<T> register(Class<T> clz){
-        return mBus.ofType(clz).observeOn(AndroidSchedulers.mainThread()).onTerminateDetach();
+        return mBus.ofType(clz).distinctUntilChanged().throttleWithTimeout(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).onTerminateDetach();
     }
     public void unRegisterAll(){
         mBus.onComplete();

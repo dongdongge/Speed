@@ -51,6 +51,7 @@ dependencies {
     implementation rootProject.ext.dependencies.logging
     //butter-knife
     implementation rootProject.ext.dependencies.butterknife
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor rootProject.ext.dependencies.butterknifeCompiler
     //LeakCanary
     debugImplementation rootProject.ext.dependencies.leakcanaryAndroid

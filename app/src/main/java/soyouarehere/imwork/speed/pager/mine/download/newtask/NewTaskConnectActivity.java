@@ -82,7 +82,7 @@ public class NewTaskConnectActivity extends BaseActivity {
      */
     public void createDownloadFileInfo(String urlString) throws IOException {
         if (!UrlUtils.checkUrl(urlString)) {
-            LogUtil.e("检查url合法失败");
+            LogUtil.e("检查url合法失败",urlString);
             return;
         }
         //创建FileName
@@ -139,10 +139,33 @@ public class NewTaskConnectActivity extends BaseActivity {
             fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileLength));
         } else {
             LogUtil.e("该文件已经存在", fileMap.get(fileName));
-            return null;
+            return alreadFile(fileAdress,fileName,fileInfo);
         }
         return fileInfo;
     }
+    public DownloadFileInfo alreadFile(File fileAdress,String fileName,DownloadFileInfo fileInfo){
+        File file = new File(fileAdress,fileName);
+        file.delete();
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 不存在就是新的文件
+        fileInfo.setFilePath(fileAdress.getPath());
+        fileInfo.setProgress(0);
+        fileInfo.setShowProgressSize("0B");
+        fileInfo.setShowProgress("0");
+        long fileLength = getContentLength(fileInfo.getUrl());
+        if (fileLength == -1) {
+            LogUtil.e("获取文件大小失败");
+            return null;
+        }
+        fileInfo.setTotal(fileLength);
+        fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileLength));
+        return fileInfo;
+    }
+
 
     /**
      * 获取下载长度
@@ -159,15 +182,18 @@ public class NewTaskConnectActivity extends BaseActivity {
             Response response = client.newCall(request).execute();
             if (response != null && response.code()==200) {
                 long contentLength = response.body().contentLength();
-                LogUtil.e("获取文件大小"+contentLength);
+                LogUtil.e("获取文件大小",contentLength);
                 response.close();
                 return contentLength == 0 ? -1 : contentLength;
+            }else {
+                LogUtil.e("code",response.code(),response.body().string());
+                return -1;
             }
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtil.e(e.getMessage());
             return -1;
         }
-        return -1;
     }
 
     public void showAlertDialog(String msg) {

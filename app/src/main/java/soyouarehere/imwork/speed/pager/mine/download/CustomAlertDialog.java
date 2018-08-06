@@ -79,7 +79,6 @@ public class CustomAlertDialog extends Dialog {
         return new int[]{outMetrics.widthPixels, outMetrics.heightPixels};
     }
     private void initItemView() {
-        LogUtil.e("initItemView");
         this.view = View.inflate(context, R.layout.custom_alert_dialog_layout, null);
         TextView msg = view.findViewById(R.id.tv_msg_custom_alert);
         msg.setText(this.msg);

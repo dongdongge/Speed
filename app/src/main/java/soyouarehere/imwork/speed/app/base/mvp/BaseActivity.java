@@ -75,7 +75,6 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.e(LOGTAG,"onCreate");
         mContext = this;
         mSubscription = new CompositeDisposable();
         mPresenter = GenericUtil.getType(this, 0);
@@ -523,37 +522,31 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.e(LOGTAG,"onStart");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        LogUtil.e(LOGTAG,"onRestart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.e(LOGTAG,"onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.e(LOGTAG,"onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.e(LOGTAG,"onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.e(LOGTAG,"onDestroy");
         if (mPresenter != null) {
             mPresenter.dettach();
             mPresenter = null;

@@ -1,6 +1,7 @@
 package soyouarehere.imwork.speed.pager.mine.download.downloading;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
@@ -95,6 +97,7 @@ public class DownloadIngFragment extends BaseFragment {
         infoList = initData();
         adapter = new DownloadAdapter(getContext(), infoList);
         downloadingRcy.setAdapter(adapter);
+        ((DefaultItemAnimator) downloadingRcy.getItemAnimator()).setSupportsChangeAnimations(false);
         accuptMsg();
     }
 
@@ -105,7 +108,6 @@ public class DownloadIngFragment extends BaseFragment {
             public void accept(RxBusEvent2 event) throws Exception {
                 LogUtil.e("接受到了消息" + event.getT().toString());
                 notifyItem((DownloadFileInfo) event.getT());
-                textView.setText("lxd" + "" + temp);
             }
         }));
 
@@ -120,7 +122,6 @@ public class DownloadIngFragment extends BaseFragment {
             infoList.add(downloadFileInfo);
             adapter.updataAllItem();
         }
-
     }
 
 
@@ -128,5 +129,11 @@ public class DownloadIngFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         LogUtil.e("childFragment", "onPause");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtil.e("childFragment", "onDestroyView");
     }
 }

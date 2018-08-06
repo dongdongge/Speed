@@ -30,7 +30,6 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.e(LOGTAG,"onCreate");
         mSubscription = new CompositeDisposable();
         mPresenter = GenericUtil.getType(this, 0);
         mModel = GenericUtil.getType(this, 1);
@@ -43,11 +42,17 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtil.e(LOGTAG,"onCreateView");
-        convertView = inflater.inflate(getLayoutId(), container, false);
-        ButterKnife.bind(this, convertView);
-        isInitView = true;
-        initView();
+        if (convertView==null){
+            convertView = inflater.inflate(getLayoutId(), container, false);
+            ButterKnife.bind(this, convertView);
+            isInitView = true;
+            initView();
+        }
+        //缓存的rootView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
+        ViewGroup parent = (ViewGroup) convertView.getParent();
+        if (parent != null) {
+            parent.removeView(convertView);
+        }
         return convertView;
     }
 
@@ -73,36 +78,30 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogUtil.e(LOGTAG,"onAttach");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        LogUtil.e(LOGTAG,"onStart");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.e("onPause");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        LogUtil.e(LOGTAG,"onDetach");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        LogUtil.e(LOGTAG,"onDestroyView");
     }
 
     @Override
     public void onDestroy() {
-        LogUtil.e(LOGTAG,"onDestroy");
         super.onDestroy();
         if (mSubscription != null && !mSubscription.isDisposed()) {//rx_java注意isDisposed是返回是否取消订阅
             mSubscription.dispose();
