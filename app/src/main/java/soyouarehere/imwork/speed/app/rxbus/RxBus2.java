@@ -30,8 +30,13 @@ public class RxBus2 {
     public void post(@NonNull Object object){
         mBus.onNext(object);
     }
+    /**
+     * ofType               : 进行类型过滤
+     * distinctUntilChanged : 过滤掉相邻重复数据,
+     * throttleWithTimeout  : 如果在这段时间内,只产生了一条消息,那么只发送这一条;如果发送了许多条消息,只发送在这段时间内的最后一条,
+     * */
     public <T>Flowable<T> register(Class<T> clz){
-        return mBus.ofType(clz).distinctUntilChanged().throttleWithTimeout(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).onTerminateDetach();
+        return mBus.ofType(clz).distinctUntilChanged().throttleWithTimeout(1000, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).onTerminateDetach();
     }
     public void unRegisterAll(){
         mBus.onComplete();

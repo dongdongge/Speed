@@ -102,7 +102,6 @@ public class DownloadIngFragment extends BaseFragment {
     }
 
     public void accuptMsg() {
-        int temp = 0;
         mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
             @Override
             public void accept(RxBusEvent2 event) throws Exception {

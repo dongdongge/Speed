@@ -38,6 +38,18 @@ public class DownloadFileInfo{
      * */
     private String filePath;
 
+    /**
+     * 文件状态  downloading(正在下载中) stop(下载停止) 下载完成(complete)
+     * */
+    private String fileStatue;
+
+    public String getFileStatue() {
+        return fileStatue;
+    }
+
+    public void setFileStatue(String fileStatue) {
+        this.fileStatue = fileStatue;
+    }
 
     public DownloadFileInfo(String url) {
         this.url = url;

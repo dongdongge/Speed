@@ -14,6 +14,7 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
+import soyouarehere.imwork.speed.pager.mine.vip.VIPCenterActivity;
 import soyouarehere.imwork.speed.util.DirectoryUtils;
 
 /**
@@ -86,6 +87,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView() {
         mineDownload.setOnClickListener(this);
+        mineCenter.setOnClickListener(this);
     }
 
 
@@ -120,6 +122,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_space:
                 break;
             case R.id.mine_center:
+                getActivity().startActivity(new Intent(getActivity(), VIPCenterActivity.class));
                 break;
             case R.id.mine_play_reword:
                 break;

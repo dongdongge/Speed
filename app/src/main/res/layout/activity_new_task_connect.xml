@@ -7,7 +7,10 @@
     android:background="@color/color_f0f0f0"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
+<!--http://192.168.22.30:8080/static/file/download/我不是药神纪录片.mp4
 
+http://192.168.22.30:8080/static/file/download/G海策-08.MP4.mp4
+-->
     <EditText
         android:id="@+id/et_input_content"
         android:layout_width="match_parent"

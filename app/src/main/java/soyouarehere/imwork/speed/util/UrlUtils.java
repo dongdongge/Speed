@@ -11,15 +11,14 @@ public class UrlUtils {
 
     /**
      * 判断url是否合法;
-     *
-     * */
+     */
     public static boolean checkUrl(@NonNull String url) {
-        if (url.contains("?")){
-            url = url.substring(0,url.indexOf('?'));
+        if (url.contains("?")) {
+            url = url.substring(0, url.indexOf('?'));
         }
-        if (url.contains("//")&&url.indexOf("/",8)!=-1){
-            int index = url.indexOf("/",8);
-            url = url.substring(0,index);
+        if (url.contains("//") && url.indexOf("/", 8) != -1) {
+            int index = url.indexOf("/", 8);
+            url = url.substring(0, index);
         }
         System.out.println(url);
         return url.matches("^((https|http|ftp|rtsp|mms)?://)"
@@ -36,11 +35,30 @@ public class UrlUtils {
         }
         int index = url.lastIndexOf("/");
         if (index == -1) {
-            Log.e("url地址错误",""+url);
+            Log.e("url地址错误", "" + url);
             return null;
         }
-        url = url.substring(index+1,url.length());
+        url = url.substring(index + 1, url.length());
         return url;
     }
 
+    public static boolean checkFileNameFromUrl(String url) {
+        if (url.contains("?")) {
+            url = url.substring(0, url.indexOf('?'));
+        }
+        int index = url.lastIndexOf("/");
+        if (index == -1) {
+            Log.e("url地址错误", "" + url);
+            return false;
+        }
+        return true;
+    }
+
+    public static String getFileNameFromUrls(String url) {
+        if (url.contains("?")) {
+            url = url.substring(0, url.indexOf('?'));
+        }
+        int index = url.lastIndexOf("/");
+        return url.substring(index + 1, url.length());
+    }
 }

@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/vip_center_bt_test"
+        android:text="启动线程"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 

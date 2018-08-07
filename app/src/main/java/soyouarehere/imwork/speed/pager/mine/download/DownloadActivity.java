@@ -31,6 +31,7 @@ import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFrag
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.MyThreadPoolExecutor;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskCallBack;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskRunnable;
 import soyouarehere.imwork.speed.util.log.LogUtil;
@@ -185,8 +186,10 @@ public class DownloadActivity extends BaseActivity {
     }
 
     public void executorRunable( DownloadFileInfo fileInfo) {
-
-        new Thread(new TaskRunnable(fileInfo, new TaskCallBack() {
+        /**
+         * 创建任务
+         * */
+        TaskRunnable taskRunnable = new TaskRunnable(fileInfo, new TaskCallBack() {
             @Override
             public void progress(DownloadFileInfo info) {
                 LogUtil.e("进度" + info.getShowProgress() +"当前文件大小"+info.getShowProgressSize()+"文件总大小"+info.getShowSize());
@@ -209,7 +212,11 @@ public class DownloadActivity extends BaseActivity {
                     }
                 }).show();
             }
-        })).start();
+        });
+        /**
+         * 执行任务
+         * */
+        MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.execute(taskRunnable);
     }
 
     @Override
