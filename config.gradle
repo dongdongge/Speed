@@ -52,5 +52,7 @@ ext {
             // ------------- LeakCanary -------------
             leakcanaryAndroid    : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
             leakcanaryAndroidNoOp: 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4',
+            // -------------- EventBus ---------------
+            eventbus             : 'org.greenrobot:eventbus:3.0.0'
     ]
 }

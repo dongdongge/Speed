@@ -6,10 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
@@ -17,9 +20,7 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
-import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.DensityUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
@@ -70,12 +71,12 @@ public class DownloadIngFragment extends BaseFragment {
     public static List<DownloadFileInfo> initData() {
         hashMap = new HashMap<>();
         List<DownloadFileInfo> fileInfos = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            DownloadFileInfo info = new DownloadFileInfo("url");
-            info.setFileName("我不是药神纪录片" + i);
-            fileInfos.add(info);
-            hashMap.put(info.getFileName(), i);
-        }
+//        for (int i = 0; i < 7; i++) {
+//            DownloadFileInfo info = new DownloadFileInfo("url");
+//            info.setFileName("我不是药神纪录片" + i);
+//            fileInfos.add(info);
+//            hashMap.put(info.getFileName(), i);
+//        }
         return fileInfos;
     }
 
@@ -98,17 +99,26 @@ public class DownloadIngFragment extends BaseFragment {
         adapter = new DownloadAdapter(getContext(), infoList);
         downloadingRcy.setAdapter(adapter);
         ((DefaultItemAnimator) downloadingRcy.getItemAnimator()).setSupportsChangeAnimations(false);
-        accuptMsg();
+//        accuptMsg();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
     }
 
     public void accuptMsg() {
-        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
-            @Override
-            public void accept(RxBusEvent2 event) throws Exception {
-                LogUtil.e("接受到了消息" + event.getT().toString());
-                notifyItem((DownloadFileInfo) event.getT());
-            }
-        }));
+//        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
+//            @Override
+//            public void accept(RxBusEvent2 event) throws Exception {
+//                LogUtil.e("接受到了消息" + event.getT().toString());
+//                notifyItem((DownloadFileInfo) event.getT());
+//            }
+//        }));
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getDownloadInfo(DownloadFileInfo downloadFileInfo){
+        notifyItem(downloadFileInfo);
 
     }
 
@@ -134,5 +144,11 @@ public class DownloadIngFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         LogUtil.e("childFragment", "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

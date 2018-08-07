@@ -56,4 +56,7 @@ dependencies {
     //LeakCanary
     debugImplementation rootProject.ext.dependencies.leakcanaryAndroid
     releaseImplementation rootProject.ext.dependencies.leakcanaryAndroidNoOp
+
+    //EventBus
+    implementation rootProject.ext.dependencies.eventbus
 }

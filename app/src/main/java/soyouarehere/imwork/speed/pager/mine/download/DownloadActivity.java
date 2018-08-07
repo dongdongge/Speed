@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -180,12 +183,12 @@ public class DownloadActivity extends BaseActivity {
                 LogUtil.e("传过来的下载信息",downloadFileInfo.toString());
                 // testDownloadFile(url,myHandler);//http://192.168.22.30:8080/static/file/download/lxd.jpg
                 //  //http://192.168.22.30:8080/static/file/video/我不是药神纪录片.mp4
-                executorRunable(downloadFileInfo);
+                executorRunnable(downloadFileInfo);
             }
         }
     }
 
-    public void executorRunable( DownloadFileInfo fileInfo) {
+    public void executorRunnable( DownloadFileInfo fileInfo) {
         /**
          * 创建任务
          * */
@@ -193,12 +196,13 @@ public class DownloadActivity extends BaseActivity {
             @Override
             public void progress(DownloadFileInfo info) {
                 LogUtil.e("进度" + info.getShowProgress() +"当前文件大小"+info.getShowProgressSize()+"文件总大小"+info.getShowSize());
-                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+                EventBus.getDefault().post(info);
             }
 
             @Override
             public void finish(DownloadFileInfo info) {
-                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
                 LogUtil.e("下载完成" + info.toString());
             }
 

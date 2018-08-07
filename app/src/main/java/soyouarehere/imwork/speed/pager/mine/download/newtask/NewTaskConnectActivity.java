@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,6 +57,8 @@ public class NewTaskConnectActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String str = et_input_content.getText().toString().trim();
+//                checkUrlValid("http://192.168.3.2:8080/static/file/download/我不是药神纪录片.mp4");
+//                checkUrlValid("http://192.168.3.2:8080/static/file/download/斯巴达300勇士.mp4");
                 checkUrlValid(str);
             }
         });
