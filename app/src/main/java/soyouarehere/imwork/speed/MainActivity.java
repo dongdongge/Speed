@@ -1,5 +1,7 @@
 package soyouarehere.imwork.speed;
 
+import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -7,11 +9,14 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.find.FindFragment;
@@ -51,6 +56,7 @@ public class MainActivity extends BaseActivity {
         initFragment();
         initView();
         LogUtil.e("CPU核数：",Runtime.getRuntime().availableProcessors());
+        getSDCardInfo();
     }
 
 
@@ -118,6 +124,25 @@ public class MainActivity extends BaseActivity {
         ft.show(targetFg);
         ft.commitAllowingStateLoss();
         targetFg.setUserVisibleHint(true);
+    }
+
+    /**
+     *
+     * 获取当前手机储存信息
+     * */
+    public void getSDCardInfo(){
+        if (Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT){
+            File [] files = getExternalFilesDirs(Environment.MEDIA_MOUNTED);
+            Observable.fromArray(files).subscribe(new Consumer<File>() {
+                @Override
+                public void accept(File file) throws Exception {
+                    LogUtil.e("输出file信息",file.getName());
+                }
+            });
+        }else {
+          LogUtil.e("当前手机版本",Build.VERSION.SDK_INT);
+        }
+
     }
 
 }

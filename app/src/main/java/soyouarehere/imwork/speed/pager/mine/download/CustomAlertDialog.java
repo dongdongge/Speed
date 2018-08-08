@@ -115,7 +115,7 @@ public class CustomAlertDialog extends Dialog {
     }
 
     public interface OnClickInterface{
-        void clickSure();
+         void clickSure();
     }
 
 }

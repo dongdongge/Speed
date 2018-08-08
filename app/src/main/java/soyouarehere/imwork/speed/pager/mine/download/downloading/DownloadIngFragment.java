@@ -38,8 +38,6 @@ public class DownloadIngFragment extends BaseFragment {
 
     @BindView(R.id.downloading_rcy)
     RecyclerView downloadingRcy;
-    @BindView(R.id.tv_msg_down_fragment)
-    TextView textView;
 
     public DownloadIngFragment() {
         // Required empty public constructor
@@ -71,7 +69,7 @@ public class DownloadIngFragment extends BaseFragment {
     public static List<DownloadFileInfo> initData() {
         hashMap = new HashMap<>();
         List<DownloadFileInfo> fileInfos = new ArrayList<>();
-//        for (int i = 0; i < 7; i++) {
+//        for (int i = 0; i < 2; i++) {
 //            DownloadFileInfo info = new DownloadFileInfo("url");
 //            info.setFileName("我不是药神纪录片" + i);
 //            fileInfos.add(info);

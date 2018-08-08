@@ -10,10 +10,25 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        config {
+            //签名文件在项目根目录下
+            //KEY_ALIAS，KEY_PASSWORD，STORE_PASSWORD写在项目根目录下的gradle.properties里
+            keyAlias "speed.keystore"
+            keyPassword "speed2018"
+            storeFile file('../keystore/speed.keystore')
+            storePassword "speed2018"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config//使用上面配置的签名进行打包
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.config//ddebug模式下也使用上面配置的签名进行打包
         }
     }
     //开启Java1.8 能够使用lambda表达式
