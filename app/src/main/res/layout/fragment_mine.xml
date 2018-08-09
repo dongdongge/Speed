@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="迅雷用户1833639"
+                    android:text="Speed用户1833639"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimens_14_font" />
 
@@ -125,7 +125,7 @@
 
                 <TextView
                     style="@style/MineUserInfoStyle"
-                    android:text="2" />
+                    android:text="0" />
 
                 <TextView
                     style="@style/MineUserInfoStyle"
@@ -141,7 +141,7 @@
 
                 <TextView
                     style="@style/MineUserInfoStyle"
-                    android:text="2" />
+                    android:text="1" />
 
                 <TextView
                     style="@style/MineUserInfoStyle"

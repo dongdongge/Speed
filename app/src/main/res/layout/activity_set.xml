@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f0f1f3"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/setSelectPath"
+        style="@style/SetActivityBT"
+        android:text="@string/setSelectPath" />
+
+    <Button
+        android:id="@+id/setDownloadSet"
+        style="@style/SetActivityBT"
+        android:text="@string/setDownloadSet" />
+
+    <Button
+        android:id="@+id/setCommon"
+        style="@style/SetActivityBT"
+        android:text="@string/setCommon" />
+
+    <Button
+        android:id="@+id/setCheckSpeed"
+        style="@style/SetActivityBT"
+        android:text="@string/setCheckSpeed" />
+
+    <Button
+        android:id="@+id/setClearSpace"
+        style="@style/SetActivityBT"
+        android:text="@string/setClearSpace" />
+
+    <Button
+        android:id="@+id/setUpdate"
+        style="@style/SetActivityBT"
+        android:layout_marginTop="16dp"
+        android:text="@string/setUpdate" />
+
+    <Button
+        android:id="@+id/setAboutSpeed"
+        style="@style/SetActivityBT"
+        android:text="@string/setAboutSpeed" />
+
+    <Button
+        android:id="@+id/setQuiteLogin"
+        style="@style/SetActivityBT"
+        android:layout_marginTop="16dp"
+        android:text="@string/setQuiteLogin" />
+</LinearLayout>

@@ -15,6 +15,7 @@ import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
+import soyouarehere.imwork.speed.pager.mine.set.SetActivity;
 import soyouarehere.imwork.speed.pager.mine.vip.VIPCenterActivity;
 import soyouarehere.imwork.speed.util.DirectoryUtils;
 import soyouarehere.imwork.speed.util.MobilePhoneInfo;
@@ -88,6 +89,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initView() {
+        mineSetting.setOnClickListener(this);
         mineDownload.setOnClickListener(this);
         mineCenter.setOnClickListener(this);
         minePlayReword.setOnClickListener(this);
@@ -115,6 +117,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mine_setting:
+                getActivity().startActivity(new Intent(getActivity(), SetActivity.class));
                 break;
             case R.id.mine_msg:
                 break;

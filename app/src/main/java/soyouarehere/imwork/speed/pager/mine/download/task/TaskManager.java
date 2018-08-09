@@ -74,38 +74,16 @@ public class TaskManager {
         fileInfo.setProgress(0);
         fileInfo.setShowProgressSize("0B");
         fileInfo.setShowProgress("0");
-        long fileLength = getContentLength(fileInfo.getUrl());
+        String[] strings = getContentLength(fileInfo.getUrl());
+        long fileLength = Long.parseLong(strings[0]);
         if (fileLength == -1) {
             LogUtil.e("获取文件大小失败");
-            checkUrlCallBack.fail("获取文件大小失败");
+            checkUrlCallBack.fail("获取文件大小失败"+strings[1]+strings[2]);
             return;
         }
         fileInfo.setTotal(fileLength);
         fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileLength));
         checkUrlCallBack.onSuccess(fileInfo);
-    }
-
-    private DownloadFileInfo alreadyFile(File fileAdress, String fileName, DownloadFileInfo fileInfo) {
-        File file = new File(fileAdress, fileName);
-        file.delete();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // 不存在就是新的文件
-        fileInfo.setFilePath(fileAdress.getPath());
-        fileInfo.setProgress(0);
-        fileInfo.setShowProgressSize("0B");
-        fileInfo.setShowProgress("0");
-        long fileLength = getContentLength(fileInfo.getUrl());
-        if (fileLength == -1) {
-            LogUtil.e("获取文件大小失败");
-            return null;
-        }
-        fileInfo.setTotal(fileLength);
-        fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileLength));
-        return fileInfo;
     }
 
     /**
@@ -114,7 +92,7 @@ public class TaskManager {
      * @param downloadUrl
      * @return
      */
-    private long getContentLength(String downloadUrl) {
+    private String[] getContentLength(String downloadUrl) {
         Request request = new Request.Builder()
                 .url(downloadUrl)
                 .build();
@@ -125,15 +103,15 @@ public class TaskManager {
                 long contentLength = response.body().contentLength();
                 LogUtil.e("获取文件大小", contentLength);
                 response.close();
-                return contentLength == 0 ? -1 : contentLength;
+                return contentLength == 0 ? new String[]{"-1","contentLength为零","未知"} : new String[]{String.valueOf(contentLength)};
             } else {
                 LogUtil.e("code", response.code(), response.body().string());
-                return -1;
+                return new String[]{"-1", String.valueOf(response.code()),response.body().toString()};
             }
         } catch (IOException e) {
             e.printStackTrace();
             LogUtil.e("IOException", e.getMessage());
-            return -1;
+            return new String[]{"-1","未知","失败"};
         }
     }
 

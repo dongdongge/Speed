@@ -43,6 +43,17 @@ public class DownloadFileInfo{
      * */
     private String fileStatue;
 
+    private String downloadSpeed;
+
+
+    public String getDownloadSpeed() {
+        return downloadSpeed;
+    }
+
+    public void setDownloadSpeed(String downloadSpeed) {
+        this.downloadSpeed = downloadSpeed;
+    }
+
     public String getFileStatue() {
         return fileStatue;
     }

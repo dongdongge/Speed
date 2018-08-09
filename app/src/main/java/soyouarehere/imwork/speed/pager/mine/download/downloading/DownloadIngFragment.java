@@ -97,28 +97,28 @@ public class DownloadIngFragment extends BaseFragment {
         adapter = new DownloadAdapter(getContext(), infoList);
         downloadingRcy.setAdapter(adapter);
         ((DefaultItemAnimator) downloadingRcy.getItemAnimator()).setSupportsChangeAnimations(false);
-//        accuptMsg();
-        if (!EventBus.getDefault().isRegistered(this)){
-            EventBus.getDefault().register(this);
-        }
+        accuptMsg();
+//        if (!EventBus.getDefault().isRegistered(this)){
+//            EventBus.getDefault().register(this);
+//        }
     }
 
     public void accuptMsg() {
-//        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
-//            @Override
-//            public void accept(RxBusEvent2 event) throws Exception {
-//                LogUtil.e("接受到了消息" + event.getT().toString());
-//                notifyItem((DownloadFileInfo) event.getT());
-//            }
-//        }));
+        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
+            @Override
+            public void accept(RxBusEvent2 event) throws Exception {
+                LogUtil.e("接受到了消息" + event.getT().toString());
+                notifyItem((DownloadFileInfo) event.getT());
+            }
+        }));
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getDownloadInfo(DownloadFileInfo downloadFileInfo){
-        notifyItem(downloadFileInfo);
-
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void getDownloadInfo(DownloadFileInfo downloadFileInfo){
+//        notifyItem(downloadFileInfo);
+//
+//    }
 
     private void notifyItem(DownloadFileInfo downloadFileInfo) {
         if (hashMap.containsKey(downloadFileInfo.getFileName())) {

@@ -10,7 +10,7 @@ import java.io.IOException;
 public final class CloseUtils {
 
     public static void closeQuietly(Closeable closeable){
-        if (null!=closeable){
+        if (null != closeable){
             try {
                 closeable.close();
             } catch (IOException e) {

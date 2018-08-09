@@ -40,7 +40,8 @@
         <activity android:name=".pager.mine.download.newtask.NewTaskConnectActivity" />
         <activity android:name=".pager.mine.publish.PublishVideoActivity" />
         <activity android:name=".pager.mine.download.resouce.ServiceResourceActivity" />
-        <activity android:name=".pager.mine.vip.VIPCenterActivity"></activity>
+        <activity android:name=".pager.mine.vip.VIPCenterActivity" />
+        <activity android:name=".pager.mine.set.SetActivity"></activity>
     </application>
 
 </manifest>

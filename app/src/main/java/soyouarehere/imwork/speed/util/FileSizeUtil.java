@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
+import soyouarehere.imwork.speed.util.log.LogUtil;
+
 /**
  * Created by li.xiaodong on 2018/8/1.
  */
@@ -58,8 +60,6 @@ public class FileSizeUtil {
     }
     /**
      * 获取指定文件大小
-     * @param f
-     * @return
      * @throws Exception
      */
     private static long getFileSize(File file) throws Exception
@@ -104,26 +104,30 @@ public class FileSizeUtil {
      */
     public static String FormetFileSize(long fileS)
     {
-        DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
         String wrongSize="0B";
         if(fileS==0){
             return wrongSize;
         }
         if (fileS < 1024){
-            fileSizeString = df.format((double) fileS) + "B";
+            fileSizeString = FormatFileSize(fileS,1) + "B";
         }
         else if (fileS < 1048576){
-            fileSizeString = df.format((double) fileS / 1024) + "KB";
+            fileSizeString = FormatFileSize(fileS,1024) + "KB";
         }
         else if (fileS < 1073741824){
-            fileSizeString = df.format((double) fileS / 1048576) + "MB";
+            fileSizeString = FormatFileSize(fileS,1048576) + "MB";
         }
         else{
-            fileSizeString = df.format((double) fileS / 1073741824) + "GB";
+            fileSizeString = FormatFileSize(fileS,1073741824) + "GB";
         }
         return fileSizeString;
     }
+
+    public static double FormatFileSize(long long1,long long2){
+        return BigDecimalUtils.div(long1,long2,2);
+    }
+
     /**
      * 转换文件大小,指定转换的类型
      * @param fileS
@@ -132,24 +136,68 @@ public class FileSizeUtil {
      */
     private static double FormetFileSize(long fileS,int sizeType)
     {
-        DecimalFormat df = new DecimalFormat("#.00");
         double fileSizeLong = 0;
         switch (sizeType) {
             case SIZETYPE_B:
-                fileSizeLong=Double.valueOf(df.format((double) fileS));
+                fileSizeLong=FormatFileSize(fileS,1);
                 break;
             case SIZETYPE_KB:
-                fileSizeLong=Double.valueOf(df.format((double) fileS / 1024));
+                fileSizeLong=FormatFileSize(fileS, 1024);
                 break;
             case SIZETYPE_MB:
-                fileSizeLong=Double.valueOf(df.format((double) fileS / 1048576));
+                fileSizeLong=FormatFileSize(fileS, 1048576);
                 break;
             case SIZETYPE_GB:
-                fileSizeLong=Double.valueOf(df.format((double) fileS / 1073741824));
+                fileSizeLong=FormatFileSize(fileS, 1073741824);
                 break;
             default:
                 break;
         }
         return fileSizeLong;
     }
+
+    /**
+     * timeDiffSize         : 时间差  代表了一段时间内
+     * fileDiffSize         : 文件差  代表了一段时间内的文件大小变动的情况
+     * remainingFileSize    : 剩余文件差 代表了还剩余到少文件
+     *  result              : 一段时间内的下载速度和按照这个速度下载完剩余文件需要的时间是多少
+     * */
+    public static String[] formatProgressSpeed(long fileDiffSize, long timeDiffSize, long remainingFileSize) {
+        LogUtil.e("文件和时间大小", fileDiffSize, timeDiffSize);
+        String endBS = "B/s";
+        String endKBS = "KB/s";
+        String endMBS = "MB/s";
+        String endGBS = "GB/s";
+        String tempEnd = "";
+        // 将时间格式化为 S
+        double time = BigDecimalUtils.div(timeDiffSize, 1000, 2);
+        double fileSize = fileDiffSize;
+        double remianFileSize = remainingFileSize;
+        if (fileDiffSize < 1024) {
+            tempEnd = endBS;
+        }
+        if (fileDiffSize > 1024) {
+            tempEnd = endKBS;
+            fileSize = BigDecimalUtils.div(fileDiffSize, 1024, 2);
+            remianFileSize = BigDecimalUtils.div(remainingFileSize, 1024, 2);
+        }
+        if (fileDiffSize > 1048576) {
+            tempEnd = endMBS;
+            fileSize = BigDecimalUtils.div(fileDiffSize, 1048576, 2);
+            remianFileSize = BigDecimalUtils.div(remainingFileSize, 1048576, 2);
+        }
+        if (fileDiffSize > 1073741824) {
+            tempEnd = endGBS;
+            fileSize = BigDecimalUtils.div(fileDiffSize, 1073741824, 2);
+            remianFileSize = BigDecimalUtils.div(remainingFileSize, 1073741824, 2);
+        }
+        // 计算得出当前速度是多少
+        double speed = BigDecimalUtils.div(fileSize, time, 2);
+        // 计算得出剩余文件还有多少秒可以下载完成
+        double reamingTime = BigDecimalUtils.div(remianFileSize,speed,2);
+        String shengyuTime = TimeUtls._formatTime((long) reamingTime);
+        // 将得到的秒转化为日时分秒
+        return new String[]{speed + tempEnd," 剩余"+shengyuTime};
+    }
+
 }

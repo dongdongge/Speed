@@ -33,9 +33,11 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
         TextView name = holder.getView(R.id.tv_item_movie_name);
         TextView tv_item_movie_size = holder.getView(R.id.tv_item_movie_size);
         TextView tv_item_movie_time = holder.getView(R.id.tv_item_movie_time);
+        TextView tv_item_movie_speed = holder.getView(R.id.tv_item_movie_speed);
         name.setText(info.getFileName());
         tv_item_movie_time.setText(info.getShowProgress()==null?"- - -":info.getShowProgress());
         tv_item_movie_size.setText(info.getShowSize()==null?"未知":info.getShowSize());
+        tv_item_movie_speed.setText(info.getDownloadSpeed()==null?"- - -":info.getDownloadSpeed());
         if (info.getProgress()>0&&info.getTotal()>0){
             ProgressBar progressBar =  holder.getView(R.id.pb_item_movie_pb);
             LogUtil.e("adapter",info.getProgress(),info.getTotal());

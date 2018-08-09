@@ -196,13 +196,13 @@ public class DownloadActivity extends BaseActivity {
             @Override
             public void progress(DownloadFileInfo info) {
                 LogUtil.e("进度" + info.getShowProgress() +"当前文件大小"+info.getShowProgressSize()+"文件总大小"+info.getShowSize());
-//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-                EventBus.getDefault().post(info);
+                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+//                EventBus.getDefault().post(info);
             }
 
             @Override
             public void finish(DownloadFileInfo info) {
-//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
                 LogUtil.e("下载完成" + info.toString());
             }
 
