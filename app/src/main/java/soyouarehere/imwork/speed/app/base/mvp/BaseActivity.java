@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -112,9 +113,9 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
         }
         //权限请求
         if (getPermission() != null) {
-            requestPermission();
+//            requestPermission();
         }
-        netWork();
+//        netWork();
     }
 
     /**
@@ -416,6 +417,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
      * @return
      */
     protected String[] getPermission() {
+        LogUtil.e("Base","父类的 权限列表");
         return null;
     }
 
@@ -423,8 +425,10 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
      * 权限请求
      */
     @TargetApi(Build.VERSION_CODES.M)
-    private void requestPermission() {
+    public void requestPermission() {
+        LogUtil.e("请求权限列表");
         if (AppUtils.getAndroidVersion(Build.VERSION_CODES.M)) {
+            LogUtil.e("判断得知当前大于23 进行权限列表请求");
             String[] permissions = getPermission();
             if (mPermissionList == null) {
                 mPermissionList = new ArrayList<>();
@@ -437,6 +441,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
                     }
                 }
                 if (mPermissionList != null && mPermissionList.size() != 0) {
+                    LogUtil.e("最后进行权限列表请求");
                     requestPermissions(mPermissionList.toArray(new String[mPermissionList.size()]), PERMISSION);
                 }
             }
@@ -452,17 +457,28 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        LogUtil.e("请求权限结果回调");
         boolean isNoPremission = true;
         if (requestCode == PERMISSION) {
+            List<String> deniedList = new ArrayList<>();
+
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     isNoPremission = false;
+                    deniedList.add(permissions[i]);
                     break;
+                } else {
+                    isNoPremission = true;
                 }
+
             }
+            String[] strings = new String[permissions.length];
+            onPermissionsResult(deniedList.toArray(strings), isNoPremission);
+
             if (!isNoPremission) {
 //                showDialog("未取得相关权限，导致应用无法正常使用。请前往应用权限设置打开权限。",
 //                        () -> AppUtils.startDetailsSetting((Activity) mContext));
+                LogUtil.e("未取得相关权限，导致应用无法正常使用。请前往应用权限设置打开权限");
             }
         }
     }
@@ -496,6 +512,12 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
             }
         }
         return result;
+    }
+    /**
+     * 最终暴露出的请求权限方法，视需要重写
+     */
+    protected void onPermissionsResult(String[] parms, boolean hasPermission) {
+
     }
 
     public void showToast(String s) {

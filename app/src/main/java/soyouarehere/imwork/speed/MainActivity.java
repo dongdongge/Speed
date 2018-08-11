@@ -1,7 +1,9 @@
 package soyouarehere.imwork.speed;
 
+import android.Manifest;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -57,7 +59,13 @@ public class MainActivity extends BaseActivity {
         initView();
         LogUtil.e("CPU核数：",Runtime.getRuntime().availableProcessors());
         getSDCardInfo();
+        checkPermission();
+
     }
+
+
+
+
 
 
     private void initView() {
@@ -144,5 +152,36 @@ public class MainActivity extends BaseActivity {
         }
 
     }
+    /**
+     * 检查权限
+     */
+    private void checkPermission() {
+        if (hasPermission(Manifest.permission.CHANGE_NETWORK_STATE,
+                Manifest.permission.WRITE_SETTINGS)) {
+//            getAppVersion();
+        }
+    }
+
+    @Override
+    protected String[] getPermission() {
+        LogUtil.e("main","子类的 权限列表");
+        return new String[]{
+                Manifest.permission.CHANGE_NETWORK_STATE,
+                Manifest.permission.WRITE_SETTINGS
+        };
+    }
+
+
+    @Override
+    protected void onPermissionsResult(String[] parms, boolean hasPermission) {
+        super.onPermissionsResult(parms, hasPermission);
+        LogUtil.e("==========" + hasPermission);
+        if (hasPermission) {
+//            getAppVersion();
+        } else {
+            requestPermission();
+        }
+    }
+
 
 }
