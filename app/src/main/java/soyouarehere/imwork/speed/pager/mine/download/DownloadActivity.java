@@ -2,41 +2,36 @@ package soyouarehere.imwork.speed.pager.mine.download;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.widget.Toast;
-import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
+import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBus3;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
 import soyouarehere.imwork.speed.pager.mine.download.all.AllFragment;
 import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
-import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
-import soyouarehere.imwork.speed.pager.mine.download.task.MyThreadPoolExecutor;
-import soyouarehere.imwork.speed.pager.mine.download.task.TaskCallBack;
-import soyouarehere.imwork.speed.pager.mine.download.task.TaskRunnable;
+import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -65,14 +60,14 @@ public class DownloadActivity extends BaseActivity {
         return R.layout.activity_download;
     }
 
-    MyHandler myHandler;
+//    MyHandler myHandler;
 
     @Override
     public void create(Bundle savedInstanceState) {
         initFragment();
         initTabView();
         initViewPager();
-        myHandler = new MyHandler(this);
+//        myHandler = new MyHandler(this);
     }
 
     private void initViewPager() {
@@ -179,8 +174,8 @@ public class DownloadActivity extends BaseActivity {
         if (requestCode == 226) {
             if (resultCode == 261) {
                 String url = data.getStringExtra("url");
-                DownloadFileInfo downloadFileInfo = new Gson().fromJson(data.getStringExtra("DownloadFileInfo"),DownloadFileInfo.class);
-                LogUtil.e("传过来的下载信息",downloadFileInfo.toString());
+                DownloadFileInfo downloadFileInfo = new Gson().fromJson(data.getStringExtra("DownloadFileInfo"), DownloadFileInfo.class);
+                LogUtil.e("传过来的下载信息", downloadFileInfo.toString());
                 // testDownloadFile(url,myHandler);//http://192.168.22.30:8080/static/file/download/lxd.jpg
                 //  //http://192.168.22.30:8080/static/file/video/我不是药神纪录片.mp4
                 executorRunnable(downloadFileInfo);
@@ -188,16 +183,40 @@ public class DownloadActivity extends BaseActivity {
         }
     }
 
-    public void executorRunnable( DownloadFileInfo fileInfo) {
+    public void executorRunnable(DownloadFileInfo fileInfo) {
         /**
          * 创建任务
          * */
-        TaskRunnable taskRunnable = new TaskRunnable(fileInfo, new TaskCallBack() {
+//        TaskRunnable taskRunnable = new TaskRunnable(fileInfo, new TaskCallBack() {
+//            @Override
+//            public void progress(DownloadFileInfo info) {
+//                LogUtil.e("进度" + info.getShowProgress() +"当前文件大小"+info.getShowProgressSize()+"文件总大小"+info.getShowSize());
+//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+////                EventBus.getDefault().post(info);
+//            }
+//
+//            @Override
+//            public void finish(DownloadFileInfo info) {
+//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+//                LogUtil.e("下载完成" + info.toString());
+//            }
+//
+//            @Override
+//            public void fail(String msg) {
+//                LogUtil.e("下载失败" + msg);
+//                new CustomAlertDialog(DownloadActivity.this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
+//                    @Override
+//                    public void clickSure() {
+//
+//                    }
+//                }).show();
+//            }
+//        });
+        CallableTask taskRunnable = new CallableTask(fileInfo, new TaskCallBack() {
             @Override
             public void progress(DownloadFileInfo info) {
-                LogUtil.e("进度" + info.getShowProgress() +"当前文件大小"+info.getShowProgressSize()+"文件总大小"+info.getShowSize());
+                LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
                 RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-//                EventBus.getDefault().post(info);
             }
 
             @Override
@@ -217,17 +236,14 @@ public class DownloadActivity extends BaseActivity {
                 }).show();
             }
         });
-        /**
-         * 执行任务
-         * */
-        MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.execute(taskRunnable);
+        TaskManager.getInstance().executeCallableTask(taskRunnable);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (myHandler!=null){
-            myHandler.removeCallbacksAndMessages(null);
-        }
+//        if (myHandler != null) {
+//            myHandler.removeCallbacksAndMessages(null);
+//        }
     }
 }

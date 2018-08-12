@@ -1,12 +1,11 @@
-package soyouarehere.imwork.speed.pager.mine.download.task;
+package soyouarehere.imwork.speed.pager.mine.download.task.bean;
 
 import com.google.gson.Gson;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
-
 /**
  * Created by li.xiaodong on 2018/8/2.
+ *
+ * 文件下载的信息类 ，在创建任务之初最先构建一个信息类 用来记录此时的下载信息，
  */
 
 public class DownloadFileInfo{
@@ -20,6 +19,9 @@ public class DownloadFileInfo{
      * 当前下载文件的大小
      * */
     private long progress;
+    /**
+     * 文件名称
+     * */
     private String fileName;
     /**
      * 文件总大小
@@ -41,10 +43,79 @@ public class DownloadFileInfo{
     /**
      * 文件状态  downloading(正在下载中) stop(下载停止) 下载完成(complete)
      * */
+
     private String fileStatue;
 
+    /**
+     * 下载速度
+     * */
     private String downloadSpeed;
 
+    /**
+     * 是否支持断点续传  通过构建downloadFile 获取headers 判断得出
+     * */
+    private boolean isSupportInterrupt;
+
+    /**
+     * 当前使用多少个线程去下载该文件
+     * */
+    private int threadNumber;
+
+    /**
+     * 下载该文件所耗用的时长是多少  long类型 转为时间；
+     * */
+    private long downloadFileTime;
+
+    /**
+     * 创建任务。文件 的第一时间； long 类型的时间戳 自行转化为可视化时间；
+     * */
+    private long createTaskTime;
+    /**
+     * 文件类型
+     * */
+    private String fileType;
+
+    public boolean isSupportInterrupt() {
+        return isSupportInterrupt;
+    }
+
+    public void setSupportInterrupt(boolean supportInterrupt) {
+        isSupportInterrupt = supportInterrupt;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+
+    public int getThreadNumber() {
+        return threadNumber;
+    }
+
+    public void setThreadNumber(int threadNumber) {
+        this.threadNumber = threadNumber;
+    }
+
+    public long getDownloadFileTime() {
+        return downloadFileTime;
+    }
+
+    public void setDownloadFileTime(long downloadFileTime) {
+        this.downloadFileTime = downloadFileTime;
+    }
+
+    public long getCreateTaskTime() {
+        return createTaskTime;
+    }
+
+    public void setCreateTaskTime(long createTaskTime) {
+        this.createTaskTime = createTaskTime;
+    }
 
     public String getDownloadSpeed() {
         return downloadSpeed;

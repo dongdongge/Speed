@@ -5,17 +5,17 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.RecyclerBaseAdapter;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.ViewHolder;
-import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -24,8 +24,10 @@ import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
 
-    public DownloadAdapter(@NonNull Context context, @NonNull List<DownloadFileInfo> mDataList) {
+    private OnClickAdapterItem onClickAdapterItem;
+    public DownloadAdapter(@NonNull Context context, @NonNull List<DownloadFileInfo> mDataList,OnClickAdapterItem onClickAdapterItem) {
         super(context, mDataList);
+        this.onClickAdapterItem = onClickAdapterItem;
     }
 
     @Override
@@ -34,6 +36,15 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
         TextView tv_item_movie_size = holder.getView(R.id.tv_item_movie_size);
         TextView tv_item_movie_time = holder.getView(R.id.tv_item_movie_time);
         TextView tv_item_movie_speed = holder.getView(R.id.tv_item_movie_speed);
+        RadioButton radioButton = holder.getView(R.id.rb_item_movie_control);
+        radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    onClickAdapterItem.callBack(isChecked,position,info);
+                }
+            }
+        });
         name.setText(info.getFileName());
         tv_item_movie_time.setText(info.getShowProgress()==null?"- - -":info.getShowProgress());
         tv_item_movie_size.setText(info.getShowSize()==null?"未知":info.getShowSize());
@@ -68,5 +79,9 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
         }
     }
 
+    public interface OnClickAdapterItem{
+
+        void callBack(boolean isChecked,int position,DownloadFileInfo info);
+    }
 
 }

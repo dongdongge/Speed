@@ -8,29 +8,11 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Time;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.functions.Predicate;
-import io.reactivex.internal.operators.observable.ObservableJust;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
-import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.MyThreadPoolExecutor;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 

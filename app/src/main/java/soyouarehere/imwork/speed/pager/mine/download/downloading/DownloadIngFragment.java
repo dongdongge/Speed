@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +18,8 @@ import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDeco
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
 import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
-import soyouarehere.imwork.speed.pager.mine.download.task.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.util.DensityUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
@@ -94,7 +92,15 @@ public class DownloadIngFragment extends BaseFragment {
         downloadingRcy.setLayoutManager(new LinearLayoutManager(getContext()));
         downloadingRcy.addItemDecoration(getDivider());
         infoList = initData();
-        adapter = new DownloadAdapter(getContext(), infoList);
+        adapter = new DownloadAdapter(getContext(), infoList, new DownloadAdapter.OnClickAdapterItem() {
+            @Override
+            public void callBack(boolean isChecked,int position, DownloadFileInfo info) {
+                LogUtil.e("当前索引",position,isChecked);
+                if (isChecked){
+                    TaskManager.getInstance().cancelCallableTask(info.getFileName());
+                }
+            }
+        });
         downloadingRcy.setAdapter(adapter);
         ((DefaultItemAnimator) downloadingRcy.getItemAnimator()).setSupportsChangeAnimations(false);
         accuptMsg();

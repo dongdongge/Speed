@@ -2,14 +2,17 @@ package soyouarehere.imwork.speed.pager.mine.download.task;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
+import soyouarehere.imwork.speed.pager.mine.download.task.single.TaskFutureTask;
 import soyouarehere.imwork.speed.util.FileSizeUtil;
-import soyouarehere.imwork.speed.util.FileUtil;
 import soyouarehere.imwork.speed.util.UrlUtils;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
@@ -20,7 +23,10 @@ import soyouarehere.imwork.speed.util.log.LogUtil;
 public class TaskManager {
 
     private OkHttpClient mClient;//OKHttpClient;
-
+    /**
+     * 存放任务的集合；进行取消再次进行任务的
+     * */
+    private static Map<String,TaskFutureTask> callableTaskMap = new HashMap<>();
     public TaskManager() {
         mClient = new OkHttpClient.Builder().build();
     }
@@ -31,6 +37,39 @@ public class TaskManager {
 
     private static class TaskManagerHelp {
         private static final TaskManager INSTANCE = new TaskManager();
+    }
+
+    /**
+     * 执行下载任务 Callable  进行判断
+     * */
+    public void executeCallableTask(CallableTask callableTask){
+        if (!callableTaskMap.containsKey(callableTask.getName())){
+            TaskFutureTask futureTask = new TaskFutureTask(callableTask);
+            callableTaskMap.put(callableTask.getName(),futureTask);
+            // 将任务放进线程池中去执行任务;
+            MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(futureTask);
+        }else {
+
+        }
+    }
+
+    /**
+     * 停止任务 将线程打断，停止执行任务；
+     *
+     * */
+    public void cancelCallableTask(String name){
+        if (callableTaskMap.containsKey(name)){
+            callableTaskMap.get(name).cancel(true);
+        }
+    }
+    /**
+     * 继续下载
+     * */
+    public void executedContinueDownload(DownloadFileInfo info){
+//        info.getUrl()
+
+
+
     }
 
     /**

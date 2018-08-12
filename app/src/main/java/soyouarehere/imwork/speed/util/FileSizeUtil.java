@@ -197,6 +197,7 @@ public class FileSizeUtil {
         double reamingTime = BigDecimalUtils.div(remianFileSize,speed,2);
         String shengyuTime = TimeUtls._formatTime((long) reamingTime);
         // 将得到的秒转化为日时分秒
+        LogUtil.e("strings",speed + tempEnd," 剩余"+shengyuTime);
         return new String[]{speed + tempEnd," 剩余"+shengyuTime};
     }
 
