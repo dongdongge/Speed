@@ -24,7 +24,7 @@ public class PreferenceUtil {
      * @param mode    mode
      * @return
      */
-    public static SharedPreferences getPreference(Context context, String name, int mode) {
+    public synchronized static SharedPreferences getPreference(Context context, String name, int mode) {
         return context == null ? null : context.getSharedPreferences(name, mode);
     }
 
@@ -35,7 +35,7 @@ public class PreferenceUtil {
      * @param mode    mode
      * @return
      */
-    public static SharedPreferences getDefaultPreference(Context context, int mode) {
+    public synchronized static SharedPreferences getDefaultPreference(Context context, int mode) {
         return getPreference(context, BaseConstants.APP_SHARE, mode);
     }
 
@@ -45,7 +45,7 @@ public class PreferenceUtil {
      * @param context
      * @return
      */
-    public static SharedPreferences getDefaultPreference(Context context) {
+    public synchronized static SharedPreferences getDefaultPreference(Context context) {
         return getDefaultPreference(context, Context.MODE_PRIVATE);
     }
 
@@ -56,55 +56,55 @@ public class PreferenceUtil {
      * @param name    name
      * @return
      */
-    public static SharedPreferences getPreference(Context context, String name) {
+    public synchronized static SharedPreferences getPreference(Context context, String name) {
         return getPreference(context, name, Context.MODE_PRIVATE);
     }
 
 
     /*-----------------------------------------  根据传入的SharedPreferences 进行操作 ----------------------------------------*/
-    public static void putString(SharedPreferences sp, String key, String value) {
+    public synchronized static void putString(SharedPreferences sp, String key, String value) {
         if (sp == null) {
             return;
         }
         sp.edit().putString(key, value).apply();
     }
 
-    public static void putBoolean(SharedPreferences sp, String key, boolean value) {
+    public synchronized static void putBoolean(SharedPreferences sp, String key, boolean value) {
         if (sp == null) {
             return;
         }
         sp.edit().putBoolean(key, value).apply();
     }
 
-    public static void putFloat(SharedPreferences sp, String key, float value) {
+    public synchronized static void putFloat(SharedPreferences sp, String key, float value) {
         if (sp == null) {
             return;
         }
         sp.edit().putFloat(key, value).apply();
     }
 
-    public static void putInt(SharedPreferences sp, String key, int value) {
+    public synchronized static void putInt(SharedPreferences sp, String key, int value) {
         if (sp == null) {
             return;
         }
         sp.edit().putInt(key, value).apply();
     }
 
-    public static void putLong(SharedPreferences sp, String key, long value) {
+    public synchronized static void putLong(SharedPreferences sp, String key, long value) {
         if (sp == null) {
             return;
         }
         sp.edit().putLong(key, value).apply();
     }
 
-    public static void putStringSet(SharedPreferences sp, String key, Set<String> value) {
+    public synchronized static void putStringSet(SharedPreferences sp, String key, Set<String> value) {
         if (sp == null) {
             return;
         }
         sp.edit().putStringSet(key, value).apply();
     }
 
-    public static String getString(SharedPreferences sp, String key, String defValue) {
+    public synchronized static String getString(SharedPreferences sp, String key, String defValue) {
         return sp == null ? null : sp.getString(key, defValue);
     }
 

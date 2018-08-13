@@ -13,9 +13,9 @@ public class ServiceResourcePresenter extends ServiceResourceContract.Presenter 
 
     @Override
     void getServiceResourceList() {
-        mModel.getServiceResourceList().subscribe(new BaseObserver<List<ResourceRe>>() {
+        mModel.getServiceResourceList().subscribe(new BaseObserver<List<ResourceFile>>() {
             @Override
-            public void onSuccess(List<ResourceRe> reList) {
+            public void onSuccess(List<ResourceFile> reList) {
                 mView.success(reList);
             }
 

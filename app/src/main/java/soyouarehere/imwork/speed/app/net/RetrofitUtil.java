@@ -3,6 +3,7 @@ package soyouarehere.imwork.speed.app.net;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import soyouarehere.imwork.speed.app.config.Config;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
@@ -18,11 +19,16 @@ public class RetrofitUtil {
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(Config.BASE_URL)
             .client(OkHttpUtils.getInstance())
+            /*支持String转换*/
+            .addConverterFactory(StringConverterFactory.create())
+            // GsonConverterFactory.create()
             .addConverterFactory(RsaGsonConverterFactory.create())
+//            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
     public RetrofitUtil() {
+
     }
 
     public <T> T getApi(Class<T> clazz) {

@@ -1,5 +1,7 @@
 package soyouarehere.imwork.speed.app.net;
 
+import com.google.gson.Gson;
+
 /**
  * 基本数据模型
  * Created by Administrator on 2017/9/4 0004.
@@ -14,60 +16,36 @@ public class BaseEntity<T> {
      * data : {}
      */
 
-    private int status;
-    private ResultBean result;
-    private T data;
+    private int code;
+    private String msg;
+    private T body;
 
-    public int getStatus() {
-        return status;
+    @Override
+    public String toString() {
+        return new Gson().toString();
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public int getCode() {
+        return code;
     }
 
-    public ResultBean getResult() {
-        return result;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public void setResult(ResultBean result) {
-        this.result = result;
+    public String getMsg() {
+        return msg;
     }
 
-    public T getData() {
-        return data;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public T getBody() {
+        return body;
     }
 
-    public static class ResultBean {
-        /**
-         * code : 1000
-         * msg : 成功
-         */
-
-        private String code;
-        private String msg;
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-    }
-
-    public static class DataBean {
+    public void setBody(T body) {
+        this.body = body;
     }
 }

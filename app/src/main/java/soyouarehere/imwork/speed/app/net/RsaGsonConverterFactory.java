@@ -53,4 +53,5 @@ public class RsaGsonConverterFactory extends Converter.Factory {
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
         return new RsaGsonRequestBodyConverter<>(gson, adapter);
     }
+
 }

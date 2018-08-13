@@ -41,10 +41,10 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onNext(BaseEntity<T> tBaseEntity) {
-            if (tBaseEntity.getStatus()==0){
-                onSuccess(tBaseEntity.getData());
+            if (tBaseEntity.getCode()==0){
+                onSuccess(tBaseEntity.getBody());
             }else {
-                onError(tBaseEntity.getResult().getMsg());
+                onError(tBaseEntity.getMsg());
             }
     }
 

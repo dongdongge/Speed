@@ -28,6 +28,7 @@ import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
+import soyouarehere.imwork.speed.pager.mine.download.resouce.ServiceResourceActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
 import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
@@ -138,6 +139,9 @@ public class DownloadActivity extends BaseActivity {
                 if (position == 1) {
                     Map<String, String> map = new HashMap<>();
                     launchStartActivityForResult(DownloadActivity.this, NewTaskConnectActivity.class, false, map, 226);
+                } else if (position == 0) {
+                    Map<String, String> map = new HashMap<>();
+                    launchStartActivityForResult(DownloadActivity.this, ServiceResourceActivity.class, false, map, 220);
                 }
             }
         }).show();

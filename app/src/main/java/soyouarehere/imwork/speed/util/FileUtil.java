@@ -24,7 +24,7 @@ public class FileUtil {
     /**
      * 获取该文件夹下的所有文件名称和路径
      */
-    public static Map<String, String> findAllFiles(String parentPath){
+    public static Map<String, String> findAllFiles(String parentPath) {
         Map<String, String> map = new HashMap<>();
         File file = new File(parentPath);
         if (!file.exists()) {
@@ -59,6 +59,7 @@ public class FileUtil {
         }
         return hashMap;
     }
+
     /**
      * SD卡是否能用
      *
@@ -77,7 +78,7 @@ public class FileUtil {
      * 创建一个文件夹, 存在则返回, 不存在则新建
      *
      * @param parentDirectory 父目录路径
-     * @param directory  目录名
+     * @param directory       目录名
      * @return 文件，null代表失败
      */
     public static File generateDirectory(String parentDirectory, String directory) {
@@ -98,7 +99,7 @@ public class FileUtil {
      * 创建一个文件夹, 存在则返回, 不存在则新建
      *
      * @param parentDirectory 父目录
-     * @param directory  目录名
+     * @param directory       目录名
      * @return 文件，null代表失败
      */
     public static File generateDirectory(File parentDirectory, String directory) {
@@ -198,6 +199,7 @@ public class FileUtil {
 
     /**
      * 计算文件/文件夹的大小
+     *
      * @param file 文件或文件夹
      * @return 文件大小
      */
@@ -230,6 +232,7 @@ public class FileUtil {
     /**
      * 删除文件/文件夹
      * 如果是文件夹，则会删除其下的文件以及它本身
+     *
      * @param file file
      * @return true代表成功删除
      */
@@ -287,7 +290,7 @@ public class FileUtil {
     /**
      * @param type 所放的文件的类型，传入的参数是Environment类中的DIRECTORY_XXX静态变量
      * @return 返回"/storage/emulated/0/xxx"目录
-     *         例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Alarms"
+     * 例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Alarms"
      */
     public static String getExternalStoragePublicDirectory(String type) {
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
@@ -313,10 +316,18 @@ public class FileUtil {
         return BaseApplication.getInstance().getExternalCacheDir().getAbsolutePath();
     }
 
+    //返回"/storage/emulated/0"目录  获取外部储存根目录
+    public static String getExternalRootDir() {
+        if (Environment.isExternalStorageEmulated()) {
+            return null;
+        }
+        return Environment.getExternalStorageDirectory().getPath();
+    }
+
     /**
      * @param type 所放的文件的类型，传入的参数是Environment类中的DIRECTORY_XXX静态变量
-     * @return  返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"目录
-     *          例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"
+     * @return 返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"目录
+     * 例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"
      */
     public static String getExternalFilesDir(String type) {
         File file = BaseApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_ALARMS);

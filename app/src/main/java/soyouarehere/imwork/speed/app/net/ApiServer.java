@@ -4,9 +4,11 @@ package soyouarehere.imwork.speed.app.net;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import soyouarehere.imwork.speed.pager.mine.download.manager.MovieResponse;
+import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceFile;
 import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceRe;
 
 /**
@@ -23,6 +25,6 @@ public interface ApiServer {
     /**
      * 获取服务器资源  以列表形式展示
      * */
-    @POST("http://192.168.22.30:8080/static/file/download/resource")
-    Observable<BaseEntity<List<ResourceRe>>>  getServiceResourceList();
+    @GET("/static/file/download/resource")
+    Observable<BaseEntity<List<ResourceFile>>>  getServiceResourceList();
 }

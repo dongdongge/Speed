@@ -33,14 +33,21 @@ public class NewTaskConnectActivity extends BaseActivity {
         return R.layout.activity_new_task_connect;
     }
 
+    /*  http://192.168.22.30:8080/static/file/download/我不是药神纪录片.mp4
+        http://192.168.3.2:8080/static/file/broken/download/万界仙踪-37.mp4
+        http://192.168.22.30:8080/static/file/broken/download/G海策-08.mp4
+    */
+    String httpAdress1 = "http://192.168.3.2:8080";
+    String httpAdress2 = "http://192.168.3.2:8080";
     @Override
     public void create(Bundle savedInstanceState) {
         bt_start_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String str = et_input_content.getText().toString().trim();
-//                checkUrlValid("http://192.168.3.2:8080/static/file/download/我不是药神纪录片.mp4");
-//                checkUrlValid("http://192.168.3.2:8080/static/file/download/斯巴达300勇士.mp4");
+                if (!str.contains("http://")){
+                    str = httpAdress1+str;
+                }
                 checkUrlValid(str);
             }
         });
