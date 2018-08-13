@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -36,13 +37,11 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
         TextView tv_item_movie_size = holder.getView(R.id.tv_item_movie_size);
         TextView tv_item_movie_time = holder.getView(R.id.tv_item_movie_time);
         TextView tv_item_movie_speed = holder.getView(R.id.tv_item_movie_speed);
-        RadioButton radioButton = holder.getView(R.id.rb_item_movie_control);
+        CheckBox radioButton = holder.getView(R.id.rb_item_movie_control);
         radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    onClickAdapterItem.callBack(isChecked,position,info);
-                }
+                onClickAdapterItem.callBack(isChecked,position,info);
             }
         });
         name.setText(info.getFileName());

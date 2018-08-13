@@ -28,6 +28,7 @@ import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
+import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
 import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
@@ -212,7 +213,32 @@ public class DownloadActivity extends BaseActivity {
 //                }).show();
 //            }
 //        });
-        CallableTask taskRunnable = new CallableTask(fileInfo, new TaskCallBack() {
+//        CallableTask taskRunnable = new CallableTask(fileInfo, new TaskCallBack() {
+//            @Override
+//            public void progress(DownloadFileInfo info) {
+//                LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
+//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+//            }
+//
+//            @Override
+//            public void finish(DownloadFileInfo info) {
+//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+//                LogUtil.e("下载完成" + info.toString());
+//            }
+//
+//            @Override
+//            public void fail(String msg) {
+//                LogUtil.e("下载失败" + msg);
+//                new CustomAlertDialog(DownloadActivity.this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
+//                    @Override
+//                    public void clickSure() {
+//
+//                    }
+//                }).show();
+//            }
+//        });
+
+        BrokenRunnable runnable = new BrokenRunnable(fileInfo, new TaskCallBack() {
             @Override
             public void progress(DownloadFileInfo info) {
                 LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
@@ -236,7 +262,7 @@ public class DownloadActivity extends BaseActivity {
                 }).show();
             }
         });
-        TaskManager.getInstance().executeCallableTask(taskRunnable);
+        TaskManager.getInstance().executeCallableTask(runnable);
     }
 
     @Override

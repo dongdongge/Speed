@@ -100,7 +100,7 @@
             android:layout_gravity="center_vertical"
             android:src="@mipmap/download_ic_dl_mp4" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/rb_item_movie_control"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

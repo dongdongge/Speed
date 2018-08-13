@@ -17,8 +17,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 /**
- * @desc    修改状态框,
  * @author li.xiaodong
+ * @desc 修改状态框,
  * @time 2018/8/10 10:27
  */
 
@@ -274,8 +274,6 @@ public class UltimateBar {
     }*/
 
 
-
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void setColorBar(@ColorInt int statusColor, int statusDepth,
                             @ColorInt int navColor, int navDepth) {
@@ -343,7 +341,6 @@ public class UltimateBar {
     }
 
 
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public void setHideBar(boolean applyNav) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -359,11 +356,6 @@ public class UltimateBar {
             decorView.setSystemUiVisibility(option);
         }
     }
-
-
-
-
-
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -472,10 +464,6 @@ public class UltimateBar {
     }
 
 
-
-
-
-
     private View createStatusBarView(Context context, @ColorInt int color) {
         View mStatusBarTintView = new View(context);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams
@@ -495,7 +483,6 @@ public class UltimateBar {
         mNavBarTintView.setBackgroundColor(color);
         return mNavBarTintView;
     }
-
 
 
     private boolean navigationBarExist(Activity activity) {
@@ -520,7 +507,6 @@ public class UltimateBar {
     }
 
 
-
     @ColorInt
     private int calculateColor(@ColorInt int color, int alpha) {
         float a = 1 - alpha / 255f;
@@ -534,18 +520,16 @@ public class UltimateBar {
     }
 
 
-
     private void setRootView(Activity activity, boolean fit) {
         ViewGroup parent = activity.findViewById(android.R.id.content);
         for (int i = 0; i < parent.getChildCount(); i++) {
             View childView = parent.getChildAt(i);
             if (childView instanceof ViewGroup) {
                 childView.setFitsSystemWindows(fit);
-                ((ViewGroup)childView).setClipToPadding(fit);
+                ((ViewGroup) childView).setClipToPadding(fit);
             }
         }
     }
-
 
 
     private int getStatusBarHeight(Context context) {

@@ -10,6 +10,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
+import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
 import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
 import soyouarehere.imwork.speed.pager.mine.download.task.single.TaskFutureTask;
 import soyouarehere.imwork.speed.util.FileSizeUtil;
@@ -26,7 +27,7 @@ public class TaskManager {
     /**
      * 存放任务的集合；进行取消再次进行任务的
      * */
-    private static Map<String,TaskFutureTask> callableTaskMap = new HashMap<>();
+    private static Map<String,BrokenRunnable> brokenRunnableHashMap = new HashMap<>();
     public TaskManager() {
         mClient = new OkHttpClient.Builder().build();
     }
@@ -42,12 +43,11 @@ public class TaskManager {
     /**
      * 执行下载任务 Callable  进行判断
      * */
-    public void executeCallableTask(CallableTask callableTask){
-        if (!callableTaskMap.containsKey(callableTask.getName())){
-            TaskFutureTask futureTask = new TaskFutureTask(callableTask);
-            callableTaskMap.put(callableTask.getName(),futureTask);
+    public void executeCallableTask(BrokenRunnable brokenRunnable){
+        if (!brokenRunnableHashMap.containsKey(brokenRunnable.getName())){
+            brokenRunnableHashMap.put(brokenRunnable.getName(),brokenRunnable);
             // 将任务放进线程池中去执行任务;
-            MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(futureTask);
+            MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(brokenRunnable);
         }else {
 
         }
@@ -57,19 +57,18 @@ public class TaskManager {
      * 停止任务 将线程打断，停止执行任务；
      *
      * */
-    public void cancelCallableTask(String name){
-        if (callableTaskMap.containsKey(name)){
-            callableTaskMap.get(name).cancel(true);
+    public void pauseBrokenRunnable(String name){
+        if (brokenRunnableHashMap.containsKey(name)){
+            brokenRunnableHashMap.get(name).onThreadPause();
         }
     }
     /**
      * 继续下载
      * */
-    public void executedContinueDownload(DownloadFileInfo info){
-//        info.getUrl()
-
-
-
+    public void resumeContinueDownload(String name){
+        if (brokenRunnableHashMap.containsKey(name)){
+            brokenRunnableHashMap.get(name).onThreadResume();
+        }
     }
 
     /**
@@ -92,6 +91,7 @@ public class TaskManager {
     }
 
     private void createNewFile(String url, String fileName, CheckUrlCallBack checkUrlCallBack) {
+        LogUtil.e("createNewFile");
         DownloadFileInfo fileInfo = new DownloadFileInfo(url);
         fileInfo.setFileName(fileName);
         //创建文件名 检测文件夹中是否存在该文件，
@@ -132,13 +132,16 @@ public class TaskManager {
      * @return
      */
     private String[] getContentLength(String downloadUrl) {
+        LogUtil.e("获取下载长度   下载地址为"+downloadUrl);
         Request request = new Request.Builder()
                 .url(downloadUrl)
                 .build();
         OkHttpClient client = new OkHttpClient.Builder().build();
         try {
             Response response = client.newCall(request).execute();
-            if (response != null && response.code() == 200) {
+            LogUtil.e("获取下载长度   response"+response.code());
+            if (response != null && response.code() == 206) {
+                LogUtil.e("获取下载长度   response"+response.code());
                 long contentLength = response.body().contentLength();
                 LogUtil.e("获取文件大小", contentLength);
                 response.close();

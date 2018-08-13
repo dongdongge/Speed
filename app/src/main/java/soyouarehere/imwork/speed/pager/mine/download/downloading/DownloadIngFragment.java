@@ -94,19 +94,18 @@ public class DownloadIngFragment extends BaseFragment {
         infoList = initData();
         adapter = new DownloadAdapter(getContext(), infoList, new DownloadAdapter.OnClickAdapterItem() {
             @Override
-            public void callBack(boolean isChecked,int position, DownloadFileInfo info) {
-                LogUtil.e("当前索引",position,isChecked);
+            public void callBack(boolean isChecked, int position, DownloadFileInfo info) {
+                LogUtil.e("当前索引", position, isChecked);
                 if (isChecked){
-                    TaskManager.getInstance().cancelCallableTask(info.getFileName());
+                    TaskManager.getInstance().pauseBrokenRunnable(info.getFileName());
+                }else {
+                    TaskManager.getInstance().resumeContinueDownload(info.getFileName());
                 }
             }
         });
         downloadingRcy.setAdapter(adapter);
         ((DefaultItemAnimator) downloadingRcy.getItemAnimator()).setSupportsChangeAnimations(false);
         accuptMsg();
-//        if (!EventBus.getDefault().isRegistered(this)){
-//            EventBus.getDefault().register(this);
-//        }
     }
 
     public void accuptMsg() {
@@ -119,12 +118,6 @@ public class DownloadIngFragment extends BaseFragment {
         }));
 
     }
-
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void getDownloadInfo(DownloadFileInfo downloadFileInfo){
-//        notifyItem(downloadFileInfo);
-//
-//    }
 
     private void notifyItem(DownloadFileInfo downloadFileInfo) {
         if (hashMap.containsKey(downloadFileInfo.getFileName())) {
