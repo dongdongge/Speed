@@ -14,11 +14,11 @@ import soyouarehere.imwork.speed.app.net.rxjava.RxHelp;
 
 public class ServiceResourceModel implements ServiceResourceContract.Module {
     @Override
-    public Observable<BaseEntity<List<ResourceRe>>> getServiceResourceList() {
+    public Observable<BaseEntity<List<ResourceFile>>> getServiceResourceList() {
         return RetrofitUtil
                 .build()
                 .getApi(ApiServer.class)
                 .getServiceResourceList()
-                .compose(RxHelp.<BaseEntity<List<ResourceRe>>>applySchedulers());
+                .compose(RxHelp.<BaseEntity<List<ResourceFile>>>applySchedulers());
     }
 }

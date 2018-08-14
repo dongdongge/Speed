@@ -14,11 +14,11 @@ import soyouarehere.imwork.speed.app.net.BaseEntity;
 
 public interface ServiceResourceContract {
     interface View<T> extends BaseView{
-        void success(List<ResourceRe> reList);
+        void success(List<ResourceFile> reList);
         void fail(String errMsg);
     }
     interface Module extends BaseModel{
-        Observable<BaseEntity<List<ResourceRe>>>  getServiceResourceList();
+        Observable<BaseEntity<List<ResourceFile>>>  getServiceResourceList();
     }
     abstract class Presenter extends BasePresenter<Module,View>{
         abstract void getServiceResourceList();

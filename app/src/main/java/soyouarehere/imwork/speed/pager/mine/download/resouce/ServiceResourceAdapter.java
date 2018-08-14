@@ -13,14 +13,14 @@ import soyouarehere.imwork.speed.app.adapter.recycle_view.ViewHolder;
  * Created by li.xiaodong on 2018/8/6.
  */
 
-public class ServiceResourceAdapter extends RecyclerBaseAdapter<ResourceRe> {
+public class ServiceResourceAdapter extends RecyclerBaseAdapter<ResourceFile> {
 
-    protected ServiceResourceAdapter(@NonNull Context context, @NonNull List<ResourceRe> mDataList) {
+    protected ServiceResourceAdapter(@NonNull Context context, @NonNull List<ResourceFile> mDataList) {
         super(context, mDataList);
     }
 
     @Override
-    protected void bindDataForView(ViewHolder holder, ResourceRe resourceRe, int position) {
+    protected void bindDataForView(ViewHolder holder, ResourceFile resourceRe, int position) {
 
     }
 

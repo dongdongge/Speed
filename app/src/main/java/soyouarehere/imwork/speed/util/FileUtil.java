@@ -356,6 +356,14 @@ public class FileUtil {
         return BaseApplication.getInstance().getExternalCacheDir().getAbsolutePath();
     }
 
+    //返回"/storage/emulated/0"目录  获取外部储存根目录
+    public static String getExternalRootDir() {
+        if (Environment.isExternalStorageEmulated()) {
+            return null;
+        }
+        return Environment.getExternalStorageDirectory().getPath();
+    }
+
     /**
      * @param type 所放的文件的类型，传入的参数是Environment类中的DIRECTORY_XXX静态变量
      * @return 返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"目录

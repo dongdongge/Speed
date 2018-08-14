@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import java.util.concurrent.Callable;
 import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.find.FindFragment;
@@ -139,6 +141,13 @@ public class MainActivity extends BaseActivity {
      * 获取当前手机储存信息
      * */
     public void getSDCardInfo(){
+        if (Environment.isExternalStorageEmulated()){
+            LogUtil.e("getExternalCacheDir  getParentFile3",
+                    BaseApplication.getInstance().getExternalCacheDir().getParentFile().getParentFile().getParent(),
+                    Environment.getExternalStorageDirectory().getPath());
+        }
+
+
         if (Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT){
             File [] files = getExternalFilesDirs(Environment.MEDIA_MOUNTED);
             Observable.fromArray(files).subscribe(new Consumer<File>() {
