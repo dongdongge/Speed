@@ -2,6 +2,7 @@ package soyouarehere.imwork.speed.app.base.mvp;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,6 +20,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +79,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStartActivityAnim();
         mContext = this;
         mSubscription = new CompositeDisposable();
         mPresenter = GenericUtil.getType(this, 0);
@@ -116,6 +120,10 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
 //            requestPermission();
         }
 //        netWork();
+    }
+
+    private void setStartActivityAnim() {
+        overridePendingTransition(R.anim.activity_right_in, R.anim.activity_left_out);
     }
 
     /**
@@ -173,7 +181,6 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
                 }
             }
             context.startActivity(intent);
-            overridePendingTransition(R.anim.base_slide_in_from_left, R.anim.base_slide_in_from_right);
         }
     }
 
@@ -564,6 +571,16 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        setEndActivityAnim();
+    }
+
+    private void setEndActivityAnim() {
+        overridePendingTransition(R.anim.activity_left_in, R.anim.activity_right_out);
     }
 
     @Override

@@ -60,6 +60,23 @@ public class ServiceResourceActivity extends BaseActivity<ServiceResourcePresent
     }
 
     @Override
+    protected String setToolbarTitle() {
+        return "服务器资源列表";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (resourceFiles!=null){
+            resourceFiles.clear();
+            resourceFiles = null;
+        }
+        if (serviceResourceAdapter!=null){
+            serviceResourceAdapter=null;
+        }
+    }
+
+    @Override
     public void fail(String errMsg) {
         dissLoading();
     }

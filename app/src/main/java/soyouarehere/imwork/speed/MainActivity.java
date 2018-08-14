@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity {
         if (position >= fragmentList.size()) {
             return;
         }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         Fragment targetFg = fragmentList.get(position);
         Fragment lastFg = fragmentList.get(mLastFgIndex);
         mLastFgIndex = position;
