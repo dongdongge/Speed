@@ -74,4 +74,6 @@ dependencies {
 
     //EventBus
     implementation rootProject.ext.dependencies.eventbus
+    //fastJson
+    implementation rootProject.ext.dependencies.fastjson
 }

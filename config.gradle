@@ -53,6 +53,8 @@ ext {
             leakcanaryAndroid    : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
             leakcanaryAndroidNoOp: 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4',
             // -------------- EventBus ---------------
-            eventbus             : 'org.greenrobot:eventbus:3.0.0'
+            eventbus             : 'org.greenrobot:eventbus:3.0.0',
+            //-------------- fastJson------------
+            fastjson             : 'com.alibaba:fastjson:1.1.56.android'
     ]
 }

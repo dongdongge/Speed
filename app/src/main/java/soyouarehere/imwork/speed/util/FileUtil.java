@@ -1,12 +1,16 @@
 package soyouarehere.imwork.speed.util;
 
+import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +24,47 @@ public class FileUtil {
 
     private static final String TAG = FileUtil.class.getSimpleName();
 
+    /**
+     * 文件转换map数组
+     *
+     * @param ctx  上下文
+     * @param file 文件路径
+     * @return map数组
+     */
+    public static Map<String, Object> loadResFile(Context ctx, String file) {
+        try {
+            String res = loadAssertFile(ctx, file);
+            return fastJson2ObjMap(res);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private static Map<String, Object> fastJson2ObjMap(String obj) {
+        return JSON.parseObject(obj, Map.class);
+    }
+    /**
+     * 载入声明文件
+     *
+     * @param cxt      上下文
+     * @param fileName 文件名
+     * @return 文件流字符串
+     * @throws IOException
+     */
+    private static String loadAssertFile(Context cxt, String fileName) throws IOException {
+        InputStream is = cxt.getAssets().open(fileName);
+        byte[] buffer = new byte[is.available()];
+        is.read(buffer);
+        is.close();
+
+        return new String(buffer);
+    }
 
     /**
      * 获取该文件夹下的所有文件名称和路径
      */
-    public static Map<String, String> findAllFiles(String parentPath){
+    public static Map<String, String> findAllFiles(String parentPath) {
         Map<String, String> map = new HashMap<>();
         File file = new File(parentPath);
         if (!file.exists()) {
@@ -59,6 +99,7 @@ public class FileUtil {
         }
         return hashMap;
     }
+
     /**
      * SD卡是否能用
      *
@@ -77,7 +118,7 @@ public class FileUtil {
      * 创建一个文件夹, 存在则返回, 不存在则新建
      *
      * @param parentDirectory 父目录路径
-     * @param directory  目录名
+     * @param directory       目录名
      * @return 文件，null代表失败
      */
     public static File generateDirectory(String parentDirectory, String directory) {
@@ -98,7 +139,7 @@ public class FileUtil {
      * 创建一个文件夹, 存在则返回, 不存在则新建
      *
      * @param parentDirectory 父目录
-     * @param directory  目录名
+     * @param directory       目录名
      * @return 文件，null代表失败
      */
     public static File generateDirectory(File parentDirectory, String directory) {
@@ -198,6 +239,7 @@ public class FileUtil {
 
     /**
      * 计算文件/文件夹的大小
+     *
      * @param file 文件或文件夹
      * @return 文件大小
      */
@@ -230,6 +272,7 @@ public class FileUtil {
     /**
      * 删除文件/文件夹
      * 如果是文件夹，则会删除其下的文件以及它本身
+     *
      * @param file file
      * @return true代表成功删除
      */
@@ -287,7 +330,7 @@ public class FileUtil {
     /**
      * @param type 所放的文件的类型，传入的参数是Environment类中的DIRECTORY_XXX静态变量
      * @return 返回"/storage/emulated/0/xxx"目录
-     *         例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Alarms"
+     * 例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Alarms"
      */
     public static String getExternalStoragePublicDirectory(String type) {
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
@@ -315,8 +358,8 @@ public class FileUtil {
 
     /**
      * @param type 所放的文件的类型，传入的参数是Environment类中的DIRECTORY_XXX静态变量
-     * @return  返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"目录
-     *          例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"
+     * @return 返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"目录
+     * 例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"
      */
     public static String getExternalFilesDir(String type) {
         File file = BaseApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_ALARMS);

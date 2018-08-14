@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/addr"
+        style="@style/SpinnerItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_app"
+        android:textSize="12sp" />
+
+    <ViewFlipper
+        android:id="@+id/flipper"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" >
+
+        <include
+            android:id="@+id/province"
+            layout="@layout/common_list" />
+
+        <include
+            android:id="@+id/city"
+            layout="@layout/common_list" />
+
+        <include
+            android:id="@+id/district"
+            layout="@layout/common_list" />
+
+        <include
+            android:id="@+id/street"
+            layout="@layout/common_list" />
+    </ViewFlipper>
+
+</LinearLayout>
