@@ -69,7 +69,7 @@ public class NewTaskConnectActivity extends BaseActivity {
      * 检查是否存在该文件，
      */
     public void createDownloadFileInfo(String urlString){
-        TaskManager.getInstance().checkDownUrl(urlString, new TaskManager.CheckUrlCallBack() {
+        TaskManager.getInstance().prepareTask(urlString, new TaskManager.PrepareCallBack() {
             @Override
             public void onSuccess(DownloadFileInfo fileInfo) {
                 dissLoading();

@@ -1,21 +1,12 @@
 package soyouarehere.imwork.speed.pager.mine.download.task;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import soyouarehere.imwork.speed.app.BaseApplication;
+import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceFile;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
-import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
-import soyouarehere.imwork.speed.pager.mine.download.task.single.TaskFutureTask;
-import soyouarehere.imwork.speed.util.FileSizeUtil;
-import soyouarehere.imwork.speed.util.UrlUtils;
-import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
  * Created by li.xiaodong on 2018/8/7.
@@ -26,8 +17,9 @@ public class TaskManager {
     private OkHttpClient mClient;//OKHttpClient;
     /**
      * 存放任务的集合；进行取消再次进行任务的
-     * */
-    private static Map<String,BrokenRunnable> brokenRunnableHashMap = new HashMap<>();
+     */
+    private static Map<String, BrokenRunnable> brokenRunnableHashMap = new HashMap<>();
+
     public TaskManager() {
         mClient = new OkHttpClient.Builder().build();
     }
@@ -42,122 +34,51 @@ public class TaskManager {
 
     /**
      * 执行下载任务 Callable  进行判断
-     * */
-    public void executeCallableTask(BrokenRunnable brokenRunnable){
-        if (!brokenRunnableHashMap.containsKey(brokenRunnable.getName())){
-            brokenRunnableHashMap.put(brokenRunnable.getName(),brokenRunnable);
+     */
+    public void executeCallableTask(BrokenRunnable brokenRunnable) {
+        if (!brokenRunnableHashMap.containsKey(brokenRunnable.getName())) {
+            brokenRunnableHashMap.put(brokenRunnable.getName(), brokenRunnable);
             // 将任务放进线程池中去执行任务;
             MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(brokenRunnable);
-        }else {
+        } else {
 
         }
     }
 
     /**
      * 停止任务 将线程打断，停止执行任务；
-     *
-     * */
-    public void pauseBrokenRunnable(String name){
-        if (brokenRunnableHashMap.containsKey(name)){
+     */
+    public void pauseBrokenRunnable(String name) {
+        if (brokenRunnableHashMap.containsKey(name)) {
             brokenRunnableHashMap.get(name).onThreadPause();
         }
     }
+
     /**
      * 继续下载
-     * */
-    public void resumeContinueDownload(String name){
-        if (brokenRunnableHashMap.containsKey(name)){
+     */
+    public void resumeContinueDownload(String name) {
+        if (brokenRunnableHashMap.containsKey(name)) {
             brokenRunnableHashMap.get(name).onThreadResume();
         }
     }
 
     /**
-     * 执行下载任务,
+     * 准备任务   只有一个URL
      */
-    public  void checkDownUrl(String urlString, CheckUrlCallBack checkUrlCallBack) {
-        if (!UrlUtils.checkUrl(urlString)) {
-            LogUtil.e("检查url合法失败", urlString);
-            checkUrlCallBack.fail("检查url合法失败");
-            return;
-        }
-        //创建FileName
-        String fileName = UrlUtils.getFileNameFromUrl(urlString);
-        if (fileName == null) {
-            LogUtil.e("根据url创建文件名字失败");
-            checkUrlCallBack.fail("根据url创建文件名字失败");
-            return;
-        }
-        createNewFile(urlString, fileName, checkUrlCallBack);
-    }
-
-    private void createNewFile(String url, String fileName, CheckUrlCallBack checkUrlCallBack) {
-        LogUtil.e("createNewFile");
-        DownloadFileInfo fileInfo = new DownloadFileInfo(url);
-        fileInfo.setFileName(fileName);
-        //创建文件名 检测文件夹中是否存在该文件，
-        File fileAdress = BaseApplication.getInstance().getExternalCacheDir();
-//        Map<String, String> fileMap = FileUtil.findAllFiles(fileAdress.getPath());
-        File file = new File(fileAdress, fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            LogUtil.e("创建文件失败");
-            checkUrlCallBack.fail("创建文件失败");
-            e.printStackTrace();
-        }
-        // 不存在就是新的文件
-        fileInfo.setFilePath(fileAdress.getPath());
-        fileInfo.setProgress(0);
-        fileInfo.setShowProgressSize("0B");
-        fileInfo.setShowProgress("0");
-        String[] strings = getContentLength(fileInfo.getUrl());
-        long fileLength = Long.parseLong(strings[0]);
-        if (fileLength == -1) {
-            LogUtil.e("获取文件大小失败");
-            checkUrlCallBack.fail("获取文件大小失败"+strings[1]+strings[2]);
-            return;
-        }
-        fileInfo.setTotal(fileLength);
-        fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileLength));
-        checkUrlCallBack.onSuccess(fileInfo);
+    public void prepareTask(String url, PrepareCallBack prepareCallBack) {
+        new ReadyTask(url, prepareCallBack).run();
     }
 
     /**
-     * 获取下载长度
-     *
-     * @param downloadUrl
-     * @return
-     */
-    private String[] getContentLength(String downloadUrl) {
-        LogUtil.e("获取下载长度   下载地址为"+downloadUrl);
-        Request request = new Request.Builder()
-                .url(downloadUrl)
-                .build();
-        OkHttpClient client = new OkHttpClient.Builder().build();
-        try {
-            Response response = client.newCall(request).execute();
-            LogUtil.e("获取下载长度   response"+response.code());
-            if (response != null && response.code() == 206) {
-                LogUtil.e("获取下载长度   response"+response.code());
-                long contentLength = response.body().contentLength();
-                LogUtil.e("获取文件大小", contentLength);
-                response.close();
-                return contentLength == 0 ? new String[]{"-1","contentLength为零","未知"} : new String[]{String.valueOf(contentLength)};
-            } else {
-                LogUtil.e("code", response.code(), response.body().string());
-                return new String[]{"-1", String.valueOf(response.code()),response.body().toString()};
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            LogUtil.e("IOException", e.getMessage());
-            return new String[]{"-1","未知","失败"};
-        }
+     * 准备任务 携带信息；
+     * */
+    public void prepareTask(ResourceFile file,PrepareCallBack prepareCallBack){
+        // 检查本地是否存在该任务，或者文件，判断该文件是否允许断点续传，
+
     }
 
-    public interface CheckUrlCallBack {
+    public interface PrepareCallBack {
         void onSuccess(DownloadFileInfo fileInfo);
 
         void fail(String msg);

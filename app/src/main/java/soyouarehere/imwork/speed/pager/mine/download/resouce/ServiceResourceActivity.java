@@ -53,6 +53,9 @@ public class ServiceResourceActivity extends BaseActivity<ServiceResourcePresent
     @Override
     public void success(List list) {
         dissLoading();
+        if (list.size()==0){
+            showToast("数据为空");
+        }
         resourceFiles.clear();
         resourceFiles.addAll(list);
         serviceResourceAdapter.updateAll();

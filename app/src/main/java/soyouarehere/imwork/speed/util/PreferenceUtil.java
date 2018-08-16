@@ -24,7 +24,7 @@ public class PreferenceUtil {
      * @param mode    mode
      * @return
      */
-    public synchronized static SharedPreferences getPreference(Context context, String name, int mode) {
+    private synchronized static SharedPreferences getPreference(Context context, String name, int mode) {
         return context == null ? null : context.getSharedPreferences(name, mode);
     }
 
@@ -35,7 +35,7 @@ public class PreferenceUtil {
      * @param mode    mode
      * @return
      */
-    public synchronized static SharedPreferences getDefaultPreference(Context context, int mode) {
+    private synchronized static SharedPreferences getDefaultPreference(Context context, int mode) {
         return getPreference(context, BaseConstants.APP_SHARE, mode);
     }
 
@@ -59,6 +59,49 @@ public class PreferenceUtil {
     public synchronized static SharedPreferences getPreference(Context context, String name) {
         return getPreference(context, name, Context.MODE_PRIVATE);
     }
+
+
+    /*----------------------下载操作的数据库 start ------------------------------------------------------*/
+    /**
+     * 数据库名字
+     * */
+    private synchronized static SharedPreferences getDownloadPreference(Context context){
+        return  getPreference(context,BaseConstants.APP_DOWNLOAD_INFO);
+    }
+
+    /**
+     * 文件的下载位置
+     * */
+    public synchronized static void putDownloadPotion(Context context,String downloadPosition){
+        getDownloadPreference(context).edit().putString(BaseConstants.APP_DOWNLOAD_POSITION,downloadPosition).apply();
+    }
+    /*
+     * 存放，更新下载位置
+     * */
+    public synchronized static String getDownloadPotion(Context context){
+        return getDownloadPreference(context).getString(BaseConstants.APP_DOWNLOAD_POSITION,null);
+    }
+    /**
+     * 存放 更新 下载文件的某条信息
+     * */
+    public synchronized static void putDownloadFileInfo(Context context,String fileName,String value){
+        getDownloadPreference(context).edit().putString(fileName,value).apply();
+    }
+    /**
+     * 获取 下载文件的某条信息
+     * */
+    public synchronized static String getDownloadFileInfo(Context context,String fileName){
+        return getDownloadPreference(context).getString(fileName,null);
+    }
+
+    /**
+     * 获取所有的下载信息文件
+     * */
+    public synchronized static Map<String,?> getDownloadFileInfoAll(Context context,String fileName){
+        return getDownloadPreference(context).getAll();
+    }
+    /*---------------------------------------end-------------------------------------*/
+
 
 
     /*-----------------------------------------  根据传入的SharedPreferences 进行操作 ----------------------------------------*/

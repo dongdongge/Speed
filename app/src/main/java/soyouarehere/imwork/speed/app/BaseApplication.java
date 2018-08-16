@@ -2,8 +2,12 @@ package soyouarehere.imwork.speed.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import soyouarehere.imwork.speed.app.constant.BaseConstants;
+import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class BaseApplication extends Application {
@@ -15,6 +19,14 @@ public class BaseApplication extends Application {
         super.onCreate();
         INSTANCE = this;
         initAppStatus();
+        initConfig();
+    }
+
+    /**
+     * 初始化配置信息；
+     * */
+    private void initConfig() {
+
     }
 
     public static Application getInstance(){
