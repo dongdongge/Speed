@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class CustomAlertDialog extends Dialog {
     /**
@@ -29,17 +27,9 @@ public class CustomAlertDialog extends Dialog {
     private Context context;
     private String msg;
     private OnClickInterface onClickInterface;
-    public CustomAlertDialog(@NonNull Context context) {
-        super(context);
-    }
 
-    public CustomAlertDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected CustomAlertDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
+    private String leftText;
+    private String rightText;
 
     public CustomAlertDialog( Context context, boolean isCancelable, boolean isBackCancelable, String msg,OnClickInterface onClickInterface) {
         super(context, R.style.CustomDialog);
@@ -49,6 +39,18 @@ public class CustomAlertDialog extends Dialog {
         this.msg = msg;
         this.onClickInterface = onClickInterface;
     }
+    public CustomAlertDialog( Context context,String leftText,String rightText,String msg,OnClickInterface onClickInterface) {
+        super(context, R.style.CustomDialog);
+        this.context = context;
+        this.iscancelable = true;
+        this.isBackCancelable = true;
+        this.msg = msg;
+        this.onClickInterface = onClickInterface;
+        this.leftText = leftText;
+        this.rightText = rightText;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,9 @@ public class CustomAlertDialog extends Dialog {
         TextView msg = view.findViewById(R.id.tv_msg_custom_alert);
         msg.setText(this.msg);
         Button cancle = view.findViewById(R.id.bt_cancel_custom_alert);
+        if (leftText==null&&!leftText.isEmpty()){
+            cancle.setText(leftText);
+        }
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +97,9 @@ public class CustomAlertDialog extends Dialog {
             }
         });
         Button sure = view.findViewById(R.id.bt_sure_custom_alert);
+        if (rightText==null&&!rightText.isEmpty()){
+            cancle.setText(rightText);
+        }
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +124,7 @@ public class CustomAlertDialog extends Dialog {
 
     public interface OnClickInterface{
          void clickSure();
+         void clickCancel();
     }
 
 }

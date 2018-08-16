@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import java.util.Map;
 import java.util.Set;
 
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.constant.BaseConstants;
 
 /**
@@ -75,7 +76,7 @@ public class PreferenceUtil {
     public synchronized static void putDownloadPotion(Context context,String downloadPosition){
         getDownloadPreference(context).edit().putString(BaseConstants.APP_DOWNLOAD_POSITION,downloadPosition).apply();
     }
-    /*
+    /**
      * 存放，更新下载位置
      * */
     public synchronized static String getDownloadPotion(Context context){
@@ -97,9 +98,19 @@ public class PreferenceUtil {
     /**
      * 获取所有的下载信息文件
      * */
-    public synchronized static Map<String,?> getDownloadFileInfoAll(Context context,String fileName){
+    public synchronized static Map<String,?> getDownloadFileInfoAll(Context context){
         return getDownloadPreference(context).getAll();
     }
+
+    /**
+     *
+     * 判断是否存在该文件名相同的文件
+     * */
+    public synchronized static boolean _isExetisDownloadFile(String fileName){
+       return getDownloadPreference(BaseApplication.getInstance()).contains(fileName);
+    }
+
+
     /*---------------------------------------end-------------------------------------*/
 
 

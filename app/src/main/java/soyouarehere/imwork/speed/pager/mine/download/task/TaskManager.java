@@ -81,6 +81,13 @@ public class TaskManager {
     public interface PrepareCallBack {
         void onSuccess(DownloadFileInfo fileInfo);
 
-        void fail(String msg);
+        /**
+         * code :0 检查url合法失败
+         *      :1 根据url创建文件名字失败
+         *      :2 该任务已经在任务列表
+         *      :3 创建文件失败
+         *      :4 获取文件大小失败
+         * */
+        void fail(int code,String msg);
     }
 }

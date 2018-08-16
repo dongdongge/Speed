@@ -55,12 +55,7 @@ public class NewTaskConnectActivity extends BaseActivity {
 
     public void checkUrlValid(String url) {
         showLoading();
-        MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.execute(new Runnable() {
-            @Override
-            public void run() {
-                createDownloadFileInfo(url);
-            }
-        });
+        createDownloadFileInfo(url);
     }
 
     /**
@@ -80,22 +75,27 @@ public class NewTaskConnectActivity extends BaseActivity {
                 finish();
             }
             @Override
-            public void fail(String msg) {
+            public void fail(int code,String msg) {
                 dissLoading();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showAlertDialog(msg);
+                        showAlertDialog(msg,code);
                     }
                 });
             }
         });
     }
 
-    public void showAlertDialog(String msg) {
-        new CustomAlertDialog(this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
+    public void showAlertDialog(String msg,int code) {
+        new CustomAlertDialog(this, "查看下载","重新下载", msg, new CustomAlertDialog.OnClickInterface() {
             @Override
             public void clickSure() {
+
+            }
+
+            @Override
+            public void clickCancel() {
 
             }
         }).show();

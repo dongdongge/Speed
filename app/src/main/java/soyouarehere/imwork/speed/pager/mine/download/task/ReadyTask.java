@@ -12,11 +12,12 @@ import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.FileSizeUtil;
+import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.UrlUtils;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
- * 下载前的准备任务
+ * 下载前的准备任务  该任务只下载 首次下载的数据 要获取length等信息；
  */
 public class ReadyTask implements Runnable {
     private String url;
@@ -38,14 +39,14 @@ public class ReadyTask implements Runnable {
     private void checkDownUrl() {
         if (!UrlUtils.checkUrl(url)) {
             LogUtil.e("检查url合法失败", url);
-            prepareCallBack.fail("检查url合法失败");
+            prepareCallBack.fail(0,"检查url合法失败");
             return;
         }
         //创建FileName
         String fileName = UrlUtils.getFileNameFromUrl(url);
         if (fileName == null) {
             LogUtil.e("根据url创建文件名字失败");
-            prepareCallBack.fail("根据url创建文件名字失败");
+            prepareCallBack.fail(1,"根据url创建文件名字失败");
             return;
         }
         createNewFile(url, fileName, prepareCallBack);
@@ -55,78 +56,83 @@ public class ReadyTask implements Runnable {
         LogUtil.e("createNewFile");
         DownloadFileInfo fileInfo = new DownloadFileInfo(url);
         fileInfo.setFileName(fileName);
-        //创建文件名 检测文件夹中是否存在该文件，
-        File fileAdress = BaseApplication.getInstance().getExternalCacheDir();
-//        Map<String, String> fileMap = FileUtil.findAllFiles(fileAdress.getPath());
-        File file = new File(fileAdress, fileName);
+        //创建文件名 检测默认的下载文件夹中是否存在该文件，
+        String filePosition = PreferenceUtil.getDownloadPotion(BaseApplication.getInstance());
+        if (PreferenceUtil._isExetisDownloadFile(fileName)){
+            prepareCallBack.fail(2,"该任务已经在任务列表");
+            return;
+        }
+        File file = new File(filePosition, fileName);
         if (file.exists()) {
             file.delete();
         }
         try {
             file.createNewFile();
         } catch (IOException e) {
-            LogUtil.e("创建文件失败");
-            prepareCallBack.fail("创建文件失败");
+            prepareCallBack.fail(3,"创建文件失败");
             e.printStackTrace();
+            return;
         }
         // 不存在就是新的文件
-        fileInfo.setFilePath(fileAdress.getPath());
+        fileInfo.setFilePath(filePosition);
         fileInfo.setProgress(0);
         fileInfo.setShowProgressSize("0B");
         fileInfo.setShowProgress("0");
-        String[] strings = getContentLength(fileInfo.getUrl());
-        long fileLength = Long.parseLong(strings[0]);
-        if (fileLength == -1) {
-            LogUtil.e("获取文件大小失败");
-            prepareCallBack.fail("获取文件大小失败" + strings[1] + strings[2]);
+        fileInfo = getContentLength(fileInfo);
+        if (fileInfo.getTotal() == 0) {
+            prepareCallBack.fail(4,"获取文件大小失败");
             return;
         }
-        fileInfo.setSupportInterrupt(strings[1].equals("1"));
-        fileInfo.setTotal(fileLength);
-        fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileLength));
+        fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileInfo.getTotal()));
         prepareCallBack.onSuccess(fileInfo);
-
     }
 
     /**
-     * 获取下载长度
+     * 获取下载长度 判断服务端是否支持断点续传
      *
-     * @param downloadUrl
+     * @param fileInfo
      * @return
      */
-    private String[] getContentLength(String downloadUrl) {
-        LogUtil.e("获取下载长度   下载地址为" + downloadUrl);
+    private DownloadFileInfo getContentLength(DownloadFileInfo fileInfo) {
         Request request = new Request.Builder()
-                .url(downloadUrl)
-                .addHeader("content-type", "application/json;charset:utf-8")
+                .url(fileInfo.getUrl())
                 .build();
         OkHttpClient client = new OkHttpClient.Builder().build();
         try {
             Response response = client.newCall(request).execute();
-            LogUtil.e("获取下载长度   response" + response.code());
             if (response != null && response.code() == 206) {
-                LogUtil.e("获取下载长度   response" + response.code());
                 Headers headers = response.headers();
                 Map<String, List<String>> listMap = headers.toMultimap();
                 long contentLength = 0;
                 if (listMap.containsKey("content-range") && listMap.containsKey("accept-ranges") && listMap.containsKey("content-length")) {
                     // 可以断点续传
                     contentLength = Long.parseLong(listMap.get("content-length").get(0));
+                    fileInfo.setSupportInterrupt(true);
                 } else {
+                    fileInfo.setSupportInterrupt(false);
+                    fileInfo.setReasonMsg("服务器不存在断点续传的headers等必要信息");
                     contentLength = response.body().contentLength();
                 }
-                LogUtil.e("获取到的头部信息", listMap.toString());
-                LogUtil.e("获取文件大小", contentLength);
                 response.close();
-                return contentLength == 0 ? new String[]{"-1", "contentLength为零", "未知"} : new String[]{String.valueOf(contentLength), "1"};
-            } else {
+                fileInfo.setTotal(contentLength);
+                return fileInfo;
+            } else if (response.code() == 200){
                 LogUtil.e("code", response.code(), response.body().string());
-                return new String[]{"-1", String.valueOf(response.code()), response.body().toString()};
+                fileInfo.setTotal(response.body().contentLength());
+                fileInfo.setSupportInterrupt(false);
+                fileInfo.setReasonMsg("不支持断点续传功能code码不是206 是200");
+                return fileInfo;
+            }else {
+                LogUtil.e("code", response.code(), response.body().string());
+                fileInfo.setTotal(0);
+                fileInfo.setReasonMsg("未知错误"+response.code());
+                return fileInfo;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            LogUtil.e("IOException", e.getMessage());
-            return new String[]{"-1", "未知", "失败"};
+            fileInfo.setTotal(0);
+            fileInfo.setReasonMsg("请求length异常");
+            return fileInfo;
         }
     }
 }

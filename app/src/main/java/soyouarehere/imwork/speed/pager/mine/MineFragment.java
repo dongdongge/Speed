@@ -111,6 +111,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             public void clickSure() {
 
             }
+
+            @Override
+            public void clickCancel() {
+
+            }
         }).show();
     }
     @Override

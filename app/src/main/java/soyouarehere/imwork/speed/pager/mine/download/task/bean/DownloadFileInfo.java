@@ -75,6 +75,32 @@ public class DownloadFileInfo{
      * */
     private String fileType;
 
+    /**
+     * 错误信息
+     * */
+    private String msg;
+
+    /**
+     * 是否支持断点续传的原因
+     * */
+    private String reasonMsg;
+
+    public String getReasonMsg() {
+        return reasonMsg;
+    }
+
+    public void setReasonMsg(String reasonMsg) {
+        this.reasonMsg = reasonMsg;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public boolean isSupportInterrupt() {
         return isSupportInterrupt;
     }

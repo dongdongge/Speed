@@ -22,6 +22,9 @@ public class TaskHelp {
         return file;
     }
 
+    /**
+     * 断点续传 headers 中必须携带的必要信息；
+     * */
     public static Request getRequest(DownloadFileInfo fileInfo) {
         return new Request.Builder()
                 .addHeader("RANGE", "bytes=" + fileInfo.getProgress() + "-" + fileInfo.getTotal())
@@ -47,9 +50,12 @@ public class TaskHelp {
     }
 
     public static long formatReadFileSize(long fileLength) {
-        long read4KB = 4 * 1024;// 每次读取4KB
-        long read8KB = 8 * 1024;// 每次读取8KB
-        if (fileLength >= 1024 * 1024) {
+        long tempLength = 1024 * 1024;
+        // 每次读取4KB
+        long read4KB = 4 * 1024;
+        // 每次读取8KB
+        long read8KB = 8 * 1024;
+        if (fileLength >= tempLength) {
             return read8KB;
         }
         return read4KB;

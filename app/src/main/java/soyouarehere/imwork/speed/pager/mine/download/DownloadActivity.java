@@ -263,6 +263,11 @@ public class DownloadActivity extends BaseActivity {
                     public void clickSure() {
 
                     }
+
+                    @Override
+                    public void clickCancel() {
+
+                    }
                 }).show();
             }
         });

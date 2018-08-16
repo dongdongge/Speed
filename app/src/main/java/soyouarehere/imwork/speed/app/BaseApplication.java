@@ -1,12 +1,11 @@
 package soyouarehere.imwork.speed.app;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
+
+import java.util.Map;
 
 import soyouarehere.imwork.speed.app.constant.BaseConstants;
+import soyouarehere.imwork.speed.util.FileUtil;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
@@ -24,9 +23,15 @@ public class BaseApplication extends Application {
 
     /**
      * 初始化配置信息；
+     *  初始化下载文件夹
+     *
      * */
     private void initConfig() {
-
+        String filePosition = PreferenceUtil.getDownloadPotion(this);
+        if (filePosition==null){
+            filePosition = FileUtil._getDefaultDownloadFilePosition();
+            PreferenceUtil.putDownloadPotion(BaseApplication.getInstance(),filePosition);
+        }
     }
 
     public static Application getInstance(){

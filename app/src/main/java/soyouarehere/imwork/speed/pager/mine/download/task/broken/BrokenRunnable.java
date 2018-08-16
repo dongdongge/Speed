@@ -65,8 +65,6 @@ public class BrokenRunnable implements Runnable {
     public synchronized void closeThread() {
         try {
             notify();
-//            setClose(true);
-//            interrupt();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,7 +81,7 @@ public class BrokenRunnable implements Runnable {
                 is = response.body().byteStream();
                 File file = TaskHelp.getFile(info.getFileName());
                 if (callBack!=null){
-                    callBack.finish(info);
+                    callBack.progress(info);
                 }
                 fileOutputStream = new FileOutputStream(file);
                 // 在此处 进行判断 如果文件大小介于20~100 则每次读取1M 介于
