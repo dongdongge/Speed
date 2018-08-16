@@ -40,7 +40,7 @@ public class RecycleDividerItemDecoration extends RecyclerView.ItemDecoration {
         //设置悬浮栏中文本的画笔
         textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
-        textPaint.setTextSize(DensityUtil.dip2px(context, 14));
+        textPaint.setTextSize(DensityUtil._dip2px(context, 14));
         textPaint.setColor(context.getResources().getColor(R.color.color_333333));
         textPaint.setTextAlign(Paint.Align.LEFT);
         fontMetrics = textPaint.getFontMetrics();

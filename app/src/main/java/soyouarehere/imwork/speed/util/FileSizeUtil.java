@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.DecimalFormat;
 
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
@@ -125,7 +124,7 @@ public class FileSizeUtil {
     }
 
     public static double FormatFileSize(long long1,long long2){
-        return BigDecimalUtils.div(long1,long2,2);
+        return BigDecimalUtils._div(long1,long2,2);
     }
 
     /**
@@ -170,7 +169,7 @@ public class FileSizeUtil {
         String endGBS = "GB/s";
         String tempEnd = "";
         // 将时间格式化为 S
-        double time = BigDecimalUtils.div(timeDiffSize, 1000, 2);
+        double time = BigDecimalUtils._div(timeDiffSize, 1000, 2);
         double fileSize = fileDiffSize;
         double remianFileSize = remainingFileSize;
         if (fileDiffSize < 1024) {
@@ -178,23 +177,23 @@ public class FileSizeUtil {
         }
         if (fileDiffSize > 1024) {
             tempEnd = endKBS;
-            fileSize = BigDecimalUtils.div(fileDiffSize, 1024, 2);
-            remianFileSize = BigDecimalUtils.div(remainingFileSize, 1024, 2);
+            fileSize = BigDecimalUtils._div(fileDiffSize, 1024, 2);
+            remianFileSize = BigDecimalUtils._div(remainingFileSize, 1024, 2);
         }
         if (fileDiffSize > 1048576) {
             tempEnd = endMBS;
-            fileSize = BigDecimalUtils.div(fileDiffSize, 1048576, 2);
-            remianFileSize = BigDecimalUtils.div(remainingFileSize, 1048576, 2);
+            fileSize = BigDecimalUtils._div(fileDiffSize, 1048576, 2);
+            remianFileSize = BigDecimalUtils._div(remainingFileSize, 1048576, 2);
         }
         if (fileDiffSize > 1073741824) {
             tempEnd = endGBS;
-            fileSize = BigDecimalUtils.div(fileDiffSize, 1073741824, 2);
-            remianFileSize = BigDecimalUtils.div(remainingFileSize, 1073741824, 2);
+            fileSize = BigDecimalUtils._div(fileDiffSize, 1073741824, 2);
+            remianFileSize = BigDecimalUtils._div(remainingFileSize, 1073741824, 2);
         }
         // 计算得出当前速度是多少
-        double speed = BigDecimalUtils.div(fileSize, time, 2);
+        double speed = BigDecimalUtils._div(fileSize, time, 2);
         // 计算得出剩余文件还有多少秒可以下载完成
-        double reamingTime = BigDecimalUtils.div(remianFileSize,speed,2);
+        double reamingTime = BigDecimalUtils._div(remianFileSize,speed,2);
         String shengyuTime = TimeUtls._formatTime((long) reamingTime);
         // 将得到的秒转化为日时分秒
         LogUtil.e("strings",speed + tempEnd," 剩余"+shengyuTime);

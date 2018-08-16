@@ -20,7 +20,7 @@ import soyouarehere.imwork.speed.app.BaseApplication;
 public class MobilePhoneInfo {
 
 
-    public static String getHardInfo(){
+    public static String _getHardInfo(){
         String phoneInfo = "Product: " + android.os.Build.PRODUCT;
         phoneInfo += ",\n CPU_ABI: " + android.os.Build.CPU_ABI;
         phoneInfo += ",\n TAGS: " + android.os.Build.TAGS;

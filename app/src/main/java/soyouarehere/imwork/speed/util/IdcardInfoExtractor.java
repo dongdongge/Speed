@@ -33,7 +33,7 @@ public class IdcardInfoExtractor {
     //年龄
     private int age;
 
-    private Map<String, String> cityCodeMap = new HashMap<String, String>() {
+    Map<String, String> cityCodeMap = new HashMap<String, String>() {
         {
             this.put("11", "北京");
             this.put("12", "天津");

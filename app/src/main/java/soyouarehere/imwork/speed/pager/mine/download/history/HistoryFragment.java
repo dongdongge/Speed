@@ -61,7 +61,7 @@ public class HistoryFragment extends BaseFragment {
     }
     public RecycleDividerItemDecoration getDivider(){
         RecycleDividerItemDecoration dividerItemDecoration = new RecycleDividerItemDecoration(getContext());
-        dividerItemDecoration.setDeliverHeight(DensityUtil.dip2px(getContext(), 1.0f));
+        dividerItemDecoration.setDeliverHeight(DensityUtil._dip2px(getContext(), 1.0f));
         dividerItemDecoration.setPaintColor(getResources().getColor(R.color.color_c9c9c9));
         return dividerItemDecoration;
     }

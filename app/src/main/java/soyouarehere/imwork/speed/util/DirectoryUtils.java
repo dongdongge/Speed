@@ -12,7 +12,7 @@ public class DirectoryUtils {
 
     private static final String TAG = "DirectoryUtils";
 
-    public static void getEnvironmentDirectories() {
+    public static void _getEnvironmentDirectories() {
         //:/system
         String rootDir = Environment.getRootDirectory().toString();
         System.out.println("Environment.getRootDirectory()==>:" + rootDir);
@@ -46,7 +46,7 @@ public class DirectoryUtils {
         System.out.println("Environment.isExternalStorageRemovable()==>:" + isRemovable);
     }
 
-    public static void getApplicationDirectories(Context context) {
+    public static void _getApplicationDirectories(Context context) {
 
         //获取当前程序路径 应用在内存上的目录 :/data/data/com.xxx/files
         String filesDir = context.getFilesDir().toString();

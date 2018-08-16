@@ -88,31 +88,31 @@ public class TimeUtls {
         }
         // 分
         if (second > 60 && second <= 3600) {
-            long[] longs = BigDecimalUtils.divideAndRemainder(second, 60);
+            long[] longs = BigDecimalUtils._divideAndRemainder(second, 60);
             return longs[0] + "分" + longs[1] + "秒";
         }
         // 小时
         if (second > 60 * 60 && second <= 86400) {
-            long[] longs = BigDecimalUtils.divideAndRemainder(second, 3600);
+            long[] longs = BigDecimalUtils._divideAndRemainder(second, 3600);
             if (longs[1] < 60) {
                 return longs[0] + "小时" + longs[1] + "秒";
             } else {
-                long[] longsHours = BigDecimalUtils.divideAndRemainder(longs[1], 60);
+                long[] longsHours = BigDecimalUtils._divideAndRemainder(longs[1], 60);
                 return longs[0] + "小时" + longsHours[0] + "分" + longsHours[1] + "秒";
             }
         }
         // 天
         if (second > 60 * 60 * 24) {
-            long[] longs = BigDecimalUtils.divideAndRemainder(second, 86400);
+            long[] longs = BigDecimalUtils._divideAndRemainder(second, 86400);
             if (longs[1] < 3600) {
-                long[] longsMunite = BigDecimalUtils.divideAndRemainder(longs[1], 60);
+                long[] longsMunite = BigDecimalUtils._divideAndRemainder(longs[1], 60);
                 return longs[0] + "天" + longsMunite[0] + "分" + longsMunite[1] + "秒";
             }else {
-                long[] longsDay = BigDecimalUtils.divideAndRemainder(longs[1], 3600);
+                long[] longsDay = BigDecimalUtils._divideAndRemainder(longs[1], 3600);
                 if (longsDay[1] < 60) {
                     return longs[0] + "天" +longsDay[0]+"时"+ longsDay[1] + "秒";
                 } else {
-                    long[] longsHours = BigDecimalUtils.divideAndRemainder(longsDay[1], 60);
+                    long[] longsHours = BigDecimalUtils._divideAndRemainder(longsDay[1], 60);
                     return longs[0]+"天"+ longsDay[0] + "小时" + longsHours[0] + "分" + longsHours[1] + "秒";
                 }
             }

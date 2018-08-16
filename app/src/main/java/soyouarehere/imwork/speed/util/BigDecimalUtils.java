@@ -14,7 +14,7 @@ public class BigDecimalUtils {
      * @param var2
      * @return
      */
-    public static double add(double var1, double var2) {
+    public static double _add(double var1, double var2) {
         BigDecimal b1 = new BigDecimal(Double.toString(var1));
         BigDecimal b2 = new BigDecimal(Double.toString(var2));
         return b1.add(b2).doubleValue();
@@ -29,7 +29,7 @@ public class BigDecimalUtils {
      * @return
      */
 
-    public static double sub(double var1, double var2) {
+    public static double _sub(double var1, double var2) {
         BigDecimal b1 = new BigDecimal(Double.toString(var1));
         BigDecimal b2 = new BigDecimal(Double.toString(var2));
         return b1.subtract(b2).doubleValue();
@@ -42,7 +42,7 @@ public class BigDecimalUtils {
      * @param var2
      * @return
      */
-    public static double mul(double var1, double var2) {
+    public static double _mul(double var1, double var2) {
         BigDecimal b1 = new BigDecimal(Double.toString(var1));
         BigDecimal b2 = new BigDecimal(Double.toString(var2));
         return b1.multiply(b2).doubleValue();
@@ -57,7 +57,7 @@ public class BigDecimalUtils {
      * @return
      */
 
-    public static double div(double v1, double v2, int scale) {
+    public static double _div(double v1, double v2, int scale) {
         if (scale < 0) {
             throw new IllegalArgumentException("The scale must be a positive integer or ");
         }
@@ -73,7 +73,7 @@ public class BigDecimalUtils {
      * @param scale 精确位数
      * @return
      */
-    public static double round(double v, int scale) {
+    public static double _round(double v, int scale) {
         if (scale < 0) {
             throw new IllegalArgumentException("The scale must be a positive integer or zero");
         }
@@ -87,7 +87,7 @@ public class BigDecimalUtils {
      * 求商取余
      * long[0] 为商 long[1] 为余
      * */
-    public static long[] divideAndRemainder(long number, long number2) {
+    public static long[] _divideAndRemainder(long number, long number2) {
         BigDecimal bigDecimal = new BigDecimal(number);
         BigDecimal[] bigDecimalArray = bigDecimal.divideAndRemainder(BigDecimal.valueOf(number2));
         long result1 = bigDecimalArray[0].longValue();

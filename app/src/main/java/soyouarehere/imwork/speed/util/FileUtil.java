@@ -64,7 +64,7 @@ public class FileUtil {
     /**
      * 获取该文件夹下的所有文件名称和路径
      */
-    public static Map<String, String> findAllFiles(String parentPath) {
+    public static Map<String, String> _findAllFiles(String parentPath) {
         Map<String, String> map = new HashMap<>();
         File file = new File(parentPath);
         if (!file.exists()) {
@@ -105,7 +105,7 @@ public class FileUtil {
      *
      * @return true 可用,false不可用
      */
-    public static boolean isSDCardAvailable() {
+    public static boolean _isSDCardAvailable() {
         try {
             return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class FileUtil {
      * @param directory       目录名
      * @return 文件，null代表失败
      */
-    public static File generateDirectory(String parentDirectory, String directory) {
+    public static File _generateDirectory(String parentDirectory, String directory) {
         if (TextUtils.isEmpty(parentDirectory) || TextUtils.isEmpty(directory)) {
             return null;
         }
@@ -142,7 +142,7 @@ public class FileUtil {
      * @param directory       目录名
      * @return 文件，null代表失败
      */
-    public static File generateDirectory(File parentDirectory, String directory) {
+    public static File _generateDirectory(File parentDirectory, String directory) {
         if (parentDirectory == null || TextUtils.isEmpty(directory)) {
             return null;
         }
@@ -164,7 +164,7 @@ public class FileUtil {
      * @param name        文件名
      * @return 文件，null代表失败
      */
-    public static File generateFile(String catalogPath, String name) {
+    public static File _generateFile(String catalogPath, String name) {
         if (TextUtils.isEmpty(catalogPath) || TextUtils.isEmpty(name)) {
             Log.e(TAG, "generateFile : 创建失败, 文件目录或文件名为空, 请检查!");
             return null;
@@ -191,7 +191,7 @@ public class FileUtil {
      * @param name    文件名
      * @return 文件，null代表失败
      */
-    public static File generateFile(File catalog, String name) {
+    public static File _generateFile(File catalog, String name) {
         if (catalog == null || TextUtils.isEmpty(name)) {
             Log.e(TAG, "generateFile : 创建失败, 文件目录或文件名为空, 请检查!");
             return null;
@@ -217,7 +217,7 @@ public class FileUtil {
      * @param filePath 文件全路径
      * @return 文件，null代表失败
      */
-    public static File generateFile(String filePath) {
+    public static File _generateFile(String filePath) {
         if (TextUtils.isEmpty(filePath)) {
             Log.e(TAG, "generateFile : 创建失败, 文件目录或文件名为空, 请检查!");
             return null;
@@ -243,7 +243,7 @@ public class FileUtil {
      * @param file 文件或文件夹
      * @return 文件大小
      */
-    public static long calculateFileSize(File file) {
+    public static long _calculateFileSize(File file) {
         if (file == null) {
             return 0;
         }
@@ -258,7 +258,7 @@ public class FileUtil {
             if (null != files) {
                 for (File subFile : files) {
                     if (subFile.isDirectory()) {
-                        result += calculateFileSize(subFile);
+                        result += _calculateFileSize(subFile);
                     } else {
                         result += subFile.length();
                     }
@@ -276,7 +276,7 @@ public class FileUtil {
      * @param file file
      * @return true代表成功删除
      */
-    public static boolean deleteFile(File file) {
+    public static boolean _deleteFile(File file) {
         if (file == null) {
             return true;
         }
@@ -289,7 +289,7 @@ public class FileUtil {
             if (null != files) {
                 for (File subFile : files) {
                     if (subFile.isDirectory()) {
-                        if (!deleteFile(subFile)) {
+                        if (!_deleteFile(subFile)) {
                             result = false;
                         }
                     } else {
@@ -308,22 +308,22 @@ public class FileUtil {
     }
 
     //返回"/data"目录
-    public static String getDataDirectory() {
+    public static String _getDataDirectory() {
         return Environment.getDataDirectory().getAbsolutePath();
     }
 
     //返回"/storage/emulated/0"目录
-    public static String getExternalStorageDirectory() {
+    public static String _getExternalStorageDirectory() {
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
     //返回"/system"目录
-    public static String getRootDirectory() {
+    public static String _getRootDirectory() {
         return Environment.getRootDirectory().getAbsolutePath();
     }
 
     //返回"/cache"目录
-    public static String getDownloadCacheDirectory() {
+    public static String _getDownloadCacheDirectory() {
         return Environment.getDownloadCacheDirectory().getAbsolutePath();
     }
 
@@ -332,7 +332,7 @@ public class FileUtil {
      * @return 返回"/storage/emulated/0/xxx"目录
      * 例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Alarms"
      */
-    public static String getExternalStoragePublicDirectory(String type) {
+    public static String _getExternalStoragePublicDirectory(String type) {
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
         //返回的目录有可能不存在
         if (!file.exists()) {
@@ -342,12 +342,12 @@ public class FileUtil {
     }
 
     //返回"/data/user/0/com.xxx.xxx/cache"目录
-    public static String getCacheDir() {
+    public static String _getCacheDir() {
         return BaseApplication.getInstance().getCacheDir().getAbsolutePath();
     }
 
     //返回"/data/user/0/com.xxx.xxx/files"目录
-    public static String getFilesDir() {
+    public static String _getFilesDir() {
         return BaseApplication.getInstance().getFilesDir().getAbsolutePath();
     }
 
@@ -357,7 +357,7 @@ public class FileUtil {
     }
 
     //返回"/storage/emulated/0"目录  获取外部储存根目录
-    public static String getExternalRootDir() {
+    public static String _getExternalRootDir() {
         if (Environment.isExternalStorageEmulated()) {
             return null;
         }
@@ -369,7 +369,7 @@ public class FileUtil {
      * @return 返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"目录
      * 例如传入Environment.DIRECTORY_ALARMS则返回"/storage/emulated/0/Android/data/com.xxx.xxx/files/Alarms"
      */
-    public static String getExternalFilesDir(String type) {
+    public static String _getExternalFilesDir(String type) {
         File file = BaseApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_ALARMS);
         //返回的目录有可能不存在
         if (!file.exists()) {

@@ -129,8 +129,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.mine_download:
                 getActivity().startActivity(new Intent(getActivity(), DownloadActivity.class));
-                DirectoryUtils.getEnvironmentDirectories();
-                DirectoryUtils.getApplicationDirectories(getContext());
+                DirectoryUtils._getEnvironmentDirectories();
+                DirectoryUtils._getApplicationDirectories(getContext());
                 break;
             case R.id.mine_space:
                 break;
@@ -138,7 +138,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 getActivity().startActivity(new Intent(getActivity(), VIPCenterActivity.class));
                 break;
             case R.id.mine_play_reword:
-                showAlertDialog(MobilePhoneInfo.getHardInfo());
+                showAlertDialog(MobilePhoneInfo._getHardInfo());
                 break;
             case R.id.mine_collector:
                 break;

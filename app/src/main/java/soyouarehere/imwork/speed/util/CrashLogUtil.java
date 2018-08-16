@@ -162,8 +162,8 @@ public class CrashLogUtil implements UncaughtExceptionHandler {
 //                File dir = FileUtil.generateCacheTemporaryFile(mContext, fileName);
 
                 if (mFileOutput == null) {
-                    File dirTemp = FileUtil.generateDirectory(FileUtil.getExternalCacheDir(), BaseConstants.APP_TMP);
-                    mFileOutput = FileUtil.generateFile(dirTemp, fileName);
+                    File dirTemp = FileUtil._generateDirectory(FileUtil.getExternalCacheDir(), BaseConstants.APP_TMP);
+                    mFileOutput = FileUtil._generateFile(dirTemp, fileName);
                 }
 
                 if (mFileOutput == null) {
