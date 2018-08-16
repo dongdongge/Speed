@@ -79,5 +79,6 @@ public class ServiceResourceActivity extends BaseActivity<ServiceResourcePresent
     @Override
     public void fail(String errMsg) {
         dissLoading();
+        showToast(errMsg);
     }
 }
