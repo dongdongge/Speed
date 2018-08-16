@@ -54,6 +54,7 @@ public class NewTaskConnectActivity extends BaseActivity {
     }
 
     public void checkUrlValid(String url) {
+        showLoading();
         MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.execute(new Runnable() {
             @Override
             public void run() {
@@ -71,6 +72,7 @@ public class NewTaskConnectActivity extends BaseActivity {
         TaskManager.getInstance().checkDownUrl(urlString, new TaskManager.CheckUrlCallBack() {
             @Override
             public void onSuccess(DownloadFileInfo fileInfo) {
+                dissLoading();
                 Intent intent = new Intent();
                 intent.putExtra("url", fileInfo.getUrl());
                 intent.putExtra("DownloadFileInfo", new Gson().toJson(fileInfo));
@@ -79,6 +81,7 @@ public class NewTaskConnectActivity extends BaseActivity {
             }
             @Override
             public void fail(String msg) {
+                dissLoading();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
