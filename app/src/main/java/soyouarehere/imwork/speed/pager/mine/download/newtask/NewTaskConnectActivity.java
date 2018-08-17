@@ -15,6 +15,8 @@ import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.MyThreadPoolExecutor;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
+import soyouarehere.imwork.speed.util.PreferenceUtil;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class NewTaskConnectActivity extends BaseActivity {
 
@@ -45,9 +47,6 @@ public class NewTaskConnectActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String str = et_input_content.getText().toString().trim();
-                if (!str.contains("http://")){
-                    str = httpAdress1+str;
-                }
                 checkUrlValid(str);
             }
         });
@@ -77,6 +76,7 @@ public class NewTaskConnectActivity extends BaseActivity {
             @Override
             public void fail(int code,String msg) {
                 dissLoading();
+                LogUtil.e(code+"准备任务失败",msg);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -88,7 +88,7 @@ public class NewTaskConnectActivity extends BaseActivity {
     }
 
     public void showAlertDialog(String msg,int code) {
-        new CustomAlertDialog(this, "查看下载","重新下载", msg, new CustomAlertDialog.OnClickInterface() {
+        new CustomAlertDialog(this, null,null, msg, new CustomAlertDialog.OnClickInterface() {
             @Override
             public void clickSure() {
 

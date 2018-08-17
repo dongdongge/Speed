@@ -13,7 +13,7 @@ public interface BaseConstants {
 
     String APP_SHARE = "app_share";                         // 默认preference名字
     String APP_SHARE_USER = "app_user_share";               //用户sharePreference
-
+    String APP_CONFIG = "app_config";                       // 默认的全局配置模块
     // 存放下载信息的数据库 名字 包括下载的状态等 文件放在哪个文件夹下；
     String APP_DOWNLOAD_INFO = "downloadInfo";
 

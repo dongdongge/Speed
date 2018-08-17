@@ -4,12 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
+import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 
 public class CompleteFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -20,6 +29,10 @@ public class CompleteFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    @BindView(R.id.complete_fragment_rcy)
+    RecyclerView recyclerView;
 
     public CompleteFragment() {
         // Required empty public constructor
@@ -48,10 +61,32 @@ public class CompleteFragment extends BaseFragment {
         return R.layout.fragment_complete;
     }
 
+    CompleteAdapter adapter;
+
     @Override
     protected void initView() {
+        adapter = new CompleteAdapter(this.getActivity(), completeList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        recyclerView.setAdapter(adapter);
+        initData();
+        initListener();
+    }
+
+    List<DownloadFileInfo> completeList = new ArrayList<>();
+
+    /**
+     * 初始化数据 从数据库中获取已经完成的任务；
+     */
+    private void initData() {
+        completeList.clear();
+        completeList.addAll(DownloadHelp.getDataDownloadComplete());
+        adapter.updateAll();
+    }
+
+    public void initListener() {
 
     }
+
 
     @Override
     public void onAttach(Context context) {

@@ -8,11 +8,13 @@ import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Response;
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.CloseUtils;
 import soyouarehere.imwork.speed.util.FileSizeUtil;
+import soyouarehere.imwork.speed.util.PreferenceUtil;
 
 public class CallableTask implements Callable<String> {
 
@@ -41,7 +43,7 @@ public class CallableTask implements Callable<String> {
             if (response.code() == 200) {
                 is = response.body().byteStream();
 //                bis = new BufferedInputStream(response.body().byteStream());
-                File file = TaskHelp.getFile(info.getFileName());
+                File file = TaskHelp.getFile(info.getFilePath(),info.getFileName());
                 callBack.finish(info);
                 fileOutputStream = new FileOutputStream(file);
 //                bos = new BufferedOutputStream(fileOutputStream);

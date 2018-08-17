@@ -17,7 +17,7 @@ import soyouarehere.imwork.speed.util.UrlUtils;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
- * 下载前的准备任务  该任务只下载 首次下载的数据 要获取length等信息；
+ * 该任务是进行首次下载的任务  即是在数据库中不能查到该任务
  */
 public class ReadyTask implements Runnable {
     private String url;
@@ -58,6 +58,7 @@ public class ReadyTask implements Runnable {
         fileInfo.setFileName(fileName);
         //创建文件名 检测默认的下载文件夹中是否存在该文件，
         String filePosition = PreferenceUtil.getDownloadPotion(BaseApplication.getInstance());
+        LogUtil.e("默认的下载文件夹"+filePosition);
         if (PreferenceUtil._isExetisDownloadFile(fileName)){
             prepareCallBack.fail(2,"该任务已经在任务列表");
             return;
@@ -73,6 +74,7 @@ public class ReadyTask implements Runnable {
             e.printStackTrace();
             return;
         }
+        LogUtil.e("获取文件长度");
         // 不存在就是新的文件
         fileInfo.setFilePath(filePosition);
         fileInfo.setProgress(0);

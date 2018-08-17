@@ -18,6 +18,7 @@ import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDeco
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
 import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
+import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.util.DensityUtil;
@@ -64,16 +65,12 @@ public class DownloadIngFragment extends BaseFragment {
         return R.layout.fragment_download_ing;
     }
 
-    public static List<DownloadFileInfo> initData() {
-        hashMap = new HashMap<>();
-        List<DownloadFileInfo> fileInfos = new ArrayList<>();
-//        for (int i = 0; i < 2; i++) {
-//            DownloadFileInfo info = new DownloadFileInfo("url");
-//            info.setFileName("我不是药神纪录片" + i);
-//            fileInfos.add(info);
-//            hashMap.put(info.getFileName(), i);
-//        }
-        return fileInfos;
+    /**
+     * 初始化数据
+     */
+    public void initData() {
+        infoList = new ArrayList<>();
+        infoList.addAll(DownloadHelp.getDataDownloadIng());
     }
 
     public RecycleDividerItemDecoration getDivider() {
@@ -84,21 +81,20 @@ public class DownloadIngFragment extends BaseFragment {
     }
 
     List<DownloadFileInfo> infoList;
-    static HashMap<String, Integer> hashMap;
     DownloadAdapter adapter;
 
     @Override
     protected void initView() {
         downloadingRcy.setLayoutManager(new LinearLayoutManager(getContext()));
         downloadingRcy.addItemDecoration(getDivider());
-        infoList = initData();
+        initData();
         adapter = new DownloadAdapter(getContext(), infoList, new DownloadAdapter.OnClickAdapterItem() {
             @Override
             public void callBack(boolean isChecked, int position, DownloadFileInfo info) {
                 LogUtil.e("当前索引", position, isChecked);
-                if (isChecked){
+                if (isChecked) {
                     TaskManager.getInstance().pauseBrokenRunnable(info.getFileName());
-                }else {
+                } else {
                     TaskManager.getInstance().resumeContinueDownload(info.getFileName());
                 }
             }
@@ -120,16 +116,25 @@ public class DownloadIngFragment extends BaseFragment {
     }
 
     private void notifyItem(DownloadFileInfo downloadFileInfo) {
-        if (hashMap.containsKey(downloadFileInfo.getFileName())) {
-            infoList.get(0).setProgress(downloadFileInfo.getProgress());
-            adapter.updataItem(hashMap.get(downloadFileInfo.getFileName()));
-        } else {
-            hashMap.put(downloadFileInfo.getFileName(), infoList.size());
-            infoList.add(downloadFileInfo);
-            adapter.updataAllItem();
+        int position = positionBean(downloadFileInfo.getFileName());
+        if (position != -1){
+            infoList.get(position).setProgress(downloadFileInfo.getProgress());
+            adapter.updataItem(position);
+        }else {
+            infoList.add(0,downloadFileInfo);
+            adapter.updataItem(0);
         }
     }
-
+    private int positionBean(String name){
+        LogUtil.e("定为position",name);
+        for (int i = 0; i < infoList.size(); i++) {
+            if (infoList.get(i).getFileName().equals(name)) {
+                LogUtil.e("位置为位置为",i);
+                return i;
+            }
+        }
+        return -1;
+    }
 
     @Override
     public void onPause() {

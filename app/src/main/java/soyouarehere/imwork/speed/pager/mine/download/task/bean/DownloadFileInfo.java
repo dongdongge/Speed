@@ -36,7 +36,7 @@ public class DownloadFileInfo{
      * */
     private String showProgressSize;
     /**
-     * 文件的路径
+     * 文件的路径 /storage/emulute/0/speed_file
      * */
     private String filePath;
 
@@ -84,6 +84,7 @@ public class DownloadFileInfo{
      * 是否支持断点续传的原因
      * */
     private String reasonMsg;
+
 
     public String getReasonMsg() {
         return reasonMsg;

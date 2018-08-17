@@ -85,7 +85,7 @@ public class CustomAlertDialog extends Dialog {
         TextView msg = view.findViewById(R.id.tv_msg_custom_alert);
         msg.setText(this.msg);
         Button cancle = view.findViewById(R.id.bt_cancel_custom_alert);
-        if (leftText==null&&!leftText.isEmpty()){
+        if (leftText!=null&&!leftText.isEmpty()){
             cancle.setText(leftText);
         }
         cancle.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +97,8 @@ public class CustomAlertDialog extends Dialog {
             }
         });
         Button sure = view.findViewById(R.id.bt_sure_custom_alert);
-        if (rightText==null&&!rightText.isEmpty()){
-            cancle.setText(rightText);
+        if (rightText!=null&&!rightText.isEmpty()){
+            sure.setText(rightText);
         }
         sure.setOnClickListener(new View.OnClickListener() {
             @Override

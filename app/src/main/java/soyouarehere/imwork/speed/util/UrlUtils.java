@@ -3,6 +3,8 @@ package soyouarehere.imwork.speed.util;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import soyouarehere.imwork.speed.util.log.LogUtil;
+
 /**
  * Created by li.xiaodong on 2018/8/2.
  */
@@ -12,7 +14,11 @@ public class UrlUtils {
     /**
      * 判断url是否合法;
      */
-    public static boolean checkUrl(@NonNull String url) {
+    public static boolean checkUrl(String url) {
+        LogUtil.e("检查URL是否合法"+url);
+        if (url==null||url.isEmpty()||!url.contains("http")){
+            return false;
+        }
         if (url.contains("?")) {
             url = url.substring(0, url.indexOf('?'));
         }

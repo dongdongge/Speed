@@ -32,6 +32,7 @@ public class BaseApplication extends Application {
             filePosition = FileUtil._getDefaultDownloadFilePosition();
             PreferenceUtil.putDownloadPotion(BaseApplication.getInstance(),filePosition);
         }
+        LogUtil.e("程序开始，初始化下载文件夹的位置"+filePosition);
     }
 
     public static Application getInstance(){

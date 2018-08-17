@@ -383,7 +383,7 @@ public class FileUtil {
      * 获取默认下载文件夹的位置 /storage/emulated/0/speed_file
      * */
     public static String _getDefaultDownloadFilePosition(){
-        if (Environment.isExternalStorageEmulated()){
+        if (!Environment.isExternalStorageEmulated()){
             return null;
         }
         String rootPath = _getExternalStorageDirectory()+"/speed_file";

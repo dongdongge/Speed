@@ -69,24 +69,41 @@ public class PreferenceUtil {
     private synchronized static SharedPreferences getDownloadPreference(Context context){
         return  getPreference(context,BaseConstants.APP_DOWNLOAD_INFO);
     }
-
+    /**
+     *   全局的数据库配置
+     */
+    private synchronized static SharedPreferences getConfigPreference(Context context){
+        return  getPreference(context,BaseConstants.APP_CONFIG);
+    }
     /**
      * 文件的下载位置
      * */
     public synchronized static void putDownloadPotion(Context context,String downloadPosition){
-        getDownloadPreference(context).edit().putString(BaseConstants.APP_DOWNLOAD_POSITION,downloadPosition).apply();
+        getConfigPreference(context).edit().putString(BaseConstants.APP_DOWNLOAD_POSITION,downloadPosition).apply();
     }
     /**
      * 存放，更新下载位置
      * */
     public synchronized static String getDownloadPotion(Context context){
-        return getDownloadPreference(context).getString(BaseConstants.APP_DOWNLOAD_POSITION,null);
+        return getConfigPreference(context).getString(BaseConstants.APP_DOWNLOAD_POSITION,null);
     }
     /**
      * 存放 更新 下载文件的某条信息
      * */
     public synchronized static void putDownloadFileInfo(Context context,String fileName,String value){
         getDownloadPreference(context).edit().putString(fileName,value).apply();
+    }
+    /**
+     * 删除所有的下载信息
+     * */
+    public synchronized static void clearDownloadFileInfo(Context context){
+        getDownloadPreference(context).edit().clear().apply();
+    }
+    /**
+     * 删除某条下载信息
+     * */
+    public synchronized static void deleteDownloadFileInfo(Context context,String name){
+        getDownloadPreference(context).edit().remove(name).apply();
     }
     /**
      * 获取 下载文件的某条信息
@@ -98,7 +115,7 @@ public class PreferenceUtil {
     /**
      * 获取所有的下载信息文件
      * */
-    public synchronized static Map<String,?> getDownloadFileInfoAll(Context context){
+    public synchronized static Map<String, ?> getDownloadFileInfoAll(Context context){
         return getDownloadPreference(context).getAll();
     }
 

@@ -10,8 +10,8 @@ import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 
 public class TaskHelp {
-    public static File getFile(String fileName) {
-        File file = new File(BaseApplication.getInstance().getExternalCacheDir(), fileName);
+    public static File getFile(String filePath,String fileName) {
+        File file = new File(filePath, fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();

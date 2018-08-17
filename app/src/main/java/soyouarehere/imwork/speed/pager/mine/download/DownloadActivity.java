@@ -19,6 +19,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
@@ -34,6 +35,7 @@ import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
+import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -56,20 +58,18 @@ public class DownloadActivity extends BaseActivity {
     public void DataLoadError() {
 
     }
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_download;
     }
 
-//    MyHandler myHandler;
 
     @Override
     public void create(Bundle savedInstanceState) {
         initFragment();
         initTabView();
         initViewPager();
-//        myHandler = new MyHandler(this);
+        initDownloadTask();
     }
 
     private void initViewPager() {
@@ -146,33 +146,6 @@ public class DownloadActivity extends BaseActivity {
             }
         }).show();
     }
-
-    public static class MyHandler extends Handler {
-        private WeakReference<Activity> activityWeakReference;
-
-        public MyHandler(Activity activity) {
-            activityWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Activity activity = activityWeakReference.get();
-            if (activity == null) {
-                return;
-            }
-            switch (msg.what) {
-                case 360:
-                    LogUtil.e("下载进度" + msg.obj.toString());
-                    break;
-                case 361:
-                    LogUtil.e("下载完成" + msg.obj.toString());
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -181,8 +154,6 @@ public class DownloadActivity extends BaseActivity {
                 String url = data.getStringExtra("url");
                 DownloadFileInfo downloadFileInfo = new Gson().fromJson(data.getStringExtra("DownloadFileInfo"), DownloadFileInfo.class);
                 LogUtil.e("传过来的下载信息", downloadFileInfo.toString());
-                // testDownloadFile(url,myHandler);//http://192.168.22.30:8080/static/file/download/lxd.jpg
-                //  //http://192.168.22.30:8080/static/file/video/我不是药神纪录片.mp4
                 executorRunnable(downloadFileInfo);
             }
         }
@@ -253,6 +224,8 @@ public class DownloadActivity extends BaseActivity {
             public void finish(DownloadFileInfo info) {
                 RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
                 LogUtil.e("下载完成" + info.toString());
+                // 发送消息更新已完成列表  删除下载中的列表
+
             }
 
             @Override
@@ -274,11 +247,17 @@ public class DownloadActivity extends BaseActivity {
         TaskManager.getInstance().executeCallableTask(runnable);
     }
 
+
+    public void initDownloadTask(){
+        Map<String,?> stringMap = PreferenceUtil.getDownloadFileInfoAll(BaseApplication.getInstance());
+        LogUtil.e(stringMap);
+
+    }
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (myHandler != null) {
-//            myHandler.removeCallbacksAndMessages(null);
-//        }
     }
 }

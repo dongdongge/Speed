@@ -43,7 +43,7 @@ public class TaskCallableTask implements Callable<String> {
             if (response.code() == 200) {
                 is = response.body().byteStream();
 //                bis = new BufferedInputStream(response.body().byteStream());
-                File file = TaskHelp.getFile(info.getFileName());
+                File file = TaskHelp.getFile(info.getFilePath(),info.getFileName());
                 callBack.finish(info);
                 fileOutputStream = new FileOutputStream(file);
 //                bos = new BufferedOutputStream(fileOutputStream);
