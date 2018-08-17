@@ -88,7 +88,10 @@ public class NewTaskConnectActivity extends BaseActivity {
     }
 
     public void showAlertDialog(String msg,int code) {
-        new CustomAlertDialog(this, null,null, msg, new CustomAlertDialog.OnClickInterface() {
+
+        String leftText = code==2?"查看下载":null;
+        String rightText = code==2?"重新下载":null;
+        new CustomAlertDialog(this, leftText,rightText, msg, new CustomAlertDialog.OnClickInterface() {
             @Override
             public void clickSure() {
 

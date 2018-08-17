@@ -14,11 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
+import soyouarehere.imwork.speed.app.rxbus.RxBus2;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class CompleteFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -84,9 +88,23 @@ public class CompleteFragment extends BaseFragment {
     }
 
     public void initListener() {
+        accuptMsg();
+    }
+    private void accuptMsg() {
+        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
+            @Override
+            public void accept(RxBusEvent2 event) throws Exception {
+                LogUtil.e("接受到了消息" + event.getT().toString());
+                DownloadFileInfo info = (DownloadFileInfo) event.getT();
+                // 标志着下载完成
+                if (info.getFileStatue().equals("complete")){
+                    completeList.add(info);
+                    adapter.updateAll();
+                }
+            }
+        }));
 
     }
-
 
     @Override
     public void onAttach(Context context) {

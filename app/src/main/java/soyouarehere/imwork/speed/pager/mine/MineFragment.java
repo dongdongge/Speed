@@ -15,7 +15,7 @@ import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
-import soyouarehere.imwork.speed.pager.mine.set.SetActivity;
+import soyouarehere.imwork.speed.pager.set.SetActivity;
 import soyouarehere.imwork.speed.pager.mine.vip.VIPCenterActivity;
 import soyouarehere.imwork.speed.util.DirectoryUtils;
 import soyouarehere.imwork.speed.util.MobilePhoneInfo;

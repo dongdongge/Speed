@@ -65,11 +65,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
-
-
-
-
     private void initView() {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

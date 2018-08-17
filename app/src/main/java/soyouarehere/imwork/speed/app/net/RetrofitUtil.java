@@ -4,6 +4,7 @@ package soyouarehere.imwork.speed.app.net;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.config.Config;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
@@ -17,7 +18,7 @@ public class RetrofitUtil {
     public static volatile RetrofitUtil retrofitUtil;
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Config.BASE_URL)
+            .baseUrl(BaseApplication.BASE_URL)
             .client(OkHttpUtils.getInstance())
             /*支持String转换*/
             .addConverterFactory(StringConverterFactory.create())
@@ -41,7 +42,8 @@ public class RetrofitUtil {
      * @return Retrofit
      */
     public static synchronized RetrofitUtil build() {
-        if (retrofitUtil == null) {//双重检测同步延迟加载
+        //双重检测同步延迟加载
+        if (retrofitUtil == null) {
             synchronized (RetrofitUtil.class) {
                 if (retrofitUtil == null) {
                     retrofitUtil = new RetrofitUtil();
@@ -51,17 +53,4 @@ public class RetrofitUtil {
         return retrofitUtil;
     }
 
-
-    /**
-     * 获取URL  根据版本切换不同版本
-     *
-     * @return
-     */
-    public static String getBaseURL() {
-        if (LogUtil.isDebug) {
-            return "http://192.168.22.68/";
-        } else {
-            return "http://192.168.22.20:8083/";//正式
-        }
-    }
 }

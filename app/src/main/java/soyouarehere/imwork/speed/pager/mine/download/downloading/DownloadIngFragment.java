@@ -5,10 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,7 +77,7 @@ public class DownloadIngFragment extends BaseFragment {
         return dividerItemDecoration;
     }
 
-    List<DownloadFileInfo> infoList;
+    volatile List<DownloadFileInfo> infoList;
     DownloadAdapter adapter;
 
     @Override
@@ -118,7 +115,21 @@ public class DownloadIngFragment extends BaseFragment {
     private void notifyItem(DownloadFileInfo downloadFileInfo) {
         int position = positionBean(downloadFileInfo.getFileName());
         if (position != -1){
+            if (downloadFileInfo.getFileStatue().equals("complete")){
+                try {
+                    LogUtil.e(infoList);
+                    LogUtil.e("大小",infoList.size(),"位置",position);
+
+                    infoList.remove(position);
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    LogUtil.e(""+e.getMessage());
+                }
+                return;
+            }
             infoList.get(position).setProgress(downloadFileInfo.getProgress());
+            infoList.get(position).setShowProgress(downloadFileInfo.getShowProgress());
+            infoList.get(position).setShowProgress(downloadFileInfo.getShowProgress());
             adapter.updataItem(position);
         }else {
             infoList.add(0,downloadFileInfo);
@@ -151,6 +162,5 @@ public class DownloadIngFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 }

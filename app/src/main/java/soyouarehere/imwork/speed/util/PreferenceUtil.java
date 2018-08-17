@@ -10,6 +10,8 @@ import java.util.Set;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.constant.BaseConstants;
 
+import static soyouarehere.imwork.speed.app.constant.BaseConstants.APP_BASE_URL;
+
 /**
  * version    1.0
  * description shared preference工具类
@@ -131,6 +133,21 @@ public class PreferenceUtil {
     /*---------------------------------------end-------------------------------------*/
 
 
+    /*----------------------------------------更改服务器地址---------------------------------------*/
+
+    /**
+     * 获取App的baseURL
+     * */
+    public synchronized static String getConfigBaseUrl(Context context){
+        return getConfigPreference(context).getString(APP_BASE_URL,null);
+    }
+
+    /**
+     * 获取App的baseURL
+     * */
+    public synchronized static void putConfigBaseUrl(Context context,String baseUrl){
+         getConfigPreference(context).edit().putString(APP_BASE_URL,baseUrl).apply();
+    }
 
     /*-----------------------------------------  根据传入的SharedPreferences 进行操作 ----------------------------------------*/
     public synchronized static void putString(SharedPreferences sp, String key, String value) {

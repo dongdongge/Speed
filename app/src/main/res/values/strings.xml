@@ -23,8 +23,11 @@
     <string name="setDownloadSet">下载设置</string>
     <string name="setCommon">通用</string>
     <string name="setCheckSpeed">网速检测</string>
+    <string name="setPhoneSpaceSize">手机存储可用空间</string>
     <string name="setClearSpace">清理存储空间</string>
     <string name="setUpdate">检测更新</string>
     <string name="setAboutSpeed">关于[speed]0.0.1</string>
     <string name="setQuiteLogin">退出登录</string>
+    <string name="setServiceHttp">设置服务端地址</string>
+
 </resources>
