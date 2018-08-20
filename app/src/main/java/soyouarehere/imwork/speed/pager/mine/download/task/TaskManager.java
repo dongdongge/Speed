@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
+import soyouarehere.imwork.speed.app.rxbus.RxBus2;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
 import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceFile;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
+import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
@@ -16,10 +19,6 @@ import soyouarehere.imwork.speed.util.log.LogUtil;
 public class TaskManager {
 
     private OkHttpClient mClient;//OKHttpClient;
-    /**
-     * 存放任务的集合；进行取消再次进行任务的
-     */
-    private static Map<String, BrokenRunnable> brokenRunnableHashMap = new HashMap<>();
 
     public TaskManager() {
         mClient = new OkHttpClient.Builder().build();
@@ -36,40 +35,43 @@ public class TaskManager {
     /**
      * 执行下载任务 Callable  进行判断
      */
-    public void executeCallableTask(BrokenRunnable brokenRunnable) {
-        if (!brokenRunnableHashMap.containsKey(brokenRunnable.getName())) {
-            LogUtil.e("将任放在内存中 方便暂停 删除等");
-            brokenRunnableHashMap.put(brokenRunnable.getName(), brokenRunnable);
-            // 将任务放进线程池中去执行任务;
-            MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(brokenRunnable);
-        } else {
-            LogUtil.e("任务列表中存在相同的任务");
-        }
+    public void executeCallableTask(DownloadFileInfo fileInfo) {
+        // 需要进行判断  当前是否存在该任务
+        // 将任务放进线程池中去执行任务;
+        MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(generateTask(fileInfo));
     }
+
     /**
-     * 移除任务
+     * 生成任务的方法
      * */
-    public void removeBrokenRunnable(String name) {
-        if (brokenRunnableHashMap.containsKey(name)) {
-            brokenRunnableHashMap.remove(name);
-        }
-    }
-    /**
-     * 停止任务 将线程打断，停止执行任务；
-     */
-    public void pauseBrokenRunnable(String name) {
-        if (brokenRunnableHashMap.containsKey(name)) {
-            brokenRunnableHashMap.get(name).onThreadPause();
-        }
+    public BrokenRunnable generateTask(DownloadFileInfo fileInfo) {
+        return new BrokenRunnable(fileInfo, new TaskCallBack() {
+            @Override
+            public void progress(DownloadFileInfo info) {
+                LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
+                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+            }
+
+            @Override
+            public void finish(DownloadFileInfo info) {
+                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+                LogUtil.e("下载完成" + info.toString());
+                // 发送消息更新已完成列表  删除下载中的列表
+            }
+
+            @Override
+            public void fail(String msg) {
+                LogUtil.e("下载失败" + msg);
+            }
+        });
+
     }
 
     /**
      * 继续下载
      */
-    public void resumeContinueDownload(String name) {
-        if (brokenRunnableHashMap.containsKey(name)) {
-            brokenRunnableHashMap.get(name).onThreadResume();
-        }
+    public void resumeContinueDownload(DownloadFileInfo info) {
+        executeCallableTask(info);
     }
 
     /**
@@ -81,8 +83,8 @@ public class TaskManager {
 
     /**
      * 准备任务 携带信息；
-     * */
-    public void prepareTask(ResourceFile file,PrepareCallBack prepareCallBack){
+     */
+    public void prepareTask(ResourceFile file, PrepareCallBack prepareCallBack) {
         // 检查本地是否存在该任务，或者文件，判断该文件是否允许断点续传，
 
     }
@@ -92,11 +94,11 @@ public class TaskManager {
 
         /**
          * code :0 检查url合法失败
-         *      :1 根据url创建文件名字失败
-         *      :2 该任务已经在任务列表
-         *      :3 创建文件失败
-         *      :4 获取文件大小失败
-         * */
-        void fail(int code,String msg);
+         * :1 根据url创建文件名字失败
+         * :2 该任务已经在任务列表
+         * :3 创建文件失败
+         * :4 获取文件大小失败
+         */
+        void fail(int code, String msg);
     }
 }

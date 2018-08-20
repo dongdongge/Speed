@@ -68,7 +68,6 @@ public class NewTaskConnectActivity extends BaseActivity {
             public void onSuccess(DownloadFileInfo fileInfo) {
                 dissLoading();
                 Intent intent = new Intent();
-                intent.putExtra("url", fileInfo.getUrl());
                 intent.putExtra("DownloadFileInfo", new Gson().toJson(fileInfo));
                 setResult(261, intent);
                 finish();

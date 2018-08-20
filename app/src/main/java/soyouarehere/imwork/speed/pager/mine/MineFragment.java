@@ -9,16 +9,33 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
+import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.set.SetActivity;
 import soyouarehere.imwork.speed.pager.mine.vip.VIPCenterActivity;
 import soyouarehere.imwork.speed.util.DirectoryUtils;
 import soyouarehere.imwork.speed.util.MobilePhoneInfo;
+import soyouarehere.imwork.speed.util.http.CallBackUtil;
+import soyouarehere.imwork.speed.util.http.UrlHttpUtil;
+import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
  * @desc 承载用户信息界面  download publish 等
@@ -93,6 +110,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         mineDownload.setOnClickListener(this);
         mineCenter.setOnClickListener(this);
         minePlayReword.setOnClickListener(this);
+        mineLink.setOnClickListener(this::onClick);
     }
 
 
@@ -148,10 +166,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_collector:
                 break;
             case R.id.mine_link:
+
                 break;
             default:
                 break;
         }
     }
+
+
 
 }

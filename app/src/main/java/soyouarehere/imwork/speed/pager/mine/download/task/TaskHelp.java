@@ -3,6 +3,7 @@ package soyouarehere.imwork.speed.pager.mine.download.task;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,11 +30,16 @@ public class TaskHelp {
         return new Request.Builder()
                 .addHeader("RANGE", "bytes=" + fileInfo.getProgress() + "-" + fileInfo.getTotal())
                 .url(fileInfo.getUrl())
+                .get()
                 .build();
     }
 
     public static OkHttpClient getHttpClient() {
-        OkHttpClient client = new OkHttpClient.Builder().build();
+        OkHttpClient client = new OkHttpClient
+                .Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .build();
+
         return client;
     }
 

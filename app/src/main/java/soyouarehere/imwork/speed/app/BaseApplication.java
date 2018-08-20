@@ -35,7 +35,7 @@ public class BaseApplication extends Application {
      * 初始化全局异常 闪退 记录 锁定方案
      * */
     public void initConfigCrashHandler(){
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
 
     }
     /**
