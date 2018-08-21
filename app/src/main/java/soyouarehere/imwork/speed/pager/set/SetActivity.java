@@ -9,6 +9,7 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
+import soyouarehere.imwork.speed.pager.set.select_path.SelectPathActivity;
 import soyouarehere.imwork.speed.util.PhoneLauncherUtils;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
@@ -23,6 +24,12 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.setServiceHttp)
     Button setServiceHttp;
+
+    /**
+     * 选择存储路径；
+     */
+    @BindView(R.id.setSelectPath)
+    Button setSelectPath;
 
     @Override
     public void DataLoadError() {
@@ -40,11 +47,12 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        setClearSpace.setOnClickListener(this);
-        setPhoneSpaceSize.setOnClickListener(this);
-        setServiceHttp.setOnClickListener(this);
+        setClearSpace.setOnClickListener(this::onClick);
+        setPhoneSpaceSize.setOnClickListener(this::onClick);
+        setServiceHttp.setOnClickListener(this::onClick);
+        setSelectPath.setOnClickListener(this::onClick);
         String serviceAddress = PreferenceUtil.getConfigBaseUrl(BaseApplication.getInstance());
-        setServiceHttp.setText("设置服务器地址  (当前地址："+serviceAddress+")");
+        setServiceHttp.setText("设置服务器地址  (当前地址：" + serviceAddress + ")");
     }
 
     @Override
@@ -59,22 +67,26 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
             case R.id.setServiceHttp:
                 showCustomEditText();
                 break;
+            case R.id.setSelectPath:
+                launch(this, SelectPathActivity.class,false);
+                break;
             default:
                 break;
         }
     }
+
     /**
-     *
      * 更换服务器地址的弹窗
-     * */
-    private void showCustomEditText(){
+     */
+    private void showCustomEditText() {
         new CustomEditTextDialog(this, new CustomEditTextDialog.OnClickDialogListener() {
             @Override
             public void clickSure(String content) {
                 LogUtil.e(content);
-                PreferenceUtil.putConfigBaseUrl(BaseApplication.getInstance(),content);
+                PreferenceUtil.putConfigBaseUrl(BaseApplication.getInstance(), content);
                 PhoneLauncherUtils.launcher3();
             }
+
             @Override
             public void clickCancle() {
 

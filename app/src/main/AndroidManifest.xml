@@ -41,7 +41,8 @@
         <activity android:name=".pager.mine.publish.PublishVideoActivity" />
         <activity android:name=".pager.mine.download.resouce.ServiceResourceActivity" />
         <activity android:name=".pager.mine.vip.VIPCenterActivity" />
-        <activity android:name=".pager.set.SetActivity"></activity>
+        <activity android:name=".pager.set.SetActivity" />
+        <activity android:name=".pager.set.select_path.SelectPathActivity"></activity>
     </application>
 
 </manifest>
