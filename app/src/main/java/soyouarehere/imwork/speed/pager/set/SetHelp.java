@@ -29,7 +29,6 @@ public class SetHelp {
             if (file.exists()) {
                 file.delete();
             }
-            TaskManager.getInstance().removeBrokenRunnable(info.getFileName());
         }
         PreferenceUtil.clearDownloadFileInfo(BaseApplication.getInstance());
     }

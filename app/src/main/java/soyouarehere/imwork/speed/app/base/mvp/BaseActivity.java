@@ -359,11 +359,9 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel>
      * 网络加载框
      */
     public void showLoading() {
-        LogUtil.e("======");
         if (loadingDialog != null) {
             loadingDialog.dismiss();
             loadingDialog.show();
-            LogUtil.e("======");
         }
     }
 

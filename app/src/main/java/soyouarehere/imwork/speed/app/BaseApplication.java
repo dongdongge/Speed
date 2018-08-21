@@ -36,6 +36,8 @@ public class BaseApplication extends Application {
      * */
     public void initConfigCrashHandler(){
         CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
+
     }
     /**
      * 初始化baseUrl

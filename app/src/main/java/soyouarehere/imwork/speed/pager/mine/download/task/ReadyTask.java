@@ -49,29 +49,16 @@ public class ReadyTask implements Runnable {
             prepareCallBack.fail(1,"根据url创建文件名字失败");
             return;
         }
-        createNewFile(url, fileName, prepareCallBack);
+        createNewFile(url, fileName);
     }
 
-    private void createNewFile(String url, String fileName, TaskManager.PrepareCallBack prepareCallBack) {
+    private void createNewFile(String url, String fileName) {
         LogUtil.e("createNewFile");
         DownloadFileInfo fileInfo = new DownloadFileInfo(url);
         fileInfo.setFileName(fileName);
         //创建文件名 检测默认的下载文件夹中是否存在该文件，
-        String filePosition = PreferenceUtil.getDownloadPotion(BaseApplication.getInstance());
-        LogUtil.e("默认的下载文件夹"+filePosition);
-        if (PreferenceUtil._isExetisDownloadFile(fileName)){
-            prepareCallBack.fail(2,"该任务已经在任务列表");
-            return;
-        }
-        File file = new File(filePosition, fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            prepareCallBack.fail(3,"创建文件失败");
-            e.printStackTrace();
+        String filePosition =createFile(fileName);
+        if (filePosition==null){
             return;
         }
         LogUtil.e("获取文件长度");
@@ -87,6 +74,28 @@ public class ReadyTask implements Runnable {
         }
         fileInfo.setShowSize(FileSizeUtil.FormetFileSize(fileInfo.getTotal()));
         prepareCallBack.onSuccess(fileInfo);
+    }
+
+    //创建文件名 检测默认的下载文件夹中是否存在该文件，
+    private String createFile(String fileName){
+        String filePosition = PreferenceUtil.getDownloadPotion(BaseApplication.getInstance());
+        LogUtil.e("默认的下载文件夹"+filePosition);
+        if (PreferenceUtil._isExetisDownloadFile(fileName)){
+            prepareCallBack.fail(2,"该任务已经在任务列表");
+            return null;
+        }
+        File file = new File(filePosition, fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            prepareCallBack.fail(3,"创建文件失败");
+            e.printStackTrace();
+            return null;
+        }
+        return filePosition;
     }
 
     /**

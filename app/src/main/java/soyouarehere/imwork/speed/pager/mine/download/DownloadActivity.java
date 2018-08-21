@@ -22,18 +22,13 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
-import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
 import soyouarehere.imwork.speed.pager.mine.download.all.AllFragment;
 import soyouarehere.imwork.speed.pager.mine.download.complete.CompleteFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.DownloadIngFragment;
 import soyouarehere.imwork.speed.pager.mine.download.history.HistoryFragment;
 import soyouarehere.imwork.speed.pager.mine.download.newtask.NewTaskConnectActivity;
 import soyouarehere.imwork.speed.pager.mine.download.resouce.ServiceResourceActivity;
-import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
-import soyouarehere.imwork.speed.pager.mine.download.task.single.CallableTask;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
-import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
@@ -141,7 +136,7 @@ public class DownloadActivity extends BaseActivity {
                     launchStartActivityForResult(DownloadActivity.this, NewTaskConnectActivity.class, false, map, 226);
                 } else if (position == 0) {
                     Map<String, String> map = new HashMap<>();
-                    launchStartActivityForResult(DownloadActivity.this, ServiceResourceActivity.class, false, map, 220);
+                    launchStartActivityForResult(DownloadActivity.this, ServiceResourceActivity.class, false, map, 226);
                 }
             }
         }).show();
@@ -151,7 +146,6 @@ public class DownloadActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 226) {
             if (resultCode == 261) {
-                String url = data.getStringExtra("url");
                 DownloadFileInfo downloadFileInfo = new Gson().fromJson(data.getStringExtra("DownloadFileInfo"), DownloadFileInfo.class);
                 LogUtil.e("传过来的下载信息", downloadFileInfo.toString());
                 executorRunnable(downloadFileInfo);
@@ -160,91 +154,7 @@ public class DownloadActivity extends BaseActivity {
     }
 
     public void executorRunnable(DownloadFileInfo fileInfo) {
-        /**
-         * 创建任务
-         * */
-//        TaskRunnable taskRunnable = new TaskRunnable(fileInfo, new TaskCallBack() {
-//            @Override
-//            public void progress(DownloadFileInfo info) {
-//                LogUtil.e("进度" + info.getShowProgress() +"当前文件大小"+info.getShowProgressSize()+"文件总大小"+info.getShowSize());
-//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-////                EventBus.getDefault().post(info);
-//            }
-//
-//            @Override
-//            public void finish(DownloadFileInfo info) {
-//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-//                LogUtil.e("下载完成" + info.toString());
-//            }
-//
-//            @Override
-//            public void fail(String msg) {
-//                LogUtil.e("下载失败" + msg);
-//                new CustomAlertDialog(DownloadActivity.this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
-//                    @Override
-//                    public void clickSure() {
-//
-//                    }
-//                }).show();
-//            }
-//        });
-//        CallableTask taskRunnable = new CallableTask(fileInfo, new TaskCallBack() {
-//            @Override
-//            public void progress(DownloadFileInfo info) {
-//                LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
-//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-//            }
-//
-//            @Override
-//            public void finish(DownloadFileInfo info) {
-//                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-//                LogUtil.e("下载完成" + info.toString());
-//            }
-//
-//            @Override
-//            public void fail(String msg) {
-//                LogUtil.e("下载失败" + msg);
-//                new CustomAlertDialog(DownloadActivity.this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
-//                    @Override
-//                    public void clickSure() {
-//
-//                    }
-//                }).show();
-//            }
-//        });
-
-        BrokenRunnable runnable = new BrokenRunnable(fileInfo, new TaskCallBack() {
-            @Override
-            public void progress(DownloadFileInfo info) {
-                LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
-                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-            }
-
-            @Override
-            public void finish(DownloadFileInfo info) {
-                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
-                LogUtil.e("下载完成" + info.toString());
-                // 发送消息更新已完成列表  删除下载中的列表
-
-            }
-
-            @Override
-            public void fail(String msg) {
-                LogUtil.e("下载失败" + msg);
-                new CustomAlertDialog(DownloadActivity.this, true, true, msg, new CustomAlertDialog.OnClickInterface() {
-                    @Override
-                    public void clickSure() {
-
-                    }
-
-                    @Override
-                    public void clickCancel() {
-
-                    }
-                }).show();
-            }
-        });
-        TaskManager.getInstance().executeCallableTask(runnable);
+        TaskManager.getInstance().executeCallableTask(fileInfo);
     }
 
 

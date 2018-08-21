@@ -10,6 +10,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
+import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
 import soyouarehere.imwork.speed.util.CloseUtils;
@@ -85,8 +86,9 @@ public class BrokenRunnable implements Runnable {
         LogUtil.e("开始执行断点续传下载工具类");
         File file = TaskHelp.getFile(info.getFilePath(), info.getFileName());
         // 此处要去更新下文件的实际大小  不能以数据库中的大小为准
-        if (PreferenceUtil._isExetisDownloadFile(info.getFileName())) {
+        if (PreferenceUtil._isExetisDownloadFile(info.getFileName())&&!info.getFileStatue().equals("stop")) {
             LogUtil.e("数据库中已经存在该 任务信息");
+            callBack.fail("已经存在该任务");
             return;
         } else {
             info.setProgress(file.length());
@@ -109,7 +111,7 @@ public class BrokenRunnable implements Runnable {
                 }
                 randomAccessFile = new RandomAccessFile(file, "rwd");
                 randomAccessFile.seek(info.getProgress());
-                randomAccessFile.setLength(info.getTotal());
+//                randomAccessFile.setLength(info.getTotal());
                 // 在此处 进行判断 如果文件大小介于20~100 则每次读取1M 介于
                 long readLength = TaskHelp.formatReadFileSize(info.getTotal());
                 byte[] buffer = new byte[(int) readLength];
@@ -117,35 +119,36 @@ public class BrokenRunnable implements Runnable {
                 long startFileSize = info.getProgress();
                 int len = 0;
                 while ((len = is.read(buffer)) != -1) {
-                    if (!isPause) {
-                        // 写入文件中去
-                        randomAccessFile.write(buffer, 0, len);
-                        // 设置 实际进度 long
-                        info.setProgress(info.getProgress() + len);
-                        // 设置 实际进度大小
-                        info.setShowProgressSize(FileSizeUtil.FormetFileSize(info.getProgress()));
-                        // 设置 展示进度
-                        info.setShowProgress(TaskHelp.formatProgress(info.getProgress(), info.getTotal()));
-                        if (info.getProgress() == info.getTotal()) {
-                            if (callBack != null) {
-                                info.setFileStatue("complete");
-                                PreferenceUtil.putDownloadFileInfo(BaseApplication.getInstance(), info.getFileName(), info.toString());
-                                callBack.finish(info);
-                            }
-                            return;
+                    // 写入文件中去
+                    randomAccessFile.write(buffer, 0, len);
+                    // 设置 实际进度 long
+                    info.setProgress(info.getProgress() + len);
+                    // 设置 实际进度大小
+                    info.setShowProgressSize(FileSizeUtil.FormetFileSize(info.getProgress()));
+                    // 设置 展示进度
+                    info.setShowProgress(TaskHelp.formatProgress(info.getProgress(), info.getTotal()));
+                    if (info.getProgress() == info.getTotal()) {
+                        if (callBack != null) {
+                            info.setFileStatue("complete");
+                            PreferenceUtil.putDownloadFileInfo(BaseApplication.getInstance(), info.getFileName(), info.toString());
+                            callBack.finish(info);
                         }
-                        if (System.currentTimeMillis() - startTime > 500) {
-                            // 时间差 s 为秒 differenceTime   文件差 differenceFileSize  获取结果
-                            String[] strings = FileSizeUtil.formatProgressSpeed(info.getProgress() - startFileSize, System.currentTimeMillis() - startTime, info.getTotal() - info.getProgress());
-                            info.setDownloadSpeed(strings[0] + strings[1]);
-                            if (callBack != null) {
-                                callBack.progress(info);
-                            }
-                            startTime = System.currentTimeMillis();
-                            startFileSize = info.getProgress();
+                        return;
+                    }
+                    if (System.currentTimeMillis() - startTime > 500) {
+                        // 时间差 s 为秒 differenceTime   文件差 differenceFileSize  获取结果
+                        String[] strings = FileSizeUtil.formatProgressSpeed(info.getProgress() - startFileSize, System.currentTimeMillis() - startTime, info.getTotal() - info.getProgress());
+                        info.setDownloadSpeed(strings[0] + strings[1]);
+                        if (callBack != null) {
+                            callBack.progress(info);
                         }
-                    } else {
-                        onThreadWait();
+                        startTime = System.currentTimeMillis();
+                        startFileSize = info.getProgress();
+                    }
+                    if (info.getFileStatue().equals("stop")){
+                        PreferenceUtil.putDownloadFileInfo(BaseApplication.getInstance(), info.getFileName(), info.toString());
+                        callBack.finish(info);
+                        return;
                     }
                 }
             } else {

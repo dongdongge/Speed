@@ -55,8 +55,13 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
             LogUtil.e(pressTemp);
             progressBar.setProgress(pressTemp);
         }
-
-//        progressBar.setProgress(info.getProgress());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onClickAdapterItem.onLongClick(position,info);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -79,8 +84,8 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
     }
 
     public interface OnClickAdapterItem{
-
         void callBack(boolean isChecked,int position,DownloadFileInfo info);
+        void onLongClick(int position,DownloadFileInfo info);
     }
 
 }

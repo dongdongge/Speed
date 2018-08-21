@@ -94,6 +94,7 @@ public class CustomAlertDialog extends Dialog {
                 if (getCustomAlertDialog().isShowing()){
                     getCustomAlertDialog().dismiss();
                 }
+                onClickInterface.clickCancel();
             }
         });
         Button sure = view.findViewById(R.id.bt_sure_custom_alert);

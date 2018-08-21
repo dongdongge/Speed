@@ -19,9 +19,10 @@ import soyouarehere.imwork.speed.app.adapter.recycle_view.ViewHolder;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 
 public class CompleteAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
-
-    protected CompleteAdapter(@NonNull Context context, @NonNull List<DownloadFileInfo> mDataList) {
+    OnCompleteListener onCompleteListener;
+    protected CompleteAdapter(@NonNull Context context, @NonNull List<DownloadFileInfo> mDataList,OnCompleteListener onCompleteListener) {
         super(context, mDataList);
+        this.onCompleteListener = onCompleteListener;
     }
 
     @Override
@@ -42,6 +43,19 @@ public class CompleteAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
         progressBar.setVisibility(View.GONE);
         TextView textView = holder.getView(R.id.tv_item_movie_jiasu);
         textView.setVisibility(View.GONE);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onCompleteListener.onLongClick(downloadFileInfo,position);
+                return true;
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCompleteListener.onClickListener(downloadFileInfo);
+            }
+        });
     }
 
     @Override
@@ -52,5 +66,6 @@ public class CompleteAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
 
     public interface OnCompleteListener {
         void onClickListener(DownloadFileInfo info);
+        void onLongClick(DownloadFileInfo info,int position);
     }
 }

@@ -5,20 +5,24 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
+import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.app.rxbus.RxBus2;
 import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
+import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.util.DensityUtil;
+import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class DownloadIngFragment extends BaseFragment {
@@ -89,16 +93,50 @@ public class DownloadIngFragment extends BaseFragment {
             @Override
             public void callBack(boolean isChecked, int position, DownloadFileInfo info) {
                 LogUtil.e("当前索引", position, isChecked);
+                // 恢复下载
                 if (isChecked) {
-                    TaskManager.getInstance().pauseBrokenRunnable(info.getFileName());
+                    // 暂停下载
+                    info.setFileStatue("stop");
                 } else {
-                    TaskManager.getInstance().resumeContinueDownload(info.getFileName());
+                    // 恢复下载
+                    TaskManager.getInstance().resumeContinueDownload(info);
                 }
+            }
+
+            @Override
+            public void onLongClick(int position, DownloadFileInfo info) {
+                String msg = String.format("(%s)你确定删除该条任务吗",info.getFileName());
+                showAlertDialog(msg,info,position);
+
             }
         });
         downloadingRcy.setAdapter(adapter);
         ((DefaultItemAnimator) downloadingRcy.getItemAnimator()).setSupportsChangeAnimations(false);
         accuptMsg();
+    }
+
+    private void showAlertDialog(String msg,DownloadFileInfo info,int position) {
+        new CustomAlertDialog(this.getActivity(),"取消","确定",msg, new CustomAlertDialog.OnClickInterface() {
+            @Override
+            public void clickSure() {
+                deleteDownloadInfo(info);
+                infoList.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void clickCancel() {
+
+            }
+        }).show();
+    }
+    // 删除文件以及下载记录信息;
+    private void deleteDownloadInfo(DownloadFileInfo info){
+        PreferenceUtil.deleteDownloadFileInfo(BaseApplication.getInstance(),info.getFileName());
+        File file = new File(info.getFilePath(),info.getFileName());
+        if (file.exists()){
+            file.delete();
+        }
     }
 
     public void accuptMsg() {
@@ -119,7 +157,6 @@ public class DownloadIngFragment extends BaseFragment {
                 try {
                     LogUtil.e(infoList);
                     LogUtil.e("大小",infoList.size(),"位置",position);
-
                     infoList.remove(position);
                     adapter.notifyDataSetChanged();
                 }catch (Exception e){
