@@ -22,6 +22,7 @@ public class MyThreadPoolExecutor {
      * 线程池中核心线程池的大小
      */
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
+//    private static final int CORE_POOL_SIZE = 0;
     /**
      * 线程池中最大可以容纳多少线程
      */
@@ -49,7 +50,7 @@ public class MyThreadPoolExecutor {
     /**
      * 当线程空闲一段时间后 回收线程;
      */
-    private static final int KEEP_ALIVE_SECONDS = 5;
+    private static final int KEEP_ALIVE_SECONDS = 60;
 
     /**
      *
@@ -96,6 +97,11 @@ public class MyThreadPoolExecutor {
                 sPoolWorkQueue, new DefaultThreadFactory());
         threadPoolExecutor.allowCoreThreadTimeOut(true);
         THREAD_POOL_EXECUTOR = threadPoolExecutor;
+    }
+
+
+    public static ThreadPoolExecutor getThreadExecutor(){
+        return THREAD_POOL_EXECUTOR;
     }
 
     public static MyThreadPoolExecutor getInstance() {

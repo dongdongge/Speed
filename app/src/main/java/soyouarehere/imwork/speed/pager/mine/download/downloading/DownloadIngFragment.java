@@ -101,6 +101,7 @@ public class DownloadIngFragment extends BaseFragment {
                     // 恢复下载
                     TaskManager.getInstance().resumeContinueDownload(info);
                 }
+                adapter.updataItem(position);
             }
 
             @Override
@@ -166,7 +167,7 @@ public class DownloadIngFragment extends BaseFragment {
             }
             infoList.get(position).setProgress(downloadFileInfo.getProgress());
             infoList.get(position).setShowProgress(downloadFileInfo.getShowProgress());
-            infoList.get(position).setShowProgress(downloadFileInfo.getShowProgress());
+            infoList.get(position).setDownloadSpeed(downloadFileInfo.getDownloadSpeed());
             adapter.updataItem(position);
         }else {
             infoList.add(0,downloadFileInfo);

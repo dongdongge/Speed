@@ -22,11 +22,15 @@ android {
     }
     buildTypes {
         release {
+            //是否混淆
             minifyEnabled false
+            //是否移除无用资源
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config//使用上面配置的签名进行打包
         }
         debug {
+            //是否混淆
             minifyEnabled false
             signingConfig signingConfigs.config//ddebug模式下也使用上面配置的签名进行打包
         }
@@ -37,7 +41,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     productFlavors {
+
     }
+
+    //     applicationVariants are e.g. debug, release
 }
 
 dependencies {
@@ -76,4 +83,9 @@ dependencies {
     implementation rootProject.ext.dependencies.eventbus
     //fastJson
     implementation rootProject.ext.dependencies.fastjson
+}
+
+def releaseTime() {
+//    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyyMMddHHmm", TimeZone.getDefault())
 }

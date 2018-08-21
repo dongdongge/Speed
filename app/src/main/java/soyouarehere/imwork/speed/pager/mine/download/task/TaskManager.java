@@ -1,5 +1,7 @@
 package soyouarehere.imwork.speed.pager.mine.download.task;
 
+import android.os.Handler;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ public class TaskManager {
     public void executeCallableTask(DownloadFileInfo fileInfo) {
         // 需要进行判断  当前是否存在该任务
         // 将任务放进线程池中去执行任务;
+        LogUtil.e("继续下载  管理类executeCallableTask +2");
         MyThreadPoolExecutor.THREAD_POOL_EXECUTOR.submit(generateTask(fileInfo));
     }
 
@@ -45,6 +48,7 @@ public class TaskManager {
      * 生成任务的方法
      * */
     public BrokenRunnable generateTask(DownloadFileInfo fileInfo) {
+        LogUtil.e("继续下载  管理类generateTask +3");
         return new BrokenRunnable(fileInfo, new TaskCallBack() {
             @Override
             public void progress(DownloadFileInfo info) {
@@ -71,6 +75,7 @@ public class TaskManager {
      * 继续下载
      */
     public void resumeContinueDownload(DownloadFileInfo info) {
+        LogUtil.e("继续下载  管理类resumeContinueDownload +1");
         executeCallableTask(info);
     }
 

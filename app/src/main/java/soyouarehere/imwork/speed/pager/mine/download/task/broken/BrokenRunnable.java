@@ -39,48 +39,6 @@ public class BrokenRunnable implements Runnable {
         return name;
     }
 
-    /**
-     * 暂停线程
-     */
-    public synchronized void onThreadPause() {
-        isPause = true;
-    }
-
-    /**
-     * 线程等待,不提供给外部调用
-     */
-    private void onThreadWait() {
-        try {
-            if (this.isPause) {
-                return;
-            }
-            synchronized (this) {
-                this.wait();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 线程继续运行
-     */
-    public synchronized void onThreadResume() {
-        isPause = false;
-        this.notify();
-    }
-
-    /**
-     * 关闭线程
-     */
-    public synchronized void closeThread() {
-        try {
-            notify();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void run() {
         LogUtil.e("开始执行断点续传下载工具类");
@@ -146,6 +104,7 @@ public class BrokenRunnable implements Runnable {
                         startFileSize = info.getProgress();
                     }
                     if (info.getFileStatue().equals("stop")){
+                        LogUtil.e("暂停下载");
                         PreferenceUtil.putDownloadFileInfo(BaseApplication.getInstance(), info.getFileName(), info.toString());
                         callBack.finish(info);
                         return;

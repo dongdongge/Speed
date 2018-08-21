@@ -38,6 +38,8 @@ public class DownloadAdapter extends RecyclerBaseAdapter<DownloadFileInfo> {
         TextView tv_item_movie_time = holder.getView(R.id.tv_item_movie_time);
         TextView tv_item_movie_speed = holder.getView(R.id.tv_item_movie_speed);
         CheckBox radioButton = holder.getView(R.id.rb_item_movie_control);
+        int id = info.getFileStatue().equals("stop")?R.mipmap.download_item_pause_icon_style2:R.mipmap.download_item_resume_icon_style2;
+        radioButton.setButtonDrawable(id);
         radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
