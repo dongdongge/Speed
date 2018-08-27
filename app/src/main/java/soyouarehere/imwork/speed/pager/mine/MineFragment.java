@@ -36,6 +36,7 @@ import soyouarehere.imwork.speed.util.MobilePhoneInfo;
 import soyouarehere.imwork.speed.util.http.CallBackUtil;
 import soyouarehere.imwork.speed.util.http.UrlHttpUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.view.sliding_card.SlidingCardActivity;
 
 /**
  * @desc 承载用户信息界面  download publish 等
@@ -166,7 +167,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_collector:
                 break;
             case R.id.mine_link:
-
+                startActivity(new Intent(getActivity(),SlidingCardActivity.class));
                 break;
             default:
                 break;

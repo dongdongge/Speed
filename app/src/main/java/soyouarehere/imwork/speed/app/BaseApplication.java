@@ -2,6 +2,8 @@ package soyouarehere.imwork.speed.app;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import soyouarehere.imwork.speed.util.FileUtil;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.exception.CrashHandler;
@@ -16,6 +18,13 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         initAppStatus();
         initConfig();
     }
@@ -35,7 +44,7 @@ public class BaseApplication extends Application {
      * 初始化全局异常 闪退 记录 锁定方案
      * */
     public void initConfigCrashHandler(){
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
 //        CrashHandler.getInstance().init(this);
 
     }

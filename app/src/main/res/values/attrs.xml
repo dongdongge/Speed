@@ -15,4 +15,8 @@
         <attr name="left_button_text_color" format="color" />
         <attr name="left_button_drawable" format="reference|integer" />
     </declare-styleable>
+    <declare-styleable name="SlidingCardLayout">
+        <attr name="android:colorBackground"/>
+        <attr name="android:text"/>
+    </declare-styleable>
 </resources>
