@@ -55,6 +55,8 @@ ext {
             // -------------- EventBus ---------------
             eventbus             : 'org.greenrobot:eventbus:3.0.0',
             //-------------- fastJson------------
-            fastjson             : 'com.alibaba:fastjson:1.1.56.android'
+            fastjson             : 'com.alibaba:fastjson:1.1.56.android',
+            //--------------- zxing--------------
+            zxing                : 'com.google.zxing:core:3.3.0'
     ]
 }

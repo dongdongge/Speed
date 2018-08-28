@@ -78,11 +78,12 @@ dependencies {
     //LeakCanary
     debugImplementation rootProject.ext.dependencies.leakcanaryAndroid
     releaseImplementation rootProject.ext.dependencies.leakcanaryAndroidNoOp
-
     //EventBus
     implementation rootProject.ext.dependencies.eventbus
     //fastJson
     implementation rootProject.ext.dependencies.fastjson
+    implementation rootProject.ext.dependencies.zxing
+//    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 }
 
 def releaseTime() {

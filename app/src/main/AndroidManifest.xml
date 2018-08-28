@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="soyouarehere.imwork.speed">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +13,9 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 向SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
@@ -46,7 +49,15 @@
         <activity android:name=".pager.set.SetActivity" />
         <activity android:name=".pager.set.select_path.SelectPathActivity" />
         <activity android:name=".view.sliding_card.SlidingCardActivity" />
-        <activity android:name=".view.image.ImageViewActivity"></activity>
+        <activity android:name=".view.image.ImageViewActivity" />
+        <activity
+            android:name=".view.zxing.ZxingActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
+        <activity
+            android:name=".app.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>
