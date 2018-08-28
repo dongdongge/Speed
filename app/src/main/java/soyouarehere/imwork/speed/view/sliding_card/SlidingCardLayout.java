@@ -1,10 +1,11 @@
 package soyouarehere.imwork.speed.view.sliding_card;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -17,7 +18,12 @@ import soyouarehere.imwork.speed.R;
 /**
  * 自定义控件
  */
+@CoordinatorLayout.DefaultBehavior(SlidingCardBehavior.class)
 public class SlidingCardLayout extends FrameLayout {
+    public SlidingCardLayout(@NonNull Context context) {
+        this(context,null);
+    }
+
     public SlidingCardLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -27,14 +33,15 @@ public class SlidingCardLayout extends FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.view_wedgit_card_layout, this);
 //        View.inflate(context,R.layout.view_wedgit_card_layout,this);
         RecyclerView recyclerView = findViewById(R.id.view_sliding_card_rcy);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true));
         // 避免出现RecyclerView has no LayoutManager的错误
         recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         TextView header = findViewById(R.id.view_sliding_card_head);
         SlidingCardAdapter adapter = new SlidingCardAdapter(recyclerView);
         recyclerView.setAdapter(adapter);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SlidingCardLayout);
-//        header.setBackgroundColor(array.getColor(R.styleable.SlidingCardLayout_android_colorBackground,0));
+        header.setBackgroundColor(array.getColor(R.styleable.SlidingCardLayout_android_colorBackground, Color.GREEN));
         header.setText(array.getText(R.styleable.SlidingCardLayout_android_text));
         array.recycle();
     }
@@ -48,7 +55,7 @@ public class SlidingCardLayout extends FrameLayout {
         }
     }
 
-    public int getHeaderViewHeight() {
+    public int getHeaderHeight() {
         return mHeaderViewHeight;
     }
 }

@@ -13,8 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import okhttp3.Call;
@@ -26,6 +30,7 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
+import soyouarehere.imwork.speed.pager.mine.download.CustomBottomDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
@@ -36,11 +41,12 @@ import soyouarehere.imwork.speed.util.MobilePhoneInfo;
 import soyouarehere.imwork.speed.util.http.CallBackUtil;
 import soyouarehere.imwork.speed.util.http.UrlHttpUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.view.image.ImageViewActivity;
 import soyouarehere.imwork.speed.view.sliding_card.SlidingCardActivity;
 
 /**
- * @desc 承载用户信息界面  download publish 等
  * @author li.xiaodong
+ * @desc 承载用户信息界面  download publish 等
  * @time 2018/7/30 17:10
  */
 public class MineFragment extends BaseFragment implements View.OnClickListener {
@@ -77,6 +83,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.mine_link)
     Button mineLink;
     String msg = "《将进酒》是唐代大诗人李白沿用乐府古题创作的一首诗。此诗为李白长安放还以后所作，思想内容非常深沉，艺术表现非常成熟，在同题作品中影响最大。诗人豪饮高歌，借酒消愁，抒发了忧愤深广的人生感慨。诗中交织着失望与自信、悲愤与抗争的情怀，体现出强烈的豪纵狂放的个性。全诗情感饱满，无论喜怒哀乐，其奔涌迸发均如江河流泻，不可遏止，且起伏跌宕，变化剧烈；在手法上多用夸张，且往往以巨额数量词进行修饰，既表现出诗人豪迈洒脱的情怀，又使诗作本身显得笔墨酣畅，抒情有力；在结构上大开大阖，充分体现了李白七言歌行的特色。";
+
     public MineFragment() {
         // Required empty public constructor
     }
@@ -89,7 +96,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         fragment.setArguments(args);
         return fragment;
     }
+
     BaseActivity baseActivity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +133,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onDetach() {
         super.onDetach();
     }
+
     public void showAlertDialog(String msg) {
         new CustomAlertDialog(this.getActivity(), true, true, msg, new CustomAlertDialog.OnClickInterface() {
             @Override
@@ -137,6 +147,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }).show();
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -167,13 +178,44 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_collector:
                 break;
             case R.id.mine_link:
-                startActivity(new Intent(getActivity(),SlidingCardActivity.class));
+                showDemoDialog();
                 break;
             default:
                 break;
         }
     }
 
+    /**
+     * 展示弹窗  ->  选择相应的界面
+     */
+    private void showDemoDialog() {
+        if (list == null) {
+            initData();
+        }
+        new CustomBottomDialog(getActivity(), list, true, true, position -> {
+            startActivity(position);
+        }).show();
+    }
 
+    /**
+     * 初始化弹窗和demo的类名
+     */
+    List<String> list;
+    List<Class> classList;
+    private void initData() {
+        list = new ArrayList<>();
+        classList = new ArrayList<>();
+        list.add("安卓巨图加载方案");
+        list.add("Behavior实现卡片的层叠滑动");
+        classList.add(ImageViewActivity.class);
+        classList.add(SlidingCardActivity.class);
+    }
 
+    /**
+     * 跳转到指定的界面展示
+     * @param position 集合中的数据
+     */
+    private void startActivity(int position) {
+        startActivity(new Intent(getActivity(),classList.get(position)));
+    }
 }

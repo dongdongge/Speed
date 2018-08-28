@@ -20,7 +20,7 @@ public class SlidingCardAdapter extends RecyclerView.Adapter<SlidingCardAdapter.
         }
     }
 
-    private final String[] ITEMS = {"小法", "狗头", "光辉", "蛮王", "火女"};
+    private final String[] ITEMS = {"小法", "狗头", "光辉", "蛮王", "火女", "狗头", "光辉", "蛮王", "火女", "狗头", "光辉", "蛮王", "火女", "狗头", "光辉", "蛮王", "火女"};
 
     private final LayoutInflater mLayoutInflater;
 

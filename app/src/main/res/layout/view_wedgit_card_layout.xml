@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/view_sliding_card_rcy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#C0C0C0"
-        android:paddingTop="@dimen/y30">
-
-        <TextView
-            android:id="@+id/view_sliding_card_head"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y30"
-            android:background="#000"
-            android:gravity="center_vertical"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:textColor="#FFF" />
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:paddingTop="42dp"
+        android:background="#C0C0C0"/>
+    <TextView
+        android:id="@+id/view_sliding_card_head"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="#000000"
+        android:gravity="center_vertical"
+        android:text="头部"/>
 </merge>

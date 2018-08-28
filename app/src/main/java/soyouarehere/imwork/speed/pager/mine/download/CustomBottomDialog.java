@@ -39,15 +39,15 @@ public class CustomBottomDialog extends Dialog {
     private Context context;
     private List<String> itemList;
     private OnclickItemListener onclickItemListener;
-    public CustomBottomDialog(@NonNull Context context) {
+    private CustomBottomDialog(@NonNull Context context) {
         super(context);
     }
 
-    public CustomBottomDialog(@NonNull Context context, int themeResId) {
+    private CustomBottomDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    protected CustomBottomDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    private CustomBottomDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 

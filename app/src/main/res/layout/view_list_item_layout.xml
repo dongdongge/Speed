@@ -10,10 +10,10 @@
     <TextView
         android:id="@+id/view_tv_cardview"
         android:layout_width="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_height="match_parent" />
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </android.support.v7.widget.CardView>

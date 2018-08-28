@@ -45,9 +45,8 @@
         <activity android:name=".pager.mine.vip.VIPCenterActivity" />
         <activity android:name=".pager.set.SetActivity" />
         <activity android:name=".pager.set.select_path.SelectPathActivity" />
-        <activity
-            android:theme="@style/Theme.AppCompat"
-            android:name=".view.sliding_card.SlidingCardActivity"/>
+        <activity android:name=".view.sliding_card.SlidingCardActivity" />
+        <activity android:name=".view.image.ImageViewActivity"></activity>
     </application>
 
 </manifest>
