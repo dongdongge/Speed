@@ -7,10 +7,6 @@ import java.util.Stack;
 
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
-/**
- * Created by li.xiaodong on 2018/8/6.
- */
-
 public class AppManager {
     private static final String TAG = "ScreenManager";
     private static Stack<Activity> activityStack;

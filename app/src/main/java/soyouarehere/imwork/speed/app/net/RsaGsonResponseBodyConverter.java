@@ -12,10 +12,6 @@ import java.io.StringReader;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
-/**
- * Created by sanji on 16/9/7.
- */
-
 public class RsaGsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     private final Gson gson;
     private final TypeAdapter<T> adapter;

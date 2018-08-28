@@ -15,9 +15,7 @@ import soyouarehere.imwork.speed.R;
 
 
 /**
- * Created by li.xiaodong on 2018/7/2.
  * 组合控件 自定义title 标题栏
- *
  */
 
 public class CustomTitleView extends RelativeLayout{

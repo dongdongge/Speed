@@ -13,7 +13,6 @@ import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceRe;
 
 /**
  * 接口
- * Created by tang.wangqiang on 2018/4/9.
  */
 
 public interface ApiServer {

@@ -9,7 +9,6 @@ import soyouarehere.imwork.speed.util.NetUtils;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
- * @author li.xiaodong
  * @desc 全局监听网络变化的广播类
  * @time 2018/7/31 13:32
  */

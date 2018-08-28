@@ -17,11 +17,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 /**
- * @author li.xiaodong
  * @desc 修改状态框,
  * @time 2018/8/10 10:27
  */
-
 public class UltimateBar {
 
 

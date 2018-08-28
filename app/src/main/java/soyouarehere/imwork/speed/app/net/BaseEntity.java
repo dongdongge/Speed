@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 /**
  * 基本数据模型
- * Created by Administrator on 2017/9/4 0004.
  */
 
 public class BaseEntity<T> {

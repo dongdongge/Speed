@@ -8,7 +8,6 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * 网络请求转换器
- * Created by tang.wangqiang on 2018/4/10.
  */
 
 public class RxHelp {

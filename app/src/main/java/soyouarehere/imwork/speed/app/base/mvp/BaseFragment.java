@@ -15,10 +15,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import soyouarehere.imwork.speed.util.GenericUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
-/**
- * Created by tang.wangqiang on 2018/4/10.
- */
-
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel> extends Fragment implements BaseView {
 
     protected CompositeDisposable mSubscription;//rx-java管理

@@ -13,7 +13,6 @@ import soyouarehere.imwork.speed.util.log.LogUtil;
 
 
 /**
- * Created by li.xiaodong on 2018/7/2.
  * 圆形显示百分比
  */
 public class PercentView extends View {

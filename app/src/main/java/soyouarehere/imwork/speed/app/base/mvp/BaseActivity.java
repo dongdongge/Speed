@@ -52,7 +52,6 @@ import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
  * 基类Activity
- * Created by tang.wangqiang on 2018/4/9.
  */
 
 public abstract class BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActivity implements BaseView {

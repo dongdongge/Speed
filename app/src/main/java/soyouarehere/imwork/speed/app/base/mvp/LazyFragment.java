@@ -2,7 +2,6 @@ package soyouarehere.imwork.speed.app.base.mvp;
 
 /**
  * Fragment 懒加载 防止fragment初始化时加载大量数据
- * Created by Administrator on 2016-04-07.
  */
 public abstract class LazyFragment extends BaseFragment {
 

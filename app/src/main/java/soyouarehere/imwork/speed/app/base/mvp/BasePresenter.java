@@ -7,7 +7,6 @@ import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * 基类P，处理数据逻辑
- * Created by tang.wangqiang on 2018/4/9.
  */
 
 public abstract class BasePresenter<M extends BaseModel, V extends BaseView> {

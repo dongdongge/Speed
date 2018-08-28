@@ -9,7 +9,6 @@ import soyouarehere.imwork.speed.R;
 
 /**
  * 网络加载框
- * Created by Administrator on 2017/8/24 0024.
  */
 
 public class LoadingDialog extends Dialog {

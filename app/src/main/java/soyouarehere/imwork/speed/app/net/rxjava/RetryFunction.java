@@ -9,7 +9,6 @@ import io.reactivex.functions.Function;
 
 /**
  * 失败重连
- * Created by tang.wangqiang on 2018/4/10.
  */
 public class RetryFunction implements Function<Observable<Throwable>, ObservableSource<?>> {
 
