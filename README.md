@@ -9,7 +9,7 @@
 5. 地址翻页选择
 6. 更改主题状态栏颜色
 7. 全局异常日志处理
-
+8. [多线程下载](https://raw.githubusercontent.com/OnTheWay1991/res/master/android/201808290917_安卓多线程下载方案.png)
 
 
 
