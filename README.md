@@ -27,4 +27,5 @@ Behavior + fragmentLayout 实现滑动卡片(叠加)
 ![image](https://raw.githubusercontent.com/OnTheWay1991/res/master/android/201808290902_自定义底部弹窗.png)
 
 安卓加载巨图方案
+
 ![image](https://raw.githubusercontent.com/OnTheWay1991/res/master/android/20180829_安卓加载巨图方案.jpg)
