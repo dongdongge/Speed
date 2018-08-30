@@ -9,7 +9,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import soyouarehere.imwork.speed.pager.mine.download.manager.MovieResponse;
 import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceFile;
-import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceRe;
 
 /**
  * 接口

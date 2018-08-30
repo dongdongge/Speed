@@ -3,10 +3,6 @@ package soyouarehere.imwork.speed.util;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-/**
- * Created by tang.wangqiang on 2018/4/9.
- */
-
 public class GenericUtil {
     /**
      * @param o   泛型子类
