@@ -58,6 +58,7 @@
             android:name=".app.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
+        <activity android:name=".app.carlendar.SyllabusActivity"/>
     </application>
 
 </manifest>

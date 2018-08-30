@@ -29,6 +29,7 @@ import okhttp3.Response;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
+import soyouarehere.imwork.speed.app.carlendar.SyllabusActivity;
 import soyouarehere.imwork.speed.app.view.AddressDialog;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.CustomBottomDialog;
@@ -211,10 +212,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         list.add("Behavior实现卡片的层叠滑动");
         list.add("地址翻页选择");
         list.add("二维码扫描");
+        list.add("日历");
         classList.add(ImageViewActivity.class);
         classList.add(SlidingCardActivity.class);
         classList.add(Class.class);
         classList.add(ZxingActivity.class);
+        classList.add(SyllabusActivity.class);
     }
 
     /**

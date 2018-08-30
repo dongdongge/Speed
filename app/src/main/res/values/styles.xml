@@ -17,8 +17,8 @@
 
     <!-- 使用style方式定义activity切换动画 -->
     <!--<style name="activityAnim">-->
-    <!--<item name="Android:activityOpenEnterAnimation">@anim/base_s</item>-->
-    <!--<item name="Android:activityOpenExitAnimation">@anim/slide_in_top</item>-->
+    <!--<calendar_item name="Android:activityOpenEnterAnimation">@anim/base_s</calendar_item>-->
+    <!--<calendar_item name="Android:activityOpenExitAnimation">@anim/slide_in_top</calendar_item>-->
     <!--</style>-->
 
     <!--activityOpenEnterAnimation // 用于设置打开新的Activity并进入新的Activity展示的动画-->
@@ -113,6 +113,16 @@
         <item name="android:paddingBottom">8dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingTop">8dp</item>
+    </style>
+
+    <!--calendar-->
+    <style name="weekIndicatorStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#ff25adff</item>
     </style>
 
 </resources>
