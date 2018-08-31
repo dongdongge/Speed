@@ -208,12 +208,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void initData() {
         list = new ArrayList<>();
         classList = new ArrayList<>();
-        list.add("安卓巨图加载方案");
+//        list.add("安卓巨图加载方案");
         list.add("Behavior实现卡片的层叠滑动");
         list.add("地址翻页选择");
         list.add("二维码扫描");
         list.add("日历");
-        classList.add(ImageViewActivity.class);
+//        classList.add(ImageViewActivity.class);
         classList.add(SlidingCardActivity.class);
         classList.add(Class.class);
         classList.add(ZxingActivity.class);
