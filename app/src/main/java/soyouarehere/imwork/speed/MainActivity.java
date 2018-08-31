@@ -50,7 +50,8 @@ public class MainActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_main;
     }
-
+    String str1;
+    String str2;
     @Override
     public void create(Bundle savedInstanceState) {
         initFragment();
@@ -58,7 +59,8 @@ public class MainActivity extends BaseActivity {
         LogUtil.e("CPU核数：",Runtime.getRuntime().availableProcessors());
         getSDCardInfo();
         checkPermission();
-
+         str1 = "aa";
+         str2 = "bb";
     }
 
     private void initView() {
