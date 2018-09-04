@@ -50,19 +50,18 @@ public class MainActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_main;
     }
-    String str1;
-    String str2;
     @Override
     public void create(Bundle savedInstanceState) {
         initFragment();
         initView();
-        LogUtil.e("CPU核数：",Runtime.getRuntime().availableProcessors());
+        LogUtil.e("CPU核数：", Runtime.getRuntime().availableProcessors());
         getSDCardInfo();
         checkPermission();
-         str1 = "aa";
-         str2 = "bb";
     }
 
+    /**
+     * 初始化时间监听器;做出响应
+     */
     private void initView() {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -89,6 +88,9 @@ public class MainActivity extends BaseActivity {
         switchFragment(0);
     }
 
+    /**
+     * 初始化数据集合
+     */
     private void initFragment() {
         if (fragmentList == null) {
             fragmentList = new ArrayList<>();
@@ -102,6 +104,7 @@ public class MainActivity extends BaseActivity {
         fragmentList.add(findFragment);
         fragmentList.add(mineFragment);
     }
+
     @Override
     protected boolean setVisibleToolbar() {
         return false;
@@ -129,31 +132,34 @@ public class MainActivity extends BaseActivity {
         targetFg.setUserVisibleHint(true);
     }
 
+
+
+
     /**
-     *
      * 获取当前手机储存信息
-     * */
-    public void getSDCardInfo(){
-        if (Environment.isExternalStorageEmulated()){
+     */
+    public void getSDCardInfo() {
+        if (Environment.isExternalStorageEmulated()) {
             LogUtil.e("getExternalCacheDir  getParentFile3",
                     BaseApplication.getInstance().getExternalCacheDir().getParentFile().getParentFile().getParent(),
                     Environment.getExternalStorageDirectory().getPath());
         }
 
 
-        if (Build.VERSION.SDK_INT>Build.VERSION_CODES.KITKAT){
-            File [] files = getExternalFilesDirs(Environment.MEDIA_MOUNTED);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            File[] files = getExternalFilesDirs(Environment.MEDIA_MOUNTED);
             Observable.fromArray(files).subscribe(new Consumer<File>() {
                 @Override
                 public void accept(File file) throws Exception {
-                    LogUtil.e("输出file信息",file.getName());
+                    LogUtil.e("输出file信息", file.getName());
                 }
             });
-        }else {
-          LogUtil.e("当前手机版本",Build.VERSION.SDK_INT);
+        } else {
+            LogUtil.e("当前手机版本", Build.VERSION.SDK_INT);
         }
 
     }
+
     /**
      * 检查权限
      */
@@ -166,13 +172,20 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected String[] getPermission() {
-        LogUtil.e("main","子类的 权限列表");
+        LogUtil.e("main", "子类的 权限列表");
         return new String[]{
                 Manifest.permission.CHANGE_NETWORK_STATE,
                 Manifest.permission.WRITE_SETTINGS
         };
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (fragmentList != null) {
+            fragmentList = null;
+        }
+    }
 
     @Override
     protected void onPermissionsResult(String[] parms, boolean hasPermission) {

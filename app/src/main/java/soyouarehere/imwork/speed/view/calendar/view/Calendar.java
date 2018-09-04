@@ -21,10 +21,12 @@ public class Calendar extends View {
      * 日历列数
      */
     private CalendarAttr.CalendarType calendarType;
-    private int cellHeight; // 单元格高度
-    private int cellWidth; // 单元格宽度
-
-    private OnSelectDateListener onSelectDateListener;    // 单元格点击回调事件
+    // 单元格高度
+    private int cellHeight;
+    // 单元格宽度
+    private int cellWidth;
+    // 单元格点击回调事件
+    private OnSelectDateListener onSelectDateListener;
     private Context context;
     private CalendarAttr calendarAttr;
     private CalendarRenderer renderer;

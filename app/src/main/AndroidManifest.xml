@@ -15,7 +15,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头权限 -->
-    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!-- 自动聚焦权限 -->
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
@@ -25,11 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppCustomTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver android:name=".app.config.NetworkConnectChangedReceiver">
@@ -58,7 +56,14 @@
             android:name=".app.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".app.carlendar.SyllabusActivity"/>
+        <activity android:name=".app.carlendar.SyllabusActivity" />
+        <activity android:name=".view.CustomViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
