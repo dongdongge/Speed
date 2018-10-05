@@ -10,7 +10,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
+import soyouarehere.imwork.speed.app.base.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
 import soyouarehere.imwork.speed.pager.mine.download.downloading.MovieModule;
 import soyouarehere.imwork.speed.util.DensityUtil;

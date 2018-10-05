@@ -13,8 +13,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import soyouarehere.imwork.speed.R;
-import soyouarehere.imwork.speed.app.adapter.recycle_view.RecyclerBaseAdapter;
-import soyouarehere.imwork.speed.app.adapter.recycle_view.ViewHolder;
+import soyouarehere.imwork.speed.app.base.adapter.recycle_view.RecyclerBaseAdapter;
+import soyouarehere.imwork.speed.app.base.adapter.recycle_view.ViewHolder;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.function.log.LogUtil;
 

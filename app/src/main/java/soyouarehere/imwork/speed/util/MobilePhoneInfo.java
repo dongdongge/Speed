@@ -21,22 +21,23 @@ public class MobilePhoneInfo {
 
 
     public static String _getHardInfo(){
-        String phoneInfo = "Product: " + android.os.Build.PRODUCT;
-        phoneInfo += ",\n CPU_ABI: " + android.os.Build.CPU_ABI;
-        phoneInfo += ",\n TAGS: " + android.os.Build.TAGS;
-        phoneInfo += ", \nVERSION_CODES.BASE: " + android.os.Build.VERSION_CODES.BASE;
-        phoneInfo += ", \nMODEL: " + android.os.Build.MODEL;
-        phoneInfo += ", \nSDK: " + android.os.Build.VERSION.SDK;
-        phoneInfo += ", \nVERSION.RELEASE: " + android.os.Build.VERSION.RELEASE;
-        phoneInfo += ", \nDEVICE: " + android.os.Build.DEVICE;
-        phoneInfo += ", \nDISPLAY: " + android.os.Build.DISPLAY;
-        phoneInfo += ", \nBRAND: " + android.os.Build.BRAND;
-        phoneInfo += ", \nBOARD: " + android.os.Build.BOARD;
-        phoneInfo += ", \nFINGERPRINT: " + android.os.Build.FINGERPRINT;
-        phoneInfo += ", \nID: " + android.os.Build.ID;
-        phoneInfo += ", \nMANUFACTURER: " + android.os.Build.MANUFACTURER;
-        phoneInfo += ", \nUSER: " + android.os.Build.USER;
-        return phoneInfo;
+        StringBuffer phoneInfo = new StringBuffer();
+        phoneInfo.append("Product: " + android.os.Build.PRODUCT);
+        phoneInfo.append(",\n CPU_ABI: " + android.os.Build.CPU_ABI);
+        phoneInfo.append(",\n TAGS: " + android.os.Build.TAGS);
+        phoneInfo.append(", \nVERSION_CODES.BASE: " + android.os.Build.VERSION_CODES.BASE);
+        phoneInfo.append(", \nMODEL: " + android.os.Build.MODEL);
+        phoneInfo.append(", \nSDK: " + android.os.Build.VERSION.SDK);
+        phoneInfo.append(", \nVERSION.RELEASE: " + android.os.Build.VERSION.RELEASE);
+        phoneInfo.append(", \nDEVICE: " + android.os.Build.DEVICE);
+        phoneInfo.append(", \nDISPLAY: " + android.os.Build.DISPLAY);
+        phoneInfo.append(", \nBRAND: " + android.os.Build.BRAND);
+        phoneInfo.append(", \nBOARD: " + android.os.Build.BOARD);
+        phoneInfo.append(", \nFINGERPRINT: " + android.os.Build.FINGERPRINT);
+        phoneInfo.append(", \nID: " + android.os.Build.ID);
+        phoneInfo.append(", \nMANUFACTURER: " + android.os.Build.MANUFACTURER);
+        phoneInfo.append(", \nUSER: " + android.os.Build.USER);
+        return phoneInfo.toString();
     }
 
 

@@ -194,7 +194,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <soyouarehere.imwork.speed.example.calendar.view.MonthPager
+            <soyouarehere.imwork.speed.example.xiaomi_calendar.view.MonthPager
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"

@@ -56,7 +56,7 @@
             android:name=".example.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".example.calendar.example.SyllabusActivity" />
+        <activity android:name=".example.xiaomi_calendar.example.SyllabusActivity" />
         <activity android:name=".example.custom.example.CustomViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
