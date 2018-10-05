@@ -13,10 +13,8 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
-import soyouarehere.imwork.speed.pager.mine.download.task.MyThreadPoolExecutor;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
-import soyouarehere.imwork.speed.util.PreferenceUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class NewTaskConnectActivity extends BaseActivity {
 

@@ -10,7 +10,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import soyouarehere.imwork.speed.app.BaseApplication;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class OkHttpUtils {
 

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 
 /**

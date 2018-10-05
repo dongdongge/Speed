@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 
 /**

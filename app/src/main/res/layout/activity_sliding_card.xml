@@ -5,30 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00F5FF"
-    tools:context=".view.sliding_card.SlidingCardActivity">
+    tools:context=".example.sliding_card.example.SlidingCardActivity">
 
-    <soyouarehere.imwork.speed.view.sliding_card.SlidingCardLayout
+    <soyouarehere.imwork.speed.example.sliding_card.SlidingCardLayout
         android:id="@+id/view_sliding_card1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:colorBackground="#cc3399"
         android:text="卡片1" />
 
-    <soyouarehere.imwork.speed.view.sliding_card.SlidingCardLayout
+    <soyouarehere.imwork.speed.example.sliding_card.SlidingCardLayout
         android:id="@+id/view_sliding_card2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:colorBackground="#99ffcc"
         android:text="卡片2" />
 
-    <soyouarehere.imwork.speed.view.sliding_card.SlidingCardLayout
+    <soyouarehere.imwork.speed.example.sliding_card.SlidingCardLayout
         android:id="@+id/view_sliding_card3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:colorBackground="#33ccff"
         android:text="卡片3" />
 
-    <soyouarehere.imwork.speed.view.sliding_card.SlidingCardLayout
+    <soyouarehere.imwork.speed.example.sliding_card.SlidingCardLayout
         android:id="@+id/view_sliding_card4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

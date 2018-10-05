@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import soyouarehere.imwork.speed.app.BaseApplication;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * description 文件/文件夹工具类

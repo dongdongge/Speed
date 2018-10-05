@@ -8,7 +8,7 @@ import android.os.Build;
 import android.os.Environment;
 
 import soyouarehere.imwork.speed.app.constant.BaseConstants;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;

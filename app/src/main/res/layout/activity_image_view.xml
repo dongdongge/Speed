@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.image.ImageViewActivity">
+    tools:context=".example.image.example.ImageViewActivity">
 
-    <soyouarehere.imwork.speed.view.image.ImageSurfaceView
+    <soyouarehere.imwork.speed.example.image.ImageSurfaceView
         android:id="@+id/worldview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

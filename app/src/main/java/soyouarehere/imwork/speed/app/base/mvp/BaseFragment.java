@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import soyouarehere.imwork.speed.util.GenericUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel> extends Fragment implements BaseView {
 

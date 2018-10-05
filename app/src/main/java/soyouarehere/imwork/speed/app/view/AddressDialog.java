@@ -20,7 +20,7 @@ import java.util.Map;
 
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.util.FileUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * 地址选择对话框

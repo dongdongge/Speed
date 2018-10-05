@@ -8,7 +8,7 @@ import butterknife.BindView;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.base.mvp.BaseActivity;
 import soyouarehere.imwork.speed.pager.mine.download.task.MyThreadPoolExecutor;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class VIPCenterActivity extends BaseActivity {
 

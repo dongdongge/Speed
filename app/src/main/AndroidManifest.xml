@@ -46,18 +46,18 @@
         <activity android:name=".pager.mine.vip.VIPCenterActivity" />
         <activity android:name=".pager.set.SetActivity" />
         <activity android:name=".pager.set.select_path.SelectPathActivity" />
-        <activity android:name=".view.sliding_card.SlidingCardActivity" />
-        <activity android:name=".view.image.ImageViewActivity" />
+        <activity android:name=".example.sliding_card.example.SlidingCardActivity" />
+        <activity android:name=".example.image.example.ImageViewActivity" />
         <activity
-            android:name=".view.zxing.ZxingActivity"
+            android:name=".example.zxing.example.ZxingActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".app.zxing.activity.CaptureActivity"
+            android:name=".example.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".app.carlendar.SyllabusActivity" />
-        <activity android:name=".view.CustomViewActivity">
+        <activity android:name=".example.calendar.example.SyllabusActivity" />
+        <activity android:name=".example.custom.example.CustomViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

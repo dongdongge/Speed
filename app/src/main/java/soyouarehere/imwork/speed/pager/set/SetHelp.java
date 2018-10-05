@@ -6,11 +6,10 @@ import java.io.File;
 import java.util.Map;
 
 import soyouarehere.imwork.speed.app.BaseApplication;
-import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.PhoneSpaceSizeUtils;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class SetHelp {
     /**

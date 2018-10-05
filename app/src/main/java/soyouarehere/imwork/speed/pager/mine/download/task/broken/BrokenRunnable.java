@@ -1,7 +1,6 @@
 package soyouarehere.imwork.speed.pager.mine.download.task.broken;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -10,13 +9,12 @@ import okhttp3.Call;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
-import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
 import soyouarehere.imwork.speed.util.CloseUtils;
 import soyouarehere.imwork.speed.util.FileSizeUtil;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * 断点续传和非 都可以使用该任务下载 任务类

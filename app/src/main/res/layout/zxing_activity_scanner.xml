@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center" />
 
-        <soyouarehere.imwork.speed.app.zxing.view.ViewfinderView
+        <soyouarehere.imwork.speed.example.zxing.view.ViewfinderView
             android:id="@+id/viewfinder_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

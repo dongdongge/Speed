@@ -1,13 +1,13 @@
 package soyouarehere.imwork.speed.pager.mine.download.task;
 
 import okhttp3.OkHttpClient;
-import soyouarehere.imwork.speed.app.rxbus.RxBus;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
+import soyouarehere.imwork.speed.function.rxbus.RxBus;
+import soyouarehere.imwork.speed.function.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceFile;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
 import soyouarehere.imwork.speed.pager.mine.download.task.imp.TaskCallBack;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * Created by li.xiaodong on 2018/8/7.

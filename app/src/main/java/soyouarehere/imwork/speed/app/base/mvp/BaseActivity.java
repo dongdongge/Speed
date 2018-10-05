@@ -2,12 +2,10 @@ package soyouarehere.imwork.speed.app.base.mvp;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkRequest;
@@ -20,13 +18,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,10 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.view.LoadingDialog;
@@ -48,7 +39,7 @@ import soyouarehere.imwork.speed.app.base.view.NetErrorView;
 import soyouarehere.imwork.speed.util.AppUtils;
 import soyouarehere.imwork.speed.util.GenericUtil;
 import soyouarehere.imwork.speed.util.NetUtils;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * 基类Activity

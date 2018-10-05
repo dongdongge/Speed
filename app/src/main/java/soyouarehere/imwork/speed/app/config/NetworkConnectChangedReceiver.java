@@ -3,10 +3,9 @@ package soyouarehere.imwork.speed.app.config;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 
 import soyouarehere.imwork.speed.util.NetUtils;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * @desc 全局监听网络变化的广播类

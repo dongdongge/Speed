@@ -1,7 +1,5 @@
 package soyouarehere.imwork.speed.pager.mine.download.thread;
 
-import android.util.Log;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import soyouarehere.imwork.speed.app.BaseApplication;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class DownloadThreadManager {
 

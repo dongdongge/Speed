@@ -48,7 +48,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.constant.BaseConstants;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 import java.util.HashSet;
 import java.util.Set;

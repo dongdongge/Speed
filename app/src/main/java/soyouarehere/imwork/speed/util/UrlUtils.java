@@ -3,7 +3,7 @@ package soyouarehere.imwork.speed.util;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * Created by li.xiaodong on 2018/8/2.

@@ -12,7 +12,7 @@ import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.set.select_path.SelectPathActivity;
 import soyouarehere.imwork.speed.util.PhoneLauncherUtils;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class SetActivity extends BaseActivity implements View.OnClickListener {
 

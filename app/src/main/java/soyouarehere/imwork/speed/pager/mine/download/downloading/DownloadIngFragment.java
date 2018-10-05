@@ -15,15 +15,15 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
-import soyouarehere.imwork.speed.app.rxbus.RxBus;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
+import soyouarehere.imwork.speed.function.rxbus.RxBus;
+import soyouarehere.imwork.speed.function.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.TaskManager;
 import soyouarehere.imwork.speed.util.DensityUtil;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 public class DownloadIngFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match

@@ -5,7 +5,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * Created by li.xiaodong on 2018/8/1.

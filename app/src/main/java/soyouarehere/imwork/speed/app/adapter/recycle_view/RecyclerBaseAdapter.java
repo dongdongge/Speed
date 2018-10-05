@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 import soyouarehere.imwork.speed.util.CollectionUtil;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * version    1.0

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.RecyclerBaseAdapter;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.ViewHolder;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * Created by li.xiaodong on 2018/7/25.

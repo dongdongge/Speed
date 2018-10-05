@@ -8,9 +8,9 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:paddingTop="16dp"
-    tools:context=".view.CustomViewActivity">
+    tools:context=".example.custom.example.CustomViewActivity">
 
-    <soyouarehere.imwork.speed.view.custom.chart.LineChart
+    <soyouarehere.imwork.speed.example.custom.chart.LineChart
         android:id="@+id/simpleLineChart"
         android:layout_width="300dp"
         android:layout_height="300dp" />

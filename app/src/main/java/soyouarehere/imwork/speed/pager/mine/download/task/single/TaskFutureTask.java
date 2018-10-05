@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * Created by li.xiaodong on 2018/8/7.

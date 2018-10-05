@@ -24,7 +24,7 @@ import soyouarehere.imwork.speed.pager.find.FindFragment;
 import soyouarehere.imwork.speed.pager.home.HomeFragment;
 import soyouarehere.imwork.speed.pager.live.LiveFragment;
 import soyouarehere.imwork.speed.pager.mine.MineFragment;
-import soyouarehere.imwork.speed.util.log.LogUtil;
+import soyouarehere.imwork.speed.function.log.LogUtil;
 
 /**
  * @desc 主要的Activity 承载着四个fragment,home live find mine

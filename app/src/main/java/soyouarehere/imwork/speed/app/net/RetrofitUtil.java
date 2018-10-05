@@ -3,10 +3,7 @@ package soyouarehere.imwork.speed.app.net;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import soyouarehere.imwork.speed.app.BaseApplication;
-import soyouarehere.imwork.speed.app.config.Config;
-import soyouarehere.imwork.speed.util.log.LogUtil;
 
 /**
  * retrofit
