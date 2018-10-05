@@ -120,7 +120,7 @@ public class DownloadActivity extends BaseActivity {
     protected void tvRightClick() {
         super.tvRightClick();
         LogUtil.e("点击按钮");
-//        RxBus2.getInstance().post(this);
+//        RxBus.getInstance().post(this);
         ArrayList<String> options1Items = new ArrayList<>();
         options1Items.add("获取远程服务器资源列表");
         options1Items.add("二维码下载");

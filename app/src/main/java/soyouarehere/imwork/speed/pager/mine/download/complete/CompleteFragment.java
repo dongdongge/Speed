@@ -1,20 +1,13 @@
 package soyouarehere.imwork.speed.pager.mine.download.complete;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +16,10 @@ import io.reactivex.functions.Consumer;
 import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
-import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
+import soyouarehere.imwork.speed.app.rxbus.RxBus;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
-import soyouarehere.imwork.speed.pager.mine.download.task.TaskHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.util.log.LogUtil;
@@ -119,9 +111,9 @@ public class CompleteFragment extends BaseFragment {
     }
     private void accuptMsg() {
         LogUtil.e("注册监听=====完成任务界面");
-        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
+        mSubscription.add(RxBus.getInstance().register(RxBusEvent.class).subscribe(new Consumer<RxBusEvent>() {
             @Override
-            public void accept(RxBusEvent2 event) throws Exception {
+            public void accept(RxBusEvent event) throws Exception {
                 LogUtil.e("接受到了消息" + event.getT().toString());
                 DownloadFileInfo info = (DownloadFileInfo) event.getT();
                 // 标志着下载完成

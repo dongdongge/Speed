@@ -15,8 +15,8 @@ import soyouarehere.imwork.speed.R;
 import soyouarehere.imwork.speed.app.BaseApplication;
 import soyouarehere.imwork.speed.app.adapter.recycle_view.RecycleDividerItemDecoration;
 import soyouarehere.imwork.speed.app.base.mvp.BaseFragment;
-import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
+import soyouarehere.imwork.speed.app.rxbus.RxBus;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.pager.mine.download.CustomAlertDialog;
 import soyouarehere.imwork.speed.pager.mine.download.DownloadHelp;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
@@ -141,9 +141,9 @@ public class DownloadIngFragment extends BaseFragment {
     }
 
     public void accuptMsg() {
-        mSubscription.add(RxBus2.getInstance().register(RxBusEvent2.class).subscribe(new Consumer<RxBusEvent2>() {
+        mSubscription.add(RxBus.getInstance().register(RxBusEvent.class).subscribe(new Consumer<RxBusEvent>() {
             @Override
-            public void accept(RxBusEvent2 event) throws Exception {
+            public void accept(RxBusEvent event) throws Exception {
                 LogUtil.e("接受到了消息" + event.getT().toString());
                 notifyItem((DownloadFileInfo) event.getT());
             }

@@ -57,6 +57,9 @@ ext {
             //-------------- fastJson------------
             fastjson             : 'com.alibaba:fastjson:1.1.56.android',
             //--------------- zxing--------------
-            zxing                : 'com.google.zxing:core:3.3.0'
+            zxing                : 'com.google.zxing:core:3.3.0',
+
+            //-------------lottie动画库------
+            lottie              :   "com.airbnb.android:lottie:2.1.0",
     ]
 }

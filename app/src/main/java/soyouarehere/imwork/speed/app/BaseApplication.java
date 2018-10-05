@@ -6,7 +6,6 @@ import com.squareup.leakcanary.LeakCanary;
 
 import soyouarehere.imwork.speed.util.FileUtil;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
-import soyouarehere.imwork.speed.util.exception.CrashHandler;
 import soyouarehere.imwork.speed.util.log.LogUtil;
 
 public class BaseApplication extends Application {

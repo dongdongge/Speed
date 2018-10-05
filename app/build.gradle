@@ -44,7 +44,17 @@ android {
 
     }
 
-    //     applicationVariants are e.g. debug, release
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->  // each 改为 all
+            def date = new Date().format("yyyyMMddHHmm", TimeZone.getDefault())
+            if (variant.buildType.name.equals('debug')) {
+                outputFileName = "speed_${date}_v${defaultConfig.versionName}_debug.apk"
+            }
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "speed_${date}_v${defaultConfig.versionName}_release.apk"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -84,6 +94,7 @@ dependencies {
     implementation rootProject.ext.dependencies.fastjson
     implementation rootProject.ext.dependencies.zxing
 //    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+    implementation rootProject.ext.dependencies.lottie
 }
 
 def releaseTime() {

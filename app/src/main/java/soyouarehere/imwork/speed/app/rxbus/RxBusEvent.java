@@ -1,31 +1,27 @@
 package soyouarehere.imwork.speed.app.rxbus;
 
-public class RxBusEvent <T>{
-    private T eventTag;
+public class RxBusEvent<T> {
 
-    private Object eventContent;
+    private T t;
+    String tag;
 
-    public RxBusEvent() {
+    public RxBusEvent(T t) {
+        this.t = t;
     }
 
-    public RxBusEvent(T eventTag, Object eventContent) {
-        this.eventTag = eventTag;
-        this.eventContent = eventContent;
+    public T getT() {
+        return t;
     }
 
-    public T getEventTag() {
-        return eventTag;
+    public void setT(T t) {
+        this.t = t;
     }
 
-    public void setEventTag(T eventTag) {
-        this.eventTag = eventTag;
+    public String getTag() {
+        return tag;
     }
 
-    public Object getEventContent() {
-        return eventContent;
-    }
-
-    public void setEventContent(Object eventContent) {
-        this.eventContent = eventContent;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

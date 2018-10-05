@@ -1,120 +1,69 @@
 package soyouarehere.imwork.speed.app.rxbus;
 
-import java.util.HashMap;
+import android.support.annotation.NonNull;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
+import io.reactivex.processors.FlowableProcessor;
+import io.reactivex.processors.PublishProcessor;
 
 /**
  * Created by li.xiaodong on 2018/8/3.
  */
 
 public class RxBus {
-    private HashMap<String, CompositeDisposable> mSubscriptionMap;
-    private static volatile RxBus mRxBus;
-    private Subject<Object> mSubject;
 
-    private RxBus() {
-        mSubject = PublishSubject.create().toSerialized();
+    private  FlowableProcessor<Object> mBus;
+
+    public RxBus() {
+        mBus = PublishProcessor.create().toSerialized();
+    }
+    private static class Help{
+      private static RxBus rxBus = new RxBus();
     }
 
-    public static RxBus getInstance() {
-        if (mRxBus == null) {
-            mRxBus = HelpRxBux.rxBus;
-        }
-        return mRxBus;
+    public static RxBus getInstance(){
+        return Help.rxBus;
     }
 
-    private static class HelpRxBux {
-        private static final RxBus rxBus = new RxBus();
+    public void post(@NonNull Object object){
+        mBus.hasSubscribers();
+        mBus.onNext(object);
     }
-
-    public void post(Object o) {
-        mSubject.onNext(o);
-    }
-
     /**
-     * 返回指定类型的带背压的Flowable实例
-     *
-     * @param <T>
-     * @param type
-     * @return
-     */
-    public <T> Flowable<T> getObservable(Class<T> type) {
-        return mSubject.toFlowable(BackpressureStrategy.BUFFER).ofType(type);
+     * ofType               : 进行类型过滤
+     * distinctUntilChanged : 过滤掉相邻重复数据,
+     * throttleWithTimeout  : 如果在这段时间内,只产生了一条消息,那么只发送这一条;如果发送了许多条消息,只发送在这段时间内的最后一条,
+     *  onTerminateDetach   : 当执行了反注册 unsubscribes 或者发送数据序列中断了，解除上游生产者对下游接受者的引用。
+     *                        实践：onTerminateDetach 会使 Observable 调用 UnSubscriber 时，对 Subscriber 的引用会被释放，从而避免造成内存泄漏
+     * */
+    public <T>Flowable<T> register(Class<T> clz){
+//        return mBus.ofType(clz).distinctUntilChanged().throttleWithTimeout(1000, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).onTerminateDetach();
+        return mBus.ofType(clz).distinctUntilChanged().observeOn(AndroidSchedulers.mainThread()).onTerminateDetach();
     }
-
+    public void unRegisterAll(){
+        mBus.onComplete();
+    }
+    public boolean hasSubscribers(){
+        return mBus.hasSubscribers();
+    }
+//---------------------------------------------------------------------------------
     /**
-     * 一个默认的订阅方法
      *
-     * @param <T>
-     * @param type
-     * @param next
-     * @param error
-     * @return
-     */
-    public <T> Disposable doSubscribe(Class<T> type, Consumer<T> next, Consumer<Throwable> error) {
-        return getObservable(type)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(next, error);
-    }
-
+     * RxBus.getInstance().post(new MsgEvent(11,45,"今天天气很好"));发送
+     * */
     /**
-     * 是否已有观察者订阅
      *
-     * @return
-     */
-    public boolean hasObservers() {
-        return mSubject.hasObservers();
-    }
-
-    /**
-     * 保存订阅后的disposable
+     *         RxBus.getInstance().register(MsgEvent.class).subscribe(new Consumer<MsgEvent>() {
+                    @Override
+                    public void accept(MsgEvent msg) throws Exception {
+                            if (msg.getRequest() == 11) {
+                                tv.setText(msg.getMsg());
+                            }
+                    }
+                });
      *
-     * @param o
-     * @param disposable
-     */
-    public void addSubscription(Object o, Disposable disposable) {
-        if (mSubscriptionMap == null) {
-            mSubscriptionMap = new HashMap<>();
-        }
-        String key = o.getClass().getName();
-        if (mSubscriptionMap.get(key) != null) {
-            mSubscriptionMap.get(key).add(disposable);
-        } else {
-            //一次性容器,可以持有多个并提供 添加和移除。
-            CompositeDisposable disposables = new CompositeDisposable();
-            disposables.add(disposable);
-            mSubscriptionMap.put(key, disposables);
-        }
-    }
-
-    /**
-     * 取消订阅
      *
-     * @param o
-     */
-    public void unSubscribe(Object o) {
-        if (mSubscriptionMap == null) {
-            return;
-        }
+     * */
 
-        String key = o.getClass().getName();
-        if (!mSubscriptionMap.containsKey(key)) {
-            return;
-        }
-        if (mSubscriptionMap.get(key) != null) {
-            mSubscriptionMap.get(key).dispose();
-        }
-
-        mSubscriptionMap.remove(key);
-    }
 }

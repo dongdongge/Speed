@@ -1,13 +1,8 @@
 package soyouarehere.imwork.speed.pager.mine.download.task;
 
-import android.os.Handler;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import okhttp3.OkHttpClient;
-import soyouarehere.imwork.speed.app.rxbus.RxBus2;
-import soyouarehere.imwork.speed.app.rxbus.RxBusEvent2;
+import soyouarehere.imwork.speed.app.rxbus.RxBus;
+import soyouarehere.imwork.speed.app.rxbus.RxBusEvent;
 import soyouarehere.imwork.speed.pager.mine.download.resouce.ResourceFile;
 import soyouarehere.imwork.speed.pager.mine.download.task.bean.DownloadFileInfo;
 import soyouarehere.imwork.speed.pager.mine.download.task.broken.BrokenRunnable;
@@ -53,12 +48,12 @@ public class TaskManager {
             @Override
             public void progress(DownloadFileInfo info) {
                 LogUtil.e("进度" + info.getShowProgress() + "当前文件大小" + info.getShowProgressSize() + "文件总大小" + info.getShowSize());
-                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+                RxBus.getInstance().post(new RxBusEvent<DownloadFileInfo>(info));
             }
 
             @Override
             public void finish(DownloadFileInfo info) {
-                RxBus2.getInstance().post(new RxBusEvent2<DownloadFileInfo>(info));
+                RxBus.getInstance().post(new RxBusEvent<DownloadFileInfo>(info));
                 LogUtil.e("下载完成" + info.toString());
                 // 发送消息更新已完成列表  删除下载中的列表
             }
