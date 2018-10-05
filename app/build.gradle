@@ -74,27 +74,21 @@ dependencies {
     implementation rootProject.ext.dependencies.adapter
     // 图片加载
     implementation rootProject.ext.dependencies.fresco
-    // RxJava
     implementation rootProject.ext.dependencies.rxAndroid
     implementation rootProject.ext.dependencies.rxJava
-    // json解析
     implementation rootProject.ext.dependencies.gson
-    // log打印工具
     implementation rootProject.ext.dependencies.logging
-    //butter-knife
     implementation rootProject.ext.dependencies.butterknife
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor rootProject.ext.dependencies.butterknifeCompiler
-    //LeakCanary
     debugImplementation rootProject.ext.dependencies.leakcanaryAndroid
     releaseImplementation rootProject.ext.dependencies.leakcanaryAndroidNoOp
-    //EventBus
     implementation rootProject.ext.dependencies.eventbus
-    //fastJson
     implementation rootProject.ext.dependencies.fastjson
     implementation rootProject.ext.dependencies.zxing
-//    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation rootProject.ext.dependencies.lottie
+    implementation rootProject.ext.dependencies.volley
+    implementation rootProject.ext.dependencies.xutils
 }
 
 def releaseTime() {
