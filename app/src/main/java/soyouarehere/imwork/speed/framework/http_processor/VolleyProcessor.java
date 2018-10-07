@@ -11,6 +11,9 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.Map;
 
+import soyouarehere.imwork.speed.framework.http_processor.base.ICallBack;
+import soyouarehere.imwork.speed.framework.http_processor.base.IHttpProcessor;
+
 /**
  * RealSubject  真正的请求执行者
  */

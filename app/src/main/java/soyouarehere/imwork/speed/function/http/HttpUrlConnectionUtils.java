@@ -50,7 +50,7 @@ public class HttpUrlConnectionUtils {
             //5 如果返回值正常，数据在网络中是以流的形式得到服务端返回的数据
             if (code == 200) {
 //                result = readHttpTypeStringFromInputStream(httpURLConnection.getInputStream());
-                result = readHttpTypeByteFromInputStrem(httpURLConnection.getInputStream());
+                result = readHttpTypeByteFromInputStream(httpURLConnection.getInputStream());
             }
             httpURLConnection.disconnect();
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class HttpUrlConnectionUtils {
     /**
      * description 该方法是字节为单位读取io流中的数据将其转化为String返回
      */
-    public static String readHttpTypeByteFromInputStrem(InputStream inputStream) throws IOException {
+    public static String readHttpTypeByteFromInputStream(InputStream inputStream) throws IOException {
         StringBuffer stringBuffer = new StringBuffer();
         byte[] bytes = new byte[1024];
         int length = -1;

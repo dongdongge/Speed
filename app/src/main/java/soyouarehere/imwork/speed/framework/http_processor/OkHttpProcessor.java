@@ -12,15 +12,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import soyouarehere.imwork.speed.framework.http_processor.base.ICallBack;
+import soyouarehere.imwork.speed.framework.http_processor.base.IHttpProcessor;
 
-public class OkhttpProcessor implements IHttpProcessor {
+/**
+ *
+ */
+public class OkHttpProcessor implements IHttpProcessor {
 
 
     private OkHttpClient mOkHttpClient;
 
     private Handler mHandler;
 
-    public OkhttpProcessor() {
+    public OkHttpProcessor() {
         mOkHttpClient = new OkHttpClient();
         mHandler = new Handler();
     }

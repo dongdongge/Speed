@@ -1,4 +1,4 @@
-package soyouarehere.imwork.speed.framework.http_processor;
+package soyouarehere.imwork.speed.framework.http_processor.base;
 
 import android.text.TextUtils;
 

@@ -4,9 +4,8 @@ import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
 
-import soyouarehere.imwork.speed.framework.http_processor.HttpHelper;
-import soyouarehere.imwork.speed.framework.http_processor.OkhttpProcessor;
-import soyouarehere.imwork.speed.framework.http_processor.VolleyProcessor;
+import soyouarehere.imwork.speed.framework.http_processor.base.HttpHelper;
+import soyouarehere.imwork.speed.framework.http_processor.OkHttpProcessor;
 import soyouarehere.imwork.speed.util.FileUtil;
 import soyouarehere.imwork.speed.util.PreferenceUtil;
 import soyouarehere.imwork.speed.function.log.LogUtil;
@@ -37,7 +36,7 @@ public class BaseApplication extends Application {
      */
     private void initHttp(){
 //        HttpHelper.init(new VolleyProcessor(this));
-        HttpHelper.init(new OkhttpProcessor());
+        HttpHelper.init(new OkHttpProcessor());
     }
 
     /**
